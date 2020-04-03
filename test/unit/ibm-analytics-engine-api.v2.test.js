@@ -19,7 +19,7 @@
 const core = require('ibm-cloud-sdk-core');
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
-const IbmAnalyticsEngineApiDocsV2 = require('../../dist/ibm-analytics-engine-api-docs/v2');
+const IbmAnalyticsEngineApiV2 = require('../../dist/ibm-analytics-engine-api/v2');
 
 const {
   getOptions,
@@ -34,7 +34,7 @@ const service = {
   url: 'https://gateway.watsonplatform.net/',
 };
 
-const ibmAnalyticsEngineApiDocs = new IbmAnalyticsEngineApiDocsV2(service);
+const ibmAnalyticsEngineApiDocs = new IbmAnalyticsEngineApiV2(service);
 
 // dont actually create a request
 const createRequestMock = jest.spyOn(ibmAnalyticsEngineApiDocs, 'createRequest');
@@ -49,16 +49,16 @@ afterEach(() => {
   getAuthenticatorMock.mockClear();
 });
 
-describe('IbmAnalyticsEngineApiDocsV2', () => {
+describe('IbmAnalyticsEngineApiV2', () => {
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
-      const testInstance = IbmAnalyticsEngineApiDocsV2.newInstance();
+      const testInstance = IbmAnalyticsEngineApiV2.newInstance();
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME);
-      expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_URL);
-      expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiDocsV2);
+      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
+      expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV2);
     });
 
     test('should set serviceName, serviceUrl, and authenticator when provided', () => {
@@ -68,13 +68,13 @@ describe('IbmAnalyticsEngineApiDocsV2', () => {
         serviceName: 'my-service',
       };
 
-      const testInstance = IbmAnalyticsEngineApiDocsV2.newInstance(options);
+      const testInstance = IbmAnalyticsEngineApiV2.newInstance(options);
 
       expect(getAuthenticatorMock).not.toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
       expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
       expect(testInstance.baseOptions.serviceName).toBe('my-service');
-      expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiDocsV2);
+      expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV2);
     });
   });
   describe('the constructor', () => {
@@ -84,7 +84,7 @@ describe('IbmAnalyticsEngineApiDocsV2', () => {
         serviceUrl: 'custom.com',
       };
 
-      const testInstance = new IbmAnalyticsEngineApiDocsV2(options);
+      const testInstance = new IbmAnalyticsEngineApiV2(options);
 
       expect(testInstance.baseOptions.serviceUrl).toBe('custom.com');
     });
@@ -94,9 +94,9 @@ describe('IbmAnalyticsEngineApiDocsV2', () => {
         authenticator: new NoAuthAuthenticator(),
       };
 
-      const testInstance = new IbmAnalyticsEngineApiDocsV2(options);
+      const testInstance = new IbmAnalyticsEngineApiV2(options);
 
-      expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_URL);
+      expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
     });
   });
   describe('analyticsEnginesGet', () => {

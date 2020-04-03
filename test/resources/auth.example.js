@@ -21,9 +21,9 @@ const testingHeaders = {
 };
 
 module.exports = {
-  exampleService: {
-    url: 'https://gateway.cloudplatform.net/example-service/api',
-    apikey: 'abc-123-fakeapikey',
-    headers: testingHeaders,
+  ibm_analytics_engine_api_v2: {
+    apikey: '',
+    instance_guid:''
   },
 };
+

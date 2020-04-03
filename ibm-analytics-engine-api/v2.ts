@@ -25,7 +25,7 @@ import { getSdkHeaders } from '../lib/common';
  * services like IBM Watson Studio and Machine Learning.
  */
 
-class IbmAnalyticsEngineApiDocsV2 extends BaseService {
+class IbmAnalyticsEngineApiV2 extends BaseService {
 
   static DEFAULT_SERVICE_URL: string = 'https://gateway.watsonplatform.net/';
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api_docs';
@@ -35,16 +35,16 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    ************************/
 
   /**
-   * Constructs an instance of IbmAnalyticsEngineApiDocsV2 with passed in options and external configuration.
+   * Constructs an instance of IbmAnalyticsEngineApiV2 with passed in options and external configuration.
    *
    * @param {UserOptions} [options] - The parameters to send to the service.
    * @param {string} [options.serviceName] - The name of the service to configure
    * @param {Authenticator} [options.authenticator] - The Authenticator object used to authenticate requests to the service
    * @param {string} [options.serviceUrl] - The URL for the service
-   * @returns {IbmAnalyticsEngineApiDocsV2}
+   * @returns {IbmAnalyticsEngineApiV2}
    */
 
-  public static newInstance(options: UserOptions): IbmAnalyticsEngineApiDocsV2 {
+  public static newInstance(options: UserOptions): IbmAnalyticsEngineApiV2 {
     options = options || {};
 
     if (!options.serviceName) {
@@ -53,7 +53,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
     if (!options.authenticator) {
       options.authenticator = getAuthenticatorFromEnvironment(options.serviceName);
     }
-    const service = new IbmAnalyticsEngineApiDocsV2(options);
+    const service = new IbmAnalyticsEngineApiV2(options);
     service.configureService(options.serviceName);
     if (options.serviceUrl) {
       service.setServiceUrl(options.serviceUrl);
@@ -63,21 +63,21 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
 
 
   /**
-   * Construct a IbmAnalyticsEngineApiDocsV2 object.
+   * Construct a IbmAnalyticsEngineApiV2 object.
    *
    * @param {Object} options - Options for the service.
    * @param {string} [options.serviceUrl] - The base url to use when contacting the service (e.g. 'https://gateway.watsonplatform.net'). The base url may differ between IBM Cloud regions.
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
-   * @returns {IbmAnalyticsEngineApiDocsV2}
+   * @returns {IbmAnalyticsEngineApiV2}
    */
   constructor(options: UserOptions) {
     super(options);
     if (options.serviceUrl) {
       this.setServiceUrl(options.serviceUrl);
     } else {
-      this.setServiceUrl(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_URL);
+      this.setServiceUrl(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
     }
   }
 
@@ -94,13 +94,13 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    *
    * @param {Object} [params] - The parameters to send to the service.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public analyticsEnginesGet(params?: IbmAnalyticsEngineApiDocsV2.AnalyticsEnginesGetParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>> {
+  public analyticsEnginesGet(params?: IbmAnalyticsEngineApiV2.AnalyticsEnginesGetParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
     const _params = extend({}, params);
 
     return new Promise((resolve, reject) => {
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'analyticsEnginesGet');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'analyticsEnginesGet');
 
       const parameters = {
         options: {
@@ -131,9 +131,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the service instance.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngine>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngine>>}
    */
-  public getAnalyticsEngineById(params: IbmAnalyticsEngineApiDocsV2.GetAnalyticsEngineByIdParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngine>> {
+  public getAnalyticsEngineById(params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngine>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -147,7 +147,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineById');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineById');
 
       const parameters = {
         options: {
@@ -180,9 +180,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the service instance.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineState>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineState>>}
    */
-  public getAnalyticsEngineStateById(params: IbmAnalyticsEngineApiDocsV2.GetAnalyticsEngineStateByIdParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineState>> {
+  public getAnalyticsEngineStateById(params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineStateByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineState>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -196,7 +196,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineStateById');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineStateById');
 
       const parameters = {
         options: {
@@ -226,9 +226,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {string} params.target -
    * @param {AnalyticsEngineCustomAction[]} params.customActions -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineCreateCustomizationResponse>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>>}
    */
-  public createCustomizationRequest(params: IbmAnalyticsEngineApiDocsV2.CreateCustomizationRequestParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineCreateCustomizationResponse>> {
+  public createCustomizationRequest(params: IbmAnalyticsEngineApiV2.CreateCustomizationRequestParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid', 'target', 'customActions'];
 
@@ -247,7 +247,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'createCustomizationRequest');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'createCustomizationRequest');
 
       const parameters = {
         options: {
@@ -276,9 +276,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - service instance guid.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.InlineResponse200[]>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.InlineResponse200[]>>}
    */
-  public getAllCustomizationRequests(params: IbmAnalyticsEngineApiDocsV2.GetAllCustomizationRequestsParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.InlineResponse200[]>> {
+  public getAllCustomizationRequests(params: IbmAnalyticsEngineApiV2.GetAllCustomizationRequestsParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.InlineResponse200[]>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -292,7 +292,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'getAllCustomizationRequests');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAllCustomizationRequests');
 
       const parameters = {
         options: {
@@ -321,9 +321,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {string} params.instanceGuid - service instance guid.
    * @param {string} params.requestId - customization request id.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineCustomizationRunDetails>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>>}
    */
-  public getCustomizationRequestById(params: IbmAnalyticsEngineApiDocsV2.GetCustomizationRequestByIdParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineCustomizationRunDetails>> {
+  public getCustomizationRequestById(params: IbmAnalyticsEngineApiV2.GetCustomizationRequestByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid', 'requestId'];
 
@@ -338,7 +338,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'request_id': _params.requestId
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'getCustomizationRequestById');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getCustomizationRequestById');
 
       const parameters = {
         options: {
@@ -371,9 +371,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {number} [params.computeNodesCount] - Expected size of the cluster after the resize operation. If the number
    * of nodes in the cluster is 5 and you want to add 2 nodes, specify 7.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineResizeClusterResponse>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>>}
    */
-  public resizeCluster(params: IbmAnalyticsEngineApiDocsV2.ResizeClusterParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineResizeClusterResponse>> {
+  public resizeCluster(params: IbmAnalyticsEngineApiV2.ResizeClusterParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -391,7 +391,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'resizeCluster');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'resizeCluster');
 
       const parameters = {
         options: {
@@ -422,9 +422,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - service instance guid.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineResetClusterPasswordResponse>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>>}
    */
-  public resetClusterPassword(params: IbmAnalyticsEngineApiDocsV2.ResetClusterPasswordParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineResetClusterPasswordResponse>> {
+  public resetClusterPassword(params: IbmAnalyticsEngineApiV2.ResetClusterPasswordParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -438,7 +438,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'resetClusterPassword');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'resetClusterPassword');
 
       const parameters = {
         options: {
@@ -470,9 +470,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {AnalyticsEngineLoggingNodeSpec[]} params.logSpecs -
    * @param {AnalyticsEngineLoggingServer} params.logServer -
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public configureLogging(params: IbmAnalyticsEngineApiDocsV2.ConfigureLoggingParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>> {
+  public configureLogging(params: IbmAnalyticsEngineApiV2.ConfigureLoggingParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid', 'logSpecs', 'logServer'];
 
@@ -491,7 +491,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'configureLogging');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'configureLogging');
 
       const parameters = {
         options: {
@@ -519,9 +519,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - service instance guid.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineLoggingConfigDetails>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>>}
    */
-  public getLoggingConfig(params: IbmAnalyticsEngineApiDocsV2.GetLoggingConfigParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.AnalyticsEngineLoggingConfigDetails>> {
+  public getLoggingConfig(params: IbmAnalyticsEngineApiV2.GetLoggingConfigParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -535,7 +535,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'getLoggingConfig');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getLoggingConfig');
 
       const parameters = {
         options: {
@@ -562,9 +562,9 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - service instance guid.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public deleteLoggingConfig(params: IbmAnalyticsEngineApiDocsV2.DeleteLoggingConfigParams): Promise<IbmAnalyticsEngineApiDocsV2.Response<IbmAnalyticsEngineApiDocsV2.Empty>> {
+  public deleteLoggingConfig(params: IbmAnalyticsEngineApiV2.DeleteLoggingConfigParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -578,7 +578,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
         'instance_guid': _params.instanceGuid
       };
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiDocsV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteLoggingConfig');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteLoggingConfig');
 
       const parameters = {
         options: {
@@ -602,7 +602,7 @@ class IbmAnalyticsEngineApiDocsV2 extends BaseService {
  * interfaces
  ************************/
 
-namespace IbmAnalyticsEngineApiDocsV2 {
+namespace IbmAnalyticsEngineApiV2 {
 
   /** An operation response. */
   export interface Response<T = any>  {
@@ -883,4 +883,4 @@ namespace IbmAnalyticsEngineApiDocsV2 {
 
 }
 
-export = IbmAnalyticsEngineApiDocsV2;
+export = IbmAnalyticsEngineApiV2;
