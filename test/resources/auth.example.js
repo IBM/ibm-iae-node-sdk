@@ -22,6 +22,7 @@ const testingHeaders = {
 
 module.exports = {
   ibm_analytics_engine_api_v2: {
+    serviceUrl: '',
     apikey: '',
     instance_guid:''
   },

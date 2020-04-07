@@ -50,8 +50,11 @@ npm install iaesdk
 ```
 
 ## Using the SDK
-For general SDK usage information, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+For general SDK usage information, please see [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+
+In [setting client options programatically](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md#setting-client-options-programmatically) to instantiate the class, provide the following two values:
+1. [IAM API Key](https://cloud.ibm.com/docs/iam?topic=iam-userapikey#create_user_key)
+1. [Service URLs](https://cloud.ibm.com/apidocs/ibm-analytics-engine#service-endpoints)
 
 ## Questions
 
