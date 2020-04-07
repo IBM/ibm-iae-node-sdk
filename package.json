@@ -36,7 +36,8 @@
   "dependencies": {
     "@types/node": "^12.12.34",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^2.3.0"
+    "ibm-cloud-sdk-core": "^2.3.0",
+    "jest": "^25.2.7"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.4",
@@ -49,7 +50,6 @@
     "eslint-plugin-node": "^9.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "installed-check": "^2.2.0",
-    "jest": "^24.8.0",
     "prettier": "^1.17.1",
     "semantic-release": "^15.13.25",
     "tsc-publish": "^0.5.2",
