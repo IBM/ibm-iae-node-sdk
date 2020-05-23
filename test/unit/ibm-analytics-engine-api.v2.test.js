@@ -31,13 +31,13 @@ const {
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
-  url: 'https://gateway.watsonplatform.net/',
+  url: 'https://ibm-analytics-engine-api.cloud.ibm.com/',
 };
 
-const ibmAnalyticsEngineApiDocs = new IbmAnalyticsEngineApiV2(service);
+const ibmAnalyticsEngineApi = new IbmAnalyticsEngineApiV2(service);
 
 // dont actually create a request
-const createRequestMock = jest.spyOn(ibmAnalyticsEngineApiDocs, 'createRequest');
+const createRequestMock = jest.spyOn(ibmAnalyticsEngineApi, 'createRequest');
 createRequestMock.mockImplementation(() => Promise.resolve());
 
 // dont actually construct an authenticator
@@ -99,16 +99,16 @@ describe('IbmAnalyticsEngineApiV2', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
     });
   });
-  describe('analyticsEnginesGet', () => {
+  describe('getAllAnalyticsEngines', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation analyticsEnginesGet
+        // Construct the params object for operation getAllAnalyticsEngines
         const params = {};
 
-        const analyticsEnginesGetResult = ibmAnalyticsEngineApiDocs.analyticsEnginesGet(params);
+        const getAllAnalyticsEnginesResult = ibmAnalyticsEngineApi.getAllAnalyticsEngines(params);
 
         // all methods should return a Promise
-        expectToBePromise(analyticsEnginesGetResult);
+        expectToBePromise(getAllAnalyticsEnginesResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -132,13 +132,13 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.analyticsEnginesGet(params);
+        ibmAnalyticsEngineApi.getAllAnalyticsEngines(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
 
       test('should not have any problems when no parameters are passed in', () => {
         // invoke the method with no parameters
-        ibmAnalyticsEngineApiDocs.analyticsEnginesGet({});
+        ibmAnalyticsEngineApi.getAllAnalyticsEngines({});
         checkForSuccessfulExecution(createRequestMock);
       });
     });
@@ -152,7 +152,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getAnalyticsEngineByIdResult = ibmAnalyticsEngineApiDocs.getAnalyticsEngineById(params);
+        const getAnalyticsEngineByIdResult = ibmAnalyticsEngineApi.getAnalyticsEngineById(params);
 
         // all methods should return a Promise
         expectToBePromise(getAnalyticsEngineByIdResult);
@@ -182,7 +182,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.getAnalyticsEngineById(params);
+        ibmAnalyticsEngineApi.getAnalyticsEngineById(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -191,7 +191,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.getAnalyticsEngineById({});
+          await ibmAnalyticsEngineApi.getAnalyticsEngineById({});
         } catch (e) {
           err = e;
         }
@@ -201,7 +201,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getAnalyticsEngineByIdPromise = ibmAnalyticsEngineApiDocs.getAnalyticsEngineById();
+        const getAnalyticsEngineByIdPromise = ibmAnalyticsEngineApi.getAnalyticsEngineById();
         expectToBePromise(getAnalyticsEngineByIdPromise);
 
         getAnalyticsEngineByIdPromise.catch(err => {
@@ -220,7 +220,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getAnalyticsEngineStateByIdResult = ibmAnalyticsEngineApiDocs.getAnalyticsEngineStateById(params);
+        const getAnalyticsEngineStateByIdResult = ibmAnalyticsEngineApi.getAnalyticsEngineStateById(params);
 
         // all methods should return a Promise
         expectToBePromise(getAnalyticsEngineStateByIdResult);
@@ -250,7 +250,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.getAnalyticsEngineStateById(params);
+        ibmAnalyticsEngineApi.getAnalyticsEngineStateById(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -259,7 +259,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.getAnalyticsEngineStateById({});
+          await ibmAnalyticsEngineApi.getAnalyticsEngineStateById({});
         } catch (e) {
           err = e;
         }
@@ -269,7 +269,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getAnalyticsEngineStateByIdPromise = ibmAnalyticsEngineApiDocs.getAnalyticsEngineStateById();
+        const getAnalyticsEngineStateByIdPromise = ibmAnalyticsEngineApi.getAnalyticsEngineStateById();
         expectToBePromise(getAnalyticsEngineStateByIdPromise);
 
         getAnalyticsEngineStateByIdPromise.catch(err => {
@@ -309,7 +309,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           customActions: customActions,
         };
 
-        const createCustomizationRequestResult = ibmAnalyticsEngineApiDocs.createCustomizationRequest(params);
+        const createCustomizationRequestResult = ibmAnalyticsEngineApi.createCustomizationRequest(params);
 
         // all methods should return a Promise
         expectToBePromise(createCustomizationRequestResult);
@@ -345,7 +345,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.createCustomizationRequest(params);
+        ibmAnalyticsEngineApi.createCustomizationRequest(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -354,7 +354,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.createCustomizationRequest({});
+          await ibmAnalyticsEngineApi.createCustomizationRequest({});
         } catch (e) {
           err = e;
         }
@@ -364,7 +364,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const createCustomizationRequestPromise = ibmAnalyticsEngineApiDocs.createCustomizationRequest();
+        const createCustomizationRequestPromise = ibmAnalyticsEngineApi.createCustomizationRequest();
         expectToBePromise(createCustomizationRequestPromise);
 
         createCustomizationRequestPromise.catch(err => {
@@ -383,7 +383,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getAllCustomizationRequestsResult = ibmAnalyticsEngineApiDocs.getAllCustomizationRequests(params);
+        const getAllCustomizationRequestsResult = ibmAnalyticsEngineApi.getAllCustomizationRequests(params);
 
         // all methods should return a Promise
         expectToBePromise(getAllCustomizationRequestsResult);
@@ -413,7 +413,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.getAllCustomizationRequests(params);
+        ibmAnalyticsEngineApi.getAllCustomizationRequests(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -422,7 +422,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.getAllCustomizationRequests({});
+          await ibmAnalyticsEngineApi.getAllCustomizationRequests({});
         } catch (e) {
           err = e;
         }
@@ -432,7 +432,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getAllCustomizationRequestsPromise = ibmAnalyticsEngineApiDocs.getAllCustomizationRequests();
+        const getAllCustomizationRequestsPromise = ibmAnalyticsEngineApi.getAllCustomizationRequests();
         expectToBePromise(getAllCustomizationRequestsPromise);
 
         getAllCustomizationRequestsPromise.catch(err => {
@@ -453,7 +453,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           requestId: requestId,
         };
 
-        const getCustomizationRequestByIdResult = ibmAnalyticsEngineApiDocs.getCustomizationRequestById(params);
+        const getCustomizationRequestByIdResult = ibmAnalyticsEngineApi.getCustomizationRequestById(params);
 
         // all methods should return a Promise
         expectToBePromise(getCustomizationRequestByIdResult);
@@ -486,7 +486,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.getCustomizationRequestById(params);
+        ibmAnalyticsEngineApi.getCustomizationRequestById(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -495,7 +495,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.getCustomizationRequestById({});
+          await ibmAnalyticsEngineApi.getCustomizationRequestById({});
         } catch (e) {
           err = e;
         }
@@ -505,7 +505,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getCustomizationRequestByIdPromise = ibmAnalyticsEngineApiDocs.getCustomizationRequestById();
+        const getCustomizationRequestByIdPromise = ibmAnalyticsEngineApi.getCustomizationRequestById();
         expectToBePromise(getCustomizationRequestByIdPromise);
 
         getCustomizationRequestByIdPromise.catch(err => {
@@ -526,7 +526,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           computeNodesCount: computeNodesCount,
         };
 
-        const resizeClusterResult = ibmAnalyticsEngineApiDocs.resizeCluster(params);
+        const resizeClusterResult = ibmAnalyticsEngineApi.resizeCluster(params);
 
         // all methods should return a Promise
         expectToBePromise(resizeClusterResult);
@@ -557,7 +557,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.resizeCluster(params);
+        ibmAnalyticsEngineApi.resizeCluster(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -566,7 +566,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.resizeCluster({});
+          await ibmAnalyticsEngineApi.resizeCluster({});
         } catch (e) {
           err = e;
         }
@@ -576,7 +576,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const resizeClusterPromise = ibmAnalyticsEngineApiDocs.resizeCluster();
+        const resizeClusterPromise = ibmAnalyticsEngineApi.resizeCluster();
         expectToBePromise(resizeClusterPromise);
 
         resizeClusterPromise.catch(err => {
@@ -595,7 +595,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const resetClusterPasswordResult = ibmAnalyticsEngineApiDocs.resetClusterPassword(params);
+        const resetClusterPasswordResult = ibmAnalyticsEngineApi.resetClusterPassword(params);
 
         // all methods should return a Promise
         expectToBePromise(resetClusterPasswordResult);
@@ -625,7 +625,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.resetClusterPassword(params);
+        ibmAnalyticsEngineApi.resetClusterPassword(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -634,7 +634,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.resetClusterPassword({});
+          await ibmAnalyticsEngineApi.resetClusterPassword({});
         } catch (e) {
           err = e;
         }
@@ -644,7 +644,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const resetClusterPasswordPromise = ibmAnalyticsEngineApiDocs.resetClusterPassword();
+        const resetClusterPasswordPromise = ibmAnalyticsEngineApi.resetClusterPassword();
         expectToBePromise(resetClusterPasswordPromise);
 
         resetClusterPasswordPromise.catch(err => {
@@ -684,7 +684,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           logServer: logServer,
         };
 
-        const configureLoggingResult = ibmAnalyticsEngineApiDocs.configureLogging(params);
+        const configureLoggingResult = ibmAnalyticsEngineApi.configureLogging(params);
 
         // all methods should return a Promise
         expectToBePromise(configureLoggingResult);
@@ -720,7 +720,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.configureLogging(params);
+        ibmAnalyticsEngineApi.configureLogging(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -729,7 +729,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.configureLogging({});
+          await ibmAnalyticsEngineApi.configureLogging({});
         } catch (e) {
           err = e;
         }
@@ -739,7 +739,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const configureLoggingPromise = ibmAnalyticsEngineApiDocs.configureLogging();
+        const configureLoggingPromise = ibmAnalyticsEngineApi.configureLogging();
         expectToBePromise(configureLoggingPromise);
 
         configureLoggingPromise.catch(err => {
@@ -758,7 +758,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getLoggingConfigResult = ibmAnalyticsEngineApiDocs.getLoggingConfig(params);
+        const getLoggingConfigResult = ibmAnalyticsEngineApi.getLoggingConfig(params);
 
         // all methods should return a Promise
         expectToBePromise(getLoggingConfigResult);
@@ -788,7 +788,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.getLoggingConfig(params);
+        ibmAnalyticsEngineApi.getLoggingConfig(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -797,7 +797,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.getLoggingConfig({});
+          await ibmAnalyticsEngineApi.getLoggingConfig({});
         } catch (e) {
           err = e;
         }
@@ -807,7 +807,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getLoggingConfigPromise = ibmAnalyticsEngineApiDocs.getLoggingConfig();
+        const getLoggingConfigPromise = ibmAnalyticsEngineApi.getLoggingConfig();
         expectToBePromise(getLoggingConfigPromise);
 
         getLoggingConfigPromise.catch(err => {
@@ -826,7 +826,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const deleteLoggingConfigResult = ibmAnalyticsEngineApiDocs.deleteLoggingConfig(params);
+        const deleteLoggingConfigResult = ibmAnalyticsEngineApi.deleteLoggingConfig(params);
 
         // all methods should return a Promise
         expectToBePromise(deleteLoggingConfigResult);
@@ -856,7 +856,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
           },
         };
 
-        ibmAnalyticsEngineApiDocs.deleteLoggingConfig(params);
+        ibmAnalyticsEngineApi.deleteLoggingConfig(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -865,7 +865,7 @@ describe('IbmAnalyticsEngineApiV2', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiDocs.deleteLoggingConfig({});
+          await ibmAnalyticsEngineApi.deleteLoggingConfig({});
         } catch (e) {
           err = e;
         }
@@ -875,10 +875,88 @@ describe('IbmAnalyticsEngineApiV2', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const deleteLoggingConfigPromise = ibmAnalyticsEngineApiDocs.deleteLoggingConfig();
+        const deleteLoggingConfigPromise = ibmAnalyticsEngineApi.deleteLoggingConfig();
         expectToBePromise(deleteLoggingConfigPromise);
 
         deleteLoggingConfigPromise.catch(err => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('updatePrivateEndpointWhitelist', () => {
+    describe('positive tests', () => {
+      test('should pass the right params to createRequest', () => {
+        // Construct the params object for operation updatePrivateEndpointWhitelist
+        const instanceGuid = 'testString';
+        const ipRanges = ['testString'];
+        const action = 'add';
+        const params = {
+          instanceGuid: instanceGuid,
+          ipRanges: ipRanges,
+          action: action,
+        };
+
+        const updatePrivateEndpointWhitelistResult = ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist(params);
+
+        // all methods should return a Promise
+        expectToBePromise(updatePrivateEndpointWhitelistResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const options = getOptions(createRequestMock);
+
+        checkUrlAndMethod(options, '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist', 'PATCH');
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(options.body['ip_ranges']).toEqual(ipRanges);
+        expect(options.body['action']).toEqual(action);
+        expect(options.path['instance_guid']).toEqual(instanceGuid);
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceGuid = 'testString';
+        const ipRanges = ['testString'];
+        const action = 'add';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          instanceGuid,
+          ipRanges,
+          action,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async done => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', done => {
+        const updatePrivateEndpointWhitelistPromise = ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist();
+        expectToBePromise(updatePrivateEndpointWhitelistPromise);
+
+        updatePrivateEndpointWhitelistPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });

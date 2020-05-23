@@ -1,6 +1,6 @@
 {
   "name": "iaesdk",
-  "version": "0.0.2",
+  "version": "0.0.6",
   "description": "IBM Analytics Engine Node SDK",
   "repository": {
     "type": "git",

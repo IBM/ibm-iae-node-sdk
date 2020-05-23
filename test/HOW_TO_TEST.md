@@ -1,9 +1,14 @@
 # How to run tests
 
 ## Pre-requisites
-1. Install jest
+1. Change to this packages root directory.
+1. Install jest.
     ```
     npm install jest
+    ```
+1. Build the package.
+    ```
+    npm run build
     ```
 
 ## Integration Tests

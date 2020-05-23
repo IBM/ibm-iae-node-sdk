@@ -27,8 +27,8 @@ import { getSdkHeaders } from '../lib/common';
 
 class IbmAnalyticsEngineApiV2 extends BaseService {
 
-  static DEFAULT_SERVICE_URL: string = 'https://gateway.watsonplatform.net/';
-  static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api_docs';
+  static DEFAULT_SERVICE_URL: string = 'https://ibm-analytics-engine-api.cloud.ibm.com/';
+  static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
 
   /*************************
    * Factory method
@@ -73,6 +73,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @returns {IbmAnalyticsEngineApiV2}
    */
   constructor(options: UserOptions) {
+    options = options || {};
+
     super(options);
     if (options.serviceUrl) {
       this.setServiceUrl(options.serviceUrl);
@@ -96,11 +98,11 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public analyticsEnginesGet(params?: IbmAnalyticsEngineApiV2.AnalyticsEnginesGetParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
+  public getAllAnalyticsEngines(params?: IbmAnalyticsEngineApiV2.GetAllAnalyticsEnginesParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
     const _params = extend({}, params);
 
     return new Promise((resolve, reject) => {
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'analyticsEnginesGet');
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAllAnalyticsEngines');
 
       const parameters = {
         options: {
@@ -223,8 +225,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the service instance.
-   * @param {string} params.target -
-   * @param {AnalyticsEngineCustomAction[]} params.customActions -
+   * @param {string} params.target - Type of nodes to target for this customization.
+   * @param {AnalyticsEngineCustomAction[]} params.customActions - List of custom actions.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>>}
    */
@@ -269,16 +271,16 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
   };
 
   /**
-   * Get all customization requests run on an Analytics Engine.
+   * Get all customization requests run on an Analytics Engine cluster.
    *
    * Retrieves the request_id of all customization requests submitted to the specified Analytics Engine cluster.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
+   * @param {string} params.instanceGuid - service instance GUID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.InlineResponse200[]>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRequestCollectionItem[]>>}
    */
-  public getAllCustomizationRequests(params: IbmAnalyticsEngineApiV2.GetAllCustomizationRequestsParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.InlineResponse200[]>> {
+  public getAllCustomizationRequests(params: IbmAnalyticsEngineApiV2.GetAllCustomizationRequestsParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRequestCollectionItem[]>> {
     const _params = extend({}, params);
     const requiredParams = ['instanceGuid'];
 
@@ -318,8 +320,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * run.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
-   * @param {string} params.requestId - customization request id.
+   * @param {string} params.instanceGuid - Service instance GUID.
+   * @param {string} params.requestId - customization request ID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>>}
    */
@@ -367,9 +369,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * [here](https://cloud.ibm.com/docs/AnalyticsEngine?topic=AnalyticsEngine-unsupported-operations).
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
-   * @param {number} [params.computeNodesCount] - Expected size of the cluster after the resize operation. If the number
-   * of nodes in the cluster is 5 and you want to add 2 nodes, specify 7.
+   * @param {string} params.instanceGuid - Service instance GUID.
+   * @param {number} [params.computeNodesCount] - Expected number of nodes in the cluster after the resize operation.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>>}
    */
@@ -420,7 +421,7 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * retrieved later.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
+   * @param {string} params.instanceGuid - Service instance GUID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>>}
    */
@@ -467,8 +468,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the service instance.
-   * @param {AnalyticsEngineLoggingNodeSpec[]} params.logSpecs -
-   * @param {AnalyticsEngineLoggingServer} params.logServer -
+   * @param {AnalyticsEngineLoggingNodeSpec[]} params.logSpecs - Logging specifications on each node.
+   * @param {AnalyticsEngineLoggingServer} params.logServer - Logging server configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
@@ -517,7 +518,7 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * Retrieves the status and details of the log configuration for your cluster.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
+   * @param {string} params.instanceGuid - Service instance GUID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>>}
    */
@@ -560,7 +561,7 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * Deletes the log configuration. This operation stops sending logs to the centralized log server.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - service instance guid.
+   * @param {string} params.instanceGuid - Service instance GUID.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
@@ -588,6 +589,59 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
         },
         defaultOptions: extend(true, {}, this.baseOptions, {
           headers: extend(true, sdkHeaders, {
+          }, _params.headers),
+        }),
+      };
+
+      return resolve(this.createRequest(parameters));
+    });
+  };
+
+  /**
+   * Update private endpoint whitelist.
+   *
+   * Updates the list of whitelisted private endpoints. This operation either adds ip ranges to the whitelist or deletes
+   * them.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - GUID of the service instance.
+   * @param {string[]} params.ipRanges - List of IP ranges to add to or remove from the whitelist.
+   * @param {string} params.action - Update Whitelist IP ranges. Add (or) Delete.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineWhitelistResponse>>}
+   */
+  public updatePrivateEndpointWhitelist(params: IbmAnalyticsEngineApiV2.UpdatePrivateEndpointWhitelistParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineWhitelistResponse>> {
+    const _params = extend({}, params);
+    const requiredParams = ['instanceGuid', 'ipRanges', 'action'];
+
+    return new Promise((resolve, reject) => {
+      const missingParams = getMissingParams(_params, requiredParams);
+      if (missingParams) {
+        return reject(missingParams);
+      }
+
+      const body = {
+        'ip_ranges': _params.ipRanges,
+        'action': _params.action
+      };
+
+      const path = {
+        'instance_guid': _params.instanceGuid
+      };
+
+      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'updatePrivateEndpointWhitelist');
+
+      const parameters = {
+        options: {
+          url: '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist',
+          method: 'PATCH',
+          body,
+          path,
+        },
+        defaultOptions: extend(true, {}, this.baseOptions, {
+          headers: extend(true, sdkHeaders, {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           }, _params.headers),
         }),
       };
@@ -627,8 +681,8 @@ namespace IbmAnalyticsEngineApiV2 {
    * request interfaces
    ************************/
 
-  /** Parameters for the `analyticsEnginesGet` operation. */
-  export interface AnalyticsEnginesGetParams {
+  /** Parameters for the `getAllAnalyticsEngines` operation. */
+  export interface GetAllAnalyticsEnginesParams {
     headers?: OutgoingHttpHeaders;
   }
 
@@ -650,14 +704,16 @@ namespace IbmAnalyticsEngineApiV2 {
   export interface CreateCustomizationRequestParams {
     /** GUID of the service instance. */
     instanceGuid: string;
+    /** Type of nodes to target for this customization. */
     target: CreateCustomizationRequestConstants.Target | string;
+    /** List of custom actions. */
     customActions: AnalyticsEngineCustomAction[];
     headers?: OutgoingHttpHeaders;
   }
 
   /** Constants for the `createCustomizationRequest` operation. */
   export namespace CreateCustomizationRequestConstants {
-    /** Target */
+    /** Type of nodes to target for this customization. */
     export enum Target {
       ALL = 'all',
       MASTER_MANAGEMENT = 'master-management',
@@ -667,34 +723,32 @@ namespace IbmAnalyticsEngineApiV2 {
 
   /** Parameters for the `getAllCustomizationRequests` operation. */
   export interface GetAllCustomizationRequestsParams {
-    /** service instance guid. */
+    /** service instance GUID. */
     instanceGuid: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getCustomizationRequestById` operation. */
   export interface GetCustomizationRequestByIdParams {
-    /** service instance guid. */
+    /** Service instance GUID. */
     instanceGuid: string;
-    /** customization request id. */
+    /** customization request ID. */
     requestId: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `resizeCluster` operation. */
   export interface ResizeClusterParams {
-    /** service instance guid. */
+    /** Service instance GUID. */
     instanceGuid: string;
-    /** Expected size of the cluster after the resize operation. If the number of nodes in the cluster is 5 and you
-     *  want to add 2 nodes, specify 7.
-     */
+    /** Expected number of nodes in the cluster after the resize operation. */
     computeNodesCount?: number;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `resetClusterPassword` operation. */
   export interface ResetClusterPasswordParams {
-    /** service instance guid. */
+    /** Service instance GUID. */
     instanceGuid: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -703,182 +757,287 @@ namespace IbmAnalyticsEngineApiV2 {
   export interface ConfigureLoggingParams {
     /** GUID of the service instance. */
     instanceGuid: string;
+    /** Logging specifications on each node. */
     logSpecs: AnalyticsEngineLoggingNodeSpec[];
+    /** Logging server configuration. */
     logServer: AnalyticsEngineLoggingServer;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getLoggingConfig` operation. */
   export interface GetLoggingConfigParams {
-    /** service instance guid. */
+    /** Service instance GUID. */
     instanceGuid: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `deleteLoggingConfig` operation. */
   export interface DeleteLoggingConfigParams {
-    /** service instance guid. */
+    /** Service instance GUID. */
     instanceGuid: string;
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updatePrivateEndpointWhitelist` operation. */
+  export interface UpdatePrivateEndpointWhitelistParams {
+    /** GUID of the service instance. */
+    instanceGuid: string;
+    /** List of IP ranges to add to or remove from the whitelist. */
+    ipRanges: string[];
+    /** Update Whitelist IP ranges. Add (or) Delete. */
+    action: UpdatePrivateEndpointWhitelistConstants.Action | string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `updatePrivateEndpointWhitelist` operation. */
+  export namespace UpdatePrivateEndpointWhitelistConstants {
+    /** Update Whitelist IP ranges. Add (or) Delete. */
+    export enum Action {
+      ADD = 'add',
+      DELETE = 'delete',
+    }
   }
 
   /*************************
    * model interfaces
    ************************/
 
-  /** AnalyticsEngine. */
+  /** Analytics Engine cluster details. */
   export interface AnalyticsEngine {
+    /** Instance GUID. */
     id: string;
+    /** Analytics Engine. */
     name: string;
+    /** ID of Analytics Engine service plan. */
     service_plan: string;
+    /** Hardware size. */
     hardware_size: string;
+    /** Software package. */
     software_package: string;
+    /** Domain. */
     domain: string;
+    /** Cluster creation time. */
     creation_time: string;
+    /** Cluster commision time. */
     commision_time: string;
+    /** Cluster decommision time. */
     decommision_time: string;
+    /** Cluster deletion time. */
     deletion_time: string;
+    /** Cluster state change time. */
     state_change_time: string;
+    /** Cluster state. */
     state: string;
+    /** List of nodes in the cluster. */
     nodes?: AnalyticsEngineClusterNode[];
+    /** User credentials. */
     user_credentials: AnalyticsEngineUserCredentials;
     /** Service endpoint URLs with host names. Endpoints will vary based on software package chosen for the cluster. */
     service_endpoints?: ServiceEndpoints;
-    /** Service endpoint URLs with host ips. Endpoints will vary based on software package chosen for the cluster. */
+    /** Service endpoint URLs with host IPS. Endpoints will vary based on software package chosen for the cluster. */
     service_endpoints_ip?: ServiceEndpoints;
+    /** Whitelisted IP Ranges for Analytics Engine Service with private endpoints. */
+    private_endpoint_whitelist?: string[];
   }
 
-  /** AnalyticsEngineClusterNode. */
+  /** Cluster node details. */
   export interface AnalyticsEngineClusterNode {
-    id?: string;
+    /** Node ID. */
+    id?: number;
+    /** Fully qualified domain name. */
     fqdn?: string;
+    /** Node type. */
     type?: string;
+    /** State of node. */
     state?: string;
+    /** Public IP address. */
     public_ip?: string;
+    /** Private IP address. */
     private_ip?: string;
+    /** State change time. */
     state_change_time?: string;
+    /** Commission time. */
     commission_time?: string;
   }
 
-  /** AnalyticsEngineCreateCustomizationResponse. */
+  /** Create customization request response. */
   export interface AnalyticsEngineCreateCustomizationResponse {
-    request_id?: string;
+    /** Customization request ID. */
+    request_id?: number;
   }
 
-  /** AnalyticsEngineCustomAction. */
+  /** Custom action details for customization. */
   export interface AnalyticsEngineCustomAction {
+    /** Custom action name. */
     name: string;
+    /** Customization type. */
     type?: string;
+    /** Customization script details. */
     script?: AnalyticsEngineCustomActionScript;
+    /** Customization script parameters. */
     script_params?: string[];
   }
 
-  /** AnalyticsEngineCustomActionScript. */
+  /** Customization script details. */
   export interface AnalyticsEngineCustomActionScript {
+    /** Defines where to access the customization script. */
     source_type?: string;
+    /** Path to the customization script. */
     script_path?: string;
+    /** Customization script properties. */
     source_props?: JsonObject;
   }
 
-  /** AnalyticsEngineCustomizationRunDetails. */
-  export interface AnalyticsEngineCustomizationRunDetails {
+  /** AnalyticsEngineCustomizationRequestCollectionItem. */
+  export interface AnalyticsEngineCustomizationRequestCollectionItem {
+    /** Customization request ID. */
     id?: string;
+  }
+
+  /** Customization run details for the cluster. */
+  export interface AnalyticsEngineCustomizationRunDetails {
+    /** Instance GUID. */
+    id?: string;
+    /** Customization run status. */
     run_status?: string;
+    /** Customization run details. */
     run_details?: AnalyticsEngineCustomizationRunDetailsRunDetails;
   }
 
-  /** AnalyticsEngineCustomizationRunDetailsRunDetails. */
+  /** Customization run details. */
   export interface AnalyticsEngineCustomizationRunDetailsRunDetails {
+    /** Customization run overall status. */
     overall_status?: string;
+    /** Customization run details for each node. */
     details?: AnalyticsEngineNodeLevelCustomizationRunDetails[];
   }
 
-  /** AnalyticsEngineLoggingConfigDetails. */
+  /** Logging configuration. */
   export interface AnalyticsEngineLoggingConfigDetails {
+    /** Log specifications for nodes. */
     log_specs: AnalyticsEngineLoggingNodeSpec[];
+    /** Logging server configuration. */
     log_server: AnalyticsEngineLoggingServer;
+    /** Log configuration status. */
     log_config_status: AnalyticsEngineLoggingConfigStatus[];
   }
 
-  /** AnalyticsEngineLoggingConfigStatus. */
+  /** Log configuration status. */
   export interface AnalyticsEngineLoggingConfigStatus {
+    /** Node type. */
     node_type: string;
+    /** Node ID. */
     node_id: string;
+    /** Action. */
     action: string;
+    /** Log configuration status. */
     status: string;
   }
 
-  /** AnalyticsEngineLoggingNodeSpec. */
+  /** Log specifications for node. */
   export interface AnalyticsEngineLoggingNodeSpec {
+    /** Node type. */
     node_type: string;
+    /** Node components to be monitored. */
     components: string[];
   }
 
-  /** AnalyticsEngineLoggingServer. */
+  /** Logging server configuration. */
   export interface AnalyticsEngineLoggingServer {
+    /** Logging server type. */
     type: string;
+    /** Logging server credential. */
     credential: string;
+    /** Logging server API host. */
     api_host: string;
+    /** Logging server host. */
     log_host: string;
+    /** Logging server owner. */
     owner?: string;
   }
 
-  /** AnalyticsEngineNodeLevelCustomizationRunDetails. */
+  /** Customization run details for the node. */
   export interface AnalyticsEngineNodeLevelCustomizationRunDetails {
+    /** Node name. */
     node_name?: string;
+    /** Node type. */
     node_type?: string;
+    /** Customization request start time. */
     start_time?: string;
+    /** Customization request end time. */
     end_time?: string;
+    /** Total time taken for customization request. */
     time_taken?: string;
+    /** Status of customization request. */
     status?: string;
+    /** Log file to track for customization run information. */
     log_file?: string;
   }
 
-  /** AnalyticsEngineResetClusterPasswordResponse. */
+  /** Response for resetting cluster password. */
   export interface AnalyticsEngineResetClusterPasswordResponse {
+    /** Instance guid. */
     id?: string;
+    /** User credentials. */
     user_credentials?: AnalyticsEngineResetClusterPasswordResponseUserCredentials;
   }
 
-  /** AnalyticsEngineResetClusterPasswordResponseUserCredentials. */
+  /** User credentials. */
   export interface AnalyticsEngineResetClusterPasswordResponseUserCredentials {
+    /** Username. */
     user?: string;
+    /** New password. */
     password?: string;
   }
 
-  /** AnalyticsEngineResizeClusterResponse. */
+  /** Resize request response. */
   export interface AnalyticsEngineResizeClusterResponse {
+    /** Request ID. */
     request_id?: string;
   }
 
-  /** AnalyticsEngineState. */
+  /** Cluster state. */
   export interface AnalyticsEngineState {
+    /** Cluster state. */
     state: string;
   }
 
-  /** AnalyticsEngineUserCredentials. */
+  /** User credentials. */
   export interface AnalyticsEngineUserCredentials {
+    /** Username. */
     user?: string;
   }
 
-  /** ServiceEndpoints. */
-  export interface ServiceEndpoints {
-    phoenix_jdbc?: string;
-    ambari_console?: string;
-    livy?: string;
-    spark_history_server?: string;
-    oozie_rest?: string;
-    hive_jdbc?: string;
-    notebook_gateway_websocket?: string;
-    notebook_gateway?: string;
-    webhdfs?: string;
-    ssh?: string;
-    spark_sql?: string;
+  /** Whitelisted IP Ranges. */
+  export interface AnalyticsEngineWhitelistResponse {
+    /** Whitelisted IP Ranges. */
+    private_endpoint_whitelist?: string[];
   }
 
-  /** InlineResponse200. */
-  export interface InlineResponse200 {
-    request_id?: string;
+  /** Service Endpoints. */
+  export interface ServiceEndpoints {
+    /** Phoenix JDBC service endpoint. */
+    phoenix_jdbc?: string;
+    /** Amabri console service endpoint. */
+    ambari_console?: string;
+    /** Livy service endpoint. */
+    livy?: string;
+    /** Spark history server serivce endpoint. */
+    spark_history_server?: string;
+    /** Oozie REST service endpi'. */
+    oozie_rest?: string;
+    /** Hive JDBC service endpoint. */
+    hive_jdbc?: string;
+    /** Notebook gateway websocket service endpoint. */
+    notebook_gateway_websocket?: string;
+    /** Notebook gateway service endpoint. */
+    notebook_gateway?: string;
+    /** WebHDFS service endpoint. */
+    webhdfs?: string;
+    /** SSH service endpoint. */
+    ssh?: string;
+    /** Spark SQL service endpoint. */
+    spark_sql?: string;
   }
 
 }

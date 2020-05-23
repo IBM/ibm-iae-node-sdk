@@ -225,5 +225,26 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
       expect(response.status).toEqual(202);
       done();
     });
+
+
+    it('updatePrivateEndpointWhitelist', async done => {
+      const ipRanges = ['testString'];
+      const action = 'add';
+      const params = {
+        instanceGuid: instanceGuid,
+        ipRanges: ipRanges,
+        action: action,
+      };
+
+      let response;
+      try {
+        response = await IbmAnalyticsEngineServiceClient.updatePrivateEndpointWhitelist(params);
+      } catch (err) {
+        done(err);
+      }
+
+      expect(response.status).toEqual(200);
+      done();
+    });
   });
 });
