@@ -1,4 +1,4 @@
-# IBM Cloud Analytics Engine Node.js SDK Version 1.0.0
+# IBM Cloud Analytics Engine Node.js SDK
 Node.js client library to interact with various [IBM Analytics Engine APIs](https://cloud.ibm.com/apidocs/ibm-analytics-engine).
 
 ## Table of Contents
