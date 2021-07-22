@@ -19,14 +19,14 @@
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 const authHelper = require('../resources/auth-helper.js');
-const describe1 = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
+const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
 // testcase timeout value (200s).
 const timeout = 200000;
 
 // Location of our config file.
 const configFile = 'ibm_analytics_engine_api_v3.env';
 
-const describe = authHelper.prepareTests(configFile);
+describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
   const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance({});
