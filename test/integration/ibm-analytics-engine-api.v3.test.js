@@ -26,7 +26,7 @@ const timeout = 200000;
 // Location of our config file.
 const configFile = 'ibm_analytics_engine_api_v3.env';
 
-describe = authHelper.prepareTests(configFile);
+//describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
   const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance({});
