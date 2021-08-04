@@ -21,12 +21,7 @@ const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const service = {
   authenticator: new NoAuthAuthenticator(),
@@ -55,7 +50,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceName).toBe(
+        IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME
+      );
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_URL);
       expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV3);
     });
@@ -198,7 +195,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}/spark/applications', 'POST');
+        checkUrlAndMethod(
+          options,
+          '/v3/analytics_engines/{instance_id}/spark/applications',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -337,7 +338,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}', 'GET');
+        checkUrlAndMethod(
+          options,
+          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -400,7 +405,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
           applicationId: applicationId,
         };
 
-        const deleteApplicationByIdResult = ibmAnalyticsEngineApiService.deleteApplicationById(params);
+        const deleteApplicationByIdResult = ibmAnalyticsEngineApiService.deleteApplicationById(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(deleteApplicationByIdResult);
@@ -410,7 +417,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}', 'DELETE');
+        checkUrlAndMethod(
+          options,
+          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -483,7 +494,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}/state', 'GET');
+        checkUrlAndMethod(
+          options,
+          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}/state',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);

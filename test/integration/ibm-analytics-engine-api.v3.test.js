@@ -18,18 +18,23 @@
 'use strict';
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-const authHelper = require('../resources/auth-helper.js');
-const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
+// const authHelper = require('../resources/auth-helper.js');
+const authHelper = require('../resources/auth.js');
+// const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
 // testcase timeout value (200s).
 const timeout = 200000;
-
+const { IamAuthenticator } = require('../../dist/auth');
 // Location of our config file.
-const configFile = 'ibm_analytics_engine_api_v3.env';
+// const configFile = 'ibm_analytics_engine_api_v3.env';
 
-//describe = authHelper.prepareTests(configFile);
+// describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
-  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance({});
+  const options = authHelper.ibm_analytics_engine_api_v3;
+  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
+  const instanceGuid = options.instance_guid;
+  let applicationId = '';
+  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
 
   expect(ibmAnalyticsEngineApiService).not.toBeNull();
 
@@ -37,12 +42,10 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   expect(config).not.toBeNull();
 
   jest.setTimeout(timeout);
-
   test('getInstanceById()', async () => {
     const params = {
-      instanceId: 'testString',
+      instanceId: instanceGuid,
     };
-
     const res = await ibmAnalyticsEngineApiService.getInstanceById(params);
     expect(res).toBeDefined();
     expect(res.result).toBeDefined();
@@ -52,25 +55,23 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
-      application: 'testString',
-      class: 'testString',
-      application_arguments: ['testString'],
-      conf: { 'key1': 'testString' },
-      env: { 'key1': 'testString' },
+      application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
+      application_arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
 
     const params = {
-      instanceId: 'testString',
+      instanceId: instanceGuid,
       applicationDetails: applicationRequestApplicationDetailsModel,
     };
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
+    applicationId = res.result.application_id;
     expect(res).toBeDefined();
     expect(res.result).toBeDefined();
   });
   test('getApplications()', async () => {
     const params = {
-      instanceId: 'testString',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplications(params);
@@ -79,8 +80,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getApplicationById()', async () => {
     const params = {
-      instanceId: 'testString',
-      applicationId: 'testString',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplicationById(params);
@@ -89,8 +90,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getApplicationState()', async () => {
     const params = {
-      instanceId: 'testString',
-      applicationId: 'testString',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
@@ -99,8 +100,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('deleteApplicationById()', async () => {
     const params = {
-      instanceId: 'testString',
-      applicationId: 'testString',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.deleteApplicationById(params);
