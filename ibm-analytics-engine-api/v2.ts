@@ -27,7 +27,7 @@ import { getSdkHeaders } from '../lib/common';
 
 class IbmAnalyticsEngineApiV2 extends BaseService {
 
-  static DEFAULT_SERVICE_URL: string = 'https://ibm-analytics-engine-api.cloud.ibm.com/';
+  static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
 
   /*************************

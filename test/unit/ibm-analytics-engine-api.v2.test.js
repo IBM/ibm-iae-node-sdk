@@ -56,7 +56,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceName).toBe(
+        IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME
+      );
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
       expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV2);
     });
@@ -220,7 +222,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getAnalyticsEngineStateByIdResult = ibmAnalyticsEngineApi.getAnalyticsEngineStateById(params);
+        const getAnalyticsEngineStateByIdResult = ibmAnalyticsEngineApi.getAnalyticsEngineStateById(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(getAnalyticsEngineStateByIdResult);
@@ -309,7 +313,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
           customActions: customActions,
         };
 
-        const createCustomizationRequestResult = ibmAnalyticsEngineApi.createCustomizationRequest(params);
+        const createCustomizationRequestResult = ibmAnalyticsEngineApi.createCustomizationRequest(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(createCustomizationRequestResult);
@@ -319,7 +325,11 @@ describe('IbmAnalyticsEngineApiV2', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v2/analytics_engines/{instance_guid}/customization_requests', 'POST');
+        checkUrlAndMethod(
+          options,
+          '/v2/analytics_engines/{instance_guid}/customization_requests',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -383,7 +393,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
           instanceGuid: instanceGuid,
         };
 
-        const getAllCustomizationRequestsResult = ibmAnalyticsEngineApi.getAllCustomizationRequests(params);
+        const getAllCustomizationRequestsResult = ibmAnalyticsEngineApi.getAllCustomizationRequests(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(getAllCustomizationRequestsResult);
@@ -393,7 +405,11 @@ describe('IbmAnalyticsEngineApiV2', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v2/analytics_engines/{instance_guid}/customization_requests', 'GET');
+        checkUrlAndMethod(
+          options,
+          '/v2/analytics_engines/{instance_guid}/customization_requests',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -453,7 +469,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
           requestId: requestId,
         };
 
-        const getCustomizationRequestByIdResult = ibmAnalyticsEngineApi.getCustomizationRequestById(params);
+        const getCustomizationRequestByIdResult = ibmAnalyticsEngineApi.getCustomizationRequestById(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(getCustomizationRequestByIdResult);
@@ -463,7 +481,11 @@ describe('IbmAnalyticsEngineApiV2', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v2/analytics_engines/{instance_guid}/customization_requests/{request_id}', 'GET');
+        checkUrlAndMethod(
+          options,
+          '/v2/analytics_engines/{instance_guid}/customization_requests/{request_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -898,7 +920,9 @@ describe('IbmAnalyticsEngineApiV2', () => {
           action: action,
         };
 
-        const updatePrivateEndpointWhitelistResult = ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist(params);
+        const updatePrivateEndpointWhitelistResult = ibmAnalyticsEngineApi.updatePrivateEndpointWhitelist(
+          params
+        );
 
         // all methods should return a Promise
         expectToBePromise(updatePrivateEndpointWhitelistResult);
@@ -908,7 +932,11 @@ describe('IbmAnalyticsEngineApiV2', () => {
 
         const options = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist', 'PATCH');
+        checkUrlAndMethod(
+          options,
+          '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist',
+          'PATCH'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
