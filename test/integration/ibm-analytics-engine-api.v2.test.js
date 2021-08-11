@@ -2,14 +2,14 @@
 
 const IbmAnalyticsEngineApiV2 = require('../../dist/ibm-analytics-engine-api/v2');
 const { IamAuthenticator } = require('../../dist/auth');
-const authHelper = require('../resources/auth-helper.js');
-const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
+const authHelper = require('../resources/auth.js');
+// const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
 const timeout = 20000; // jest timeout in ms
 
 describe('IBM Analytics Engine ApiV2 integration', () => {
-  const options = authHelper.auth.ibm_analytics_engine_api_v2;
+  const options = authHelper.ibm_analytics_engine_api_v2;
   options.authenticator = new IamAuthenticator({ apikey: options.apikey });
-  const instanceGuid = options.instanceGuid;
+  const instanceGuid = options.instance_guid;
 
   const IbmAnalyticsEngineServiceClient = new IbmAnalyticsEngineApiV2(options);
   jest.setTimeout(timeout);
