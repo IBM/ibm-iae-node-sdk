@@ -4,23 +4,22 @@ const IbmAnalyticsEngineApiV2 = require('../../dist/ibm-analytics-engine-api/v2'
 const { IamAuthenticator } = require('../../dist/auth');
 const authHelper = require('../resources/auth-helper.js');
 const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
-const timeout= 20000; // jest timeout in ms
+const timeout = 20000; // jest timeout in ms
 
 describe('IBM Analytics Engine ApiV2 integration', () => {
   const options = authHelper.auth.ibm_analytics_engine_api_v2;
-  options.authenticator = new IamAuthenticator({apikey: options.apikey});
+  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
   const instanceGuid = options.instanceGuid;
 
   const IbmAnalyticsEngineServiceClient = new IbmAnalyticsEngineApiV2(options);
-  jest. setTimeout(timeout);
-
+  jest.setTimeout(timeout);
   // nested describe statements are helpful when organizing multiple categories of an api
   describe('analyticsEngines', () => {
-    let resourceId;
+    // let resourceId;
 
     it('getAnalyticsEngineById', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -36,7 +35,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
     it('getAnalyticsEngineStateById', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -51,7 +50,6 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
     });
 
     it('createCustomizationRequest', async done => {
-
       // AnalyticsEngineCustomActionScript
       const analyticsEngineCustomActionScriptModel = {
         source_type: 'http',
@@ -88,7 +86,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
     it('getAllCustomizationRequests', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -103,7 +101,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
     });
 
     it('getCustomizationRequestById', async done => {
-      var params = {
+      const params = {
         instanceGuid: instanceGuid,
       };
 
@@ -145,7 +143,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
     it('resetClusterPassword', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -196,7 +194,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
     it('getLoggingConfig', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -212,7 +210,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
     it('deleteLoggingConfig', async done => {
       const params = {
-        instanceGuid: instanceGuid
+        instanceGuid: instanceGuid,
       };
 
       let response;
@@ -225,7 +223,6 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
       expect(response.status).toEqual(202);
       done();
     });
-
 
     it('updatePrivateEndpointWhitelist', async done => {
       const ipRanges = ['testString'];

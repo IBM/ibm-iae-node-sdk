@@ -36,13 +36,13 @@
   "dependencies": {
     "@types/node": "^12.12.34",
     "extend": "^3.0.2",
-    "ibm-cloud-sdk-core": "^2.3.0",
-    "jest": "^25.2.7"
+    "ibm-cloud-sdk-core": "^2.11.3",
+    "jest": "^25.5.4"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.4",
     "@semantic-release/git": "^7.0.12",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "codecov": "^3.5.0",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.12.0",

@@ -16,15 +16,14 @@
 
 'use strict';
 
-const testingHeaders = {
-  // any headers desired for testing (like opting out of analytics)
-};
+// const testingHeaders = {
+//   // any headers desired for testing (like opting out of analytics)
+// };
 
 module.exports = {
   ibm_analytics_engine_api_v2: {
     serviceUrl: '',
     apikey: '',
-    instance_guid:''
+    instance_guid: '',
   },
 };
-
