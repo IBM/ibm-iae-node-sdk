@@ -16,7 +16,7 @@ describe('IBM Analytics Engine ApiV2 integration', () => {
 
   // nested describe statements are helpful when organizing multiple categories of an api
   describe('analyticsEngines', () => {
-    // let resourceId;
+  // let resourceId;
 
     it('getAnalyticsEngineById', async done => {
       const params = {
