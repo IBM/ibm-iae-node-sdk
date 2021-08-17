@@ -3,22 +3,18 @@ language: node_js
 sudo: false
 
 node_js:
-- 10
 - 12
-
-# before_install:
-# -  'openssl aes-256-cbc -K $my_key -iv $my_iv -in myservice.env.enc -out myservice.env -d || true'
+- 14
 
 script:
+- npm --version
 - npm run build
 - npm run test-unit-travis || travis_terminate 1
-- npm run test-integration-travis || travis_terminate 1
+- npm run lint
 - npm run check-packages
-# - sh scripts/typedoc/generate_typedoc.sh currently in progress
 
 after_success:
 - npm run report-coverage
-# - scripts/jsdoc/publish.sh - currently in progress
 
 deploy:
 - provider: script
