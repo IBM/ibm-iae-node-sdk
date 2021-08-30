@@ -37,7 +37,8 @@ IBM Cloud services:
 
 Service Name | Import Path
 --- | --- 
-[IBM Analytics Engine](https://cloud.ibm.com/apidocs/ibm-analytics-engine) | iaesdk/ibm-analytics-engine-api/v2
+[IBM Analytics Engine v2](https://cloud.ibm.com/apidocs/ibm-analytics-engine) | iaesdk/ibm-analytics-engine-api/v2
+[IBM Analytics Engine v3](https://cloud.ibm.com/apidocs/ibm-analytics-engine) | iaesdk/ibm-analytics-engine-api/v3
 
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
