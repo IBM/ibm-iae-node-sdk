@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/IBM/ibm-iae-node-sdk/compare/v1.1.0...v1.1.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* **analytics engine:** fixed Spark application submit path and payload ([#25](https://github.com/IBM/ibm-iae-node-sdk/issues/25)) ([d586050](https://github.com/IBM/ibm-iae-node-sdk/commit/d58605047af31a12a38498a197a34bb82083b87f))
+
 # [1.1.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v1.0.2...v1.1.0) (2021-08-17)
 
 
