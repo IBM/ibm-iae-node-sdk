@@ -21,19 +21,16 @@ const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const ibmAnalyticsEngineApiServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.us-south.ae.cloud.ibm.com',
 };
 
-const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(ibmAnalyticsEngineApiServiceOptions);
+const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(
+  ibmAnalyticsEngineApiServiceOptions
+);
 
 // dont actually create a request
 const createRequestMock = jest.spyOn(ibmAnalyticsEngineApiService, 'createRequest');
@@ -55,7 +52,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceName).toBe(
+        IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME
+      );
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_URL);
       expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV3);
     });
@@ -143,7 +142,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getInstance({});
@@ -155,11 +154,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const getInstancePromise = ibmAnalyticsEngineApiService.getInstance();
         expectToBePromise(getInstancePromise);
 
-        getInstancePromise.catch((err) => {
+        getInstancePromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -198,7 +197,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications', 'POST');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications',
+          'POST'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -225,7 +228,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.createApplication({});
@@ -237,11 +240,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const createApplicationPromise = ibmAnalyticsEngineApiService.createApplication();
         expectToBePromise(createApplicationPromise);
 
-        createApplicationPromise.catch((err) => {
+        createApplicationPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -267,7 +270,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -293,7 +300,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.listApplications({});
@@ -305,11 +312,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const listApplicationsPromise = ibmAnalyticsEngineApiService.listApplications();
         expectToBePromise(listApplicationsPromise);
 
-        listApplicationsPromise.catch((err) => {
+        listApplicationsPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -337,7 +344,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -366,7 +377,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getApplication({});
@@ -378,11 +389,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const getApplicationPromise = ibmAnalyticsEngineApiService.getApplication();
         expectToBePromise(getApplicationPromise);
 
-        getApplicationPromise.catch((err) => {
+        getApplicationPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -410,7 +421,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}', 'DELETE');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
+          'DELETE'
+        );
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -439,7 +454,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.deleteApplication({});
@@ -451,11 +466,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const deleteApplicationPromise = ibmAnalyticsEngineApiService.deleteApplication();
         expectToBePromise(deleteApplicationPromise);
 
-        deleteApplicationPromise.catch((err) => {
+        deleteApplicationPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -483,7 +498,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state', 'GET');
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state',
+          'GET'
+        );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -512,7 +531,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getApplicationState({});
@@ -524,11 +543,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const getApplicationStatePromise = ibmAnalyticsEngineApiService.getApplicationState();
         expectToBePromise(getApplicationStatePromise);
 
-        getApplicationStatePromise.catch((err) => {
+        getApplicationStatePromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
