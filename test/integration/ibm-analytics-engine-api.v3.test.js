@@ -29,9 +29,8 @@ const { IamAuthenticator } = require('../../dist/auth');
 // const describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
-  let options = authHelper.ibm_analytics_engine_api_v3;
-  options.authenticator = new IamAuthenticator({apikey: options.apikey});
-  
+  const options = authHelper.ibm_analytics_engine_api_v3;
+  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
   const instanceGuid = options.instance_guid;
   let applicationId = '';
   const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
