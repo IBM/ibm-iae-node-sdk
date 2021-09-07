@@ -21,12 +21,7 @@ const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 
-const {
-  getOptions,
-  checkUrlAndMethod,
-  checkMediaHeaders,
-  expectToBePromise,
-} = unitTestUtils;
+const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
 const ibmAnalyticsEngineApiServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
@@ -57,7 +52,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
+      expect(testInstance.baseOptions.serviceName).toBe(
+        IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME
+      );
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_URL);
       expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV3);
     });
@@ -145,7 +142,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getInstance({});
@@ -231,7 +228,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.createApplication({});
@@ -243,11 +240,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const createApplicationPromise = ibmAnalyticsEngineApiService.createApplication();
         expectToBePromise(createApplicationPromise);
 
-        createApplicationPromise.catch((err) => {
+        createApplicationPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -303,7 +300,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.listApplications({});
@@ -380,7 +377,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getApplication({});
@@ -457,7 +454,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.deleteApplication({});
@@ -534,7 +531,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
 
     describe('negative tests', () => {
-      test('should enforce required parameters', async (done) => {
+      test('should enforce required parameters', async done => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getApplicationState({});
@@ -546,11 +543,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
         done();
       });
 
-      test('should reject promise when required params are not given', (done) => {
+      test('should reject promise when required params are not given', done => {
         const getApplicationStatePromise = ibmAnalyticsEngineApiService.getApplicationState();
         expectToBePromise(getApplicationStatePromise);
 
-        getApplicationStatePromise.catch((err) => {
+        getApplicationStatePromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
