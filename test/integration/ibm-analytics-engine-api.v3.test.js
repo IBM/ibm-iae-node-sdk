@@ -17,8 +17,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-// const authHelper = require('../resources/auth-helper.js');
-const authHelper = require('../resources/auth.js');
+const authHelper = require('../resources/auth-helper.js');
+// const authHelper = require('../resources/auth.js');
 
 // testcase timeout value (200s).
 const timeout = 200000;
