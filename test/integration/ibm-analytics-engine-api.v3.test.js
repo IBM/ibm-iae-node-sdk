@@ -15,19 +15,18 @@
  * limitations under the License.
  */
 
-'use strict';
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 const authHelper = require('../resources/auth-helper.js');
 // const authHelper = require('../resources/auth.js');
-const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
+
 // testcase timeout value (200s).
 const timeout = 200000;
 const { IamAuthenticator } = require('../../dist/auth');
 // Location of our config file.
 // const configFile = 'ibm_analytics_engine_api_v3.env';
 
-// describe = authHelper.prepareTests(configFile);
+// const describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
   const options = authHelper.ibm_analytics_engine_api_v3;
@@ -42,21 +41,39 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   expect(config).not.toBeNull();
 
   jest.setTimeout(timeout);
-  test('getInstanceById()', async () => {
+
+  test('getInstance()', async () => {
     const params = {
       instanceId: instanceGuid,
     };
-    const res = await ibmAnalyticsEngineApiService.getInstanceById(params);
+    const res = await ibmAnalyticsEngineApiService.getInstance(params);
     expect(res).toBeDefined();
+    expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
   test('createApplication()', async () => {
     // Request models needed by this operation.
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
+      // application: 'cos://bucket_name.my_cos/my_spark_app.py',
+      // class: 'com.company.path.ClassName',
+      // arguments: ['[arg1, arg2, arg3]'],
+      // conf: { spark.driver.cores: '1', spark.driver.memory: '4G' },
+      // env: { SPARK_ENV_LOADED: '2' },
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
-      application_arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
+      arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
 
     const params = {
@@ -65,28 +82,64 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
-    applicationId = res.result.application_id;
+    applicationId = res.result.id;
     expect(res).toBeDefined();
+    expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
-  test('getApplications()', async () => {
+  test('listApplications()', async () => {
     const params = {
       instanceId: instanceGuid,
     };
 
-    const res = await ibmAnalyticsEngineApiService.getApplications(params);
+    const res = await ibmAnalyticsEngineApiService.listApplications(params);
     expect(res).toBeDefined();
+    expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
-  test('getApplicationById()', async () => {
+  test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
       applicationId: applicationId,
     };
 
-    const res = await ibmAnalyticsEngineApiService.getApplicationById(params);
+    const res = await ibmAnalyticsEngineApiService.getApplication(params);
     expect(res).toBeDefined();
+    expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
   test('getApplicationState()', async () => {
     const params = {
@@ -96,16 +149,40 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
     expect(res).toBeDefined();
+    expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
-  test('deleteApplicationById()', async () => {
+  test('deleteApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
       applicationId: applicationId,
     };
 
-    const res = await ibmAnalyticsEngineApiService.deleteApplicationById(params);
+    const res = await ibmAnalyticsEngineApiService.deleteApplication(params);
     expect(res).toBeDefined();
+    expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
   });
 });

@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use strict';
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
 const core = require('ibm-cloud-sdk-core');
+
 const { NoAuthAuthenticator, unitTestUtils } = core;
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 
 const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
-const service = {
+const ibmAnalyticsEngineApiServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.us-south.ae.cloud.ibm.com',
 };
 
-const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(service);
+const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(
+  ibmAnalyticsEngineApiServiceOptions
+);
 
 // dont actually create a request
 const createRequestMock = jest.spyOn(ibmAnalyticsEngineApiService, 'createRequest');
@@ -95,35 +97,35 @@ describe('IbmAnalyticsEngineApiV3', () => {
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_URL);
     });
   });
-  describe('getInstanceById', () => {
+  describe('getInstance', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getInstanceById
-        const instanceId = 'testString';
+        // Construct the params object for operation getInstance
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const params = {
           instanceId: instanceId,
         };
 
-        const getInstanceByIdResult = ibmAnalyticsEngineApiService.getInstanceById(params);
+        const getInstanceResult = ibmAnalyticsEngineApiService.getInstance(params);
 
         // all methods should return a Promise
-        expectToBePromise(getInstanceByIdResult);
+        expectToBePromise(getInstanceResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}', 'GET');
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['instance_id']).toEqual(instanceId);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
@@ -134,7 +136,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getInstanceById(params);
+        ibmAnalyticsEngineApiService.getInstance(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -143,7 +145,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiService.getInstanceById({});
+          await ibmAnalyticsEngineApiService.getInstance({});
         } catch (e) {
           err = e;
         }
@@ -153,10 +155,10 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getInstanceByIdPromise = ibmAnalyticsEngineApiService.getInstanceById();
-        expectToBePromise(getInstanceByIdPromise);
+        const getInstancePromise = ibmAnalyticsEngineApiService.getInstance();
+        expectToBePromise(getInstancePromise);
 
-        getInstanceByIdPromise.catch(err => {
+        getInstancePromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -169,16 +171,16 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       // ApplicationRequestApplicationDetails
       const applicationRequestApplicationDetailsModel = {
-        application: 'testString',
-        class: 'testString',
-        application_arguments: ['testString'],
+        application: 'cos://bucket_name.my_cos/my_spark_app.py',
+        class: 'com.company.path.ClassName',
+        arguments: ['[arg1, arg2, arg3]'],
         conf: { 'key1': 'testString' },
         env: { 'key1': 'testString' },
       };
 
       test('should pass the right params to createRequest', () => {
         // Construct the params object for operation createApplication
-        const instanceId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const applicationDetails = applicationRequestApplicationDetailsModel;
         const params = {
           instanceId: instanceId,
@@ -193,23 +195,23 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
         checkUrlAndMethod(
-          options,
-          '/v3/analytics_engines/{instance_id}/spark/applications',
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications',
           'POST'
         );
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.body['application_details']).toEqual(applicationDetails);
-        expect(options.path['instance_id']).toEqual(instanceId);
+        expect(mockRequestOptions.body.application_details).toEqual(applicationDetails);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
@@ -249,123 +251,50 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
     });
   });
-  describe('getApplications', () => {
+  describe('listApplications', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getApplications
-        const instanceId = 'testString';
+        // Construct the params object for operation listApplications
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const params = {
           instanceId: instanceId,
         };
 
-        const getApplicationsResult = ibmAnalyticsEngineApiService.getApplications(params);
+        const listApplicationsResult = ibmAnalyticsEngineApiService.listApplications(params);
 
         // all methods should return a Promise
-        expectToBePromise(getApplicationsResult);
+        expectToBePromise(listApplicationsResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
-
-        checkUrlAndMethod(options, '/v3/analytics_engines/{instance_id}/spark/applications', 'GET');
-        const expectedAccept = 'application/json';
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['instance_id']).toEqual(instanceId);
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const instanceId = 'testString';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const params = {
-          instanceId,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        ibmAnalyticsEngineApiService.getApplications(params);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async done => {
-        let err;
-        try {
-          await ibmAnalyticsEngineApiService.getApplications({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-        done();
-      });
-
-      test('should reject promise when required params are not given', done => {
-        const getApplicationsPromise = ibmAnalyticsEngineApiService.getApplications();
-        expectToBePromise(getApplicationsPromise);
-
-        getApplicationsPromise.catch(err => {
-          expect(err.message).toMatch(/Missing required parameters/);
-          done();
-        });
-      });
-    });
-  });
-  describe('getApplicationById', () => {
-    describe('positive tests', () => {
-      test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation getApplicationById
-        const instanceId = 'testString';
-        const applicationId = 'testString';
-        const params = {
-          instanceId: instanceId,
-          applicationId: applicationId,
-        };
-
-        const getApplicationByIdResult = ibmAnalyticsEngineApiService.getApplicationById(params);
-
-        // all methods should return a Promise
-        expectToBePromise(getApplicationByIdResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
         checkUrlAndMethod(
-          options,
-          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}',
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications',
           'GET'
         );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['instance_id']).toEqual(instanceId);
-        expect(options.path['application_id']).toEqual(applicationId);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'testString';
-        const applicationId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
           instanceId,
-          applicationId,
           headers: {
             Accept: userAccept,
             'Content-Type': userContentType,
           },
         };
 
-        ibmAnalyticsEngineApiService.getApplicationById(params);
+        ibmAnalyticsEngineApiService.listApplications(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -374,7 +303,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiService.getApplicationById({});
+          await ibmAnalyticsEngineApiService.listApplications({});
         } catch (e) {
           err = e;
         }
@@ -384,55 +313,53 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const getApplicationByIdPromise = ibmAnalyticsEngineApiService.getApplicationById();
-        expectToBePromise(getApplicationByIdPromise);
+        const listApplicationsPromise = ibmAnalyticsEngineApiService.listApplications();
+        expectToBePromise(listApplicationsPromise);
 
-        getApplicationByIdPromise.catch(err => {
+        listApplicationsPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
       });
     });
   });
-  describe('deleteApplicationById', () => {
+  describe('getApplication', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
-        // Construct the params object for operation deleteApplicationById
-        const instanceId = 'testString';
-        const applicationId = 'testString';
+        // Construct the params object for operation getApplication
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const params = {
           instanceId: instanceId,
           applicationId: applicationId,
         };
 
-        const deleteApplicationByIdResult = ibmAnalyticsEngineApiService.deleteApplicationById(
-          params
-        );
+        const getApplicationResult = ibmAnalyticsEngineApiService.getApplication(params);
 
         // all methods should return a Promise
-        expectToBePromise(deleteApplicationByIdResult);
+        expectToBePromise(getApplicationResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
         checkUrlAndMethod(
-          options,
-          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}',
-          'DELETE'
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
+          'GET'
         );
-        const expectedAccept = undefined;
+        const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['instance_id']).toEqual(instanceId);
-        expect(options.path['application_id']).toEqual(applicationId);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.application_id).toEqual(applicationId);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'testString';
-        const applicationId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
@@ -444,7 +371,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.deleteApplicationById(params);
+        ibmAnalyticsEngineApiService.getApplication(params);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -453,7 +380,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       test('should enforce required parameters', async done => {
         let err;
         try {
-          await ibmAnalyticsEngineApiService.deleteApplicationById({});
+          await ibmAnalyticsEngineApiService.getApplication({});
         } catch (e) {
           err = e;
         }
@@ -463,10 +390,87 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
 
       test('should reject promise when required params are not given', done => {
-        const deleteApplicationByIdPromise = ibmAnalyticsEngineApiService.deleteApplicationById();
-        expectToBePromise(deleteApplicationByIdPromise);
+        const getApplicationPromise = ibmAnalyticsEngineApiService.getApplication();
+        expectToBePromise(getApplicationPromise);
 
-        deleteApplicationByIdPromise.catch(err => {
+        getApplicationPromise.catch(err => {
+          expect(err.message).toMatch(/Missing required parameters/);
+          done();
+        });
+      });
+    });
+  });
+  describe('deleteApplication', () => {
+    describe('positive tests', () => {
+      test('should pass the right params to createRequest', () => {
+        // Construct the params object for operation deleteApplication
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
+        const params = {
+          instanceId: instanceId,
+          applicationId: applicationId,
+        };
+
+        const deleteApplicationResult = ibmAnalyticsEngineApiService.deleteApplication(params);
+
+        // all methods should return a Promise
+        expectToBePromise(deleteApplicationResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.application_id).toEqual(applicationId);
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const params = {
+          instanceId,
+          applicationId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.deleteApplication(params);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async done => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.deleteApplication({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+        done();
+      });
+
+      test('should reject promise when required params are not given', done => {
+        const deleteApplicationPromise = ibmAnalyticsEngineApiService.deleteApplication();
+        expectToBePromise(deleteApplicationPromise);
+
+        deleteApplicationPromise.catch(err => {
           expect(err.message).toMatch(/Missing required parameters/);
           done();
         });
@@ -477,8 +481,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     describe('positive tests', () => {
       test('should pass the right params to createRequest', () => {
         // Construct the params object for operation getApplicationState
-        const instanceId = 'testString';
-        const applicationId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const params = {
           instanceId: instanceId,
           applicationId: applicationId,
@@ -492,24 +496,24 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
 
-        const options = getOptions(createRequestMock);
+        const mockRequestOptions = getOptions(createRequestMock);
 
         checkUrlAndMethod(
-          options,
-          '/v3/analytics_engines/{instance_id}/spark/applications/{application_id}/state',
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state',
           'GET'
         );
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(options.path['instance_id']).toEqual(instanceId);
-        expect(options.path['application_id']).toEqual(applicationId);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+        expect(mockRequestOptions.path.application_id).toEqual(applicationId);
       });
 
       test('should prioritize user-given headers', () => {
         // parameters
-        const instanceId = 'testString';
-        const applicationId = 'testString';
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
         const params = {
