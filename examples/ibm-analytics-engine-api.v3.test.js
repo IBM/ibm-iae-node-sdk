@@ -22,6 +22,9 @@
 const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
 const authHelper = require('../test/resources/auth-helper.js');
+// const authHelper = require('../test/resources/auth.js');
+const { IamAuthenticator } = require('../dist/auth');
+const timeout = 200000;
 // You can use the readExternalSources method to access additional configuration values
 // const { readExternalSources } = require('ibm-cloud-sdk-core');
 
@@ -38,9 +41,9 @@ const authHelper = require('../test/resources/auth-helper.js');
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const configFile = 'ibm_analytics_engine_api_v3.env';
+// const configFile = 'ibm_analytics_engine_api_v3.env';
 
-const describe = authHelper.prepareTests(configFile);
+// const describe = authHelper.prepareTests(configFile);
 
 // Save original console.log
 const originalLog = console.log;
@@ -48,37 +51,38 @@ const originalLog = console.log;
 // Mocks for console.log and console.warn
 const consoleLogMock = jest.spyOn(console, 'log');
 const consoleWarnMock = jest.spyOn(console, 'warn');
-
 describe('IbmAnalyticsEngineApiV3', () => {
+  const options = authHelper.ibm_analytics_engine_api_v3;
+  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
+  const instanceGuid = options.instance_guid;
+  let applicationId = '';
   // begin-common
 
-  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance({});
+  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
 
   // end-common
 
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
-
+  jest.setTimeout(timeout);
   test('getInstance request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-    originalLog('getInstance() result:');
+   
     // begin-get_instance
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     ibmAnalyticsEngineApiService
       .getInstance(params)
       .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -88,24 +92,27 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('createApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-    originalLog('createApplication() result:');
+   
     // begin-create_application
-
+    const applicationRequestApplicationDetailsModel = {
+      application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
+      arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
+    };
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
+      applicationDetails: applicationRequestApplicationDetailsModel,
     };
 
     ibmAnalyticsEngineApiService
       .createApplication(params)
       .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
+        applicationId = res.result.id
       })
       .catch((err) => {
         console.warn(err);
@@ -115,24 +122,21 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('listApplications request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-    originalLog('listApplications() result:');
     // begin-list_applications
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     ibmAnalyticsEngineApiService
       .listApplications(params)
       .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -142,25 +146,22 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('getApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-    originalLog('getApplication() result:');
     // begin-get_application
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     ibmAnalyticsEngineApiService
       .getApplication(params)
       .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -170,25 +171,22 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('getApplicationState request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-    originalLog('getApplicationState() result:');
     // begin-get_application_state
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     ibmAnalyticsEngineApiService
       .getApplicationState(params)
       .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -198,7 +196,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('deleteApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
@@ -208,8 +205,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-delete_application
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     ibmAnalyticsEngineApiService
