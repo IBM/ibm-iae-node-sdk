@@ -17,12 +17,12 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-const { IamAuthenticator } = require('../../dist/auth');
 const authHelper = require('../resources/auth-helper.js');
 // const authHelper = require('../resources/auth.js');
+const { IamAuthenticator } = require('../../dist/auth');
 
 // testcase timeout value (200s).
-const timeout = 200000;
+const timeout = 20000;
 
 // Location of our config file.
 // const configFile = 'ibm_analytics_engine_api_v3.env';

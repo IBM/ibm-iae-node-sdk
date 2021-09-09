@@ -82,6 +82,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     ibmAnalyticsEngineApiService
       .getInstance(params)
       .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -137,6 +138,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     ibmAnalyticsEngineApiService
       .listApplications(params)
       .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -162,6 +164,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     ibmAnalyticsEngineApiService
       .getApplication(params)
       .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
@@ -187,6 +190,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     ibmAnalyticsEngineApiService
       .getApplicationState(params)
       .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
         console.warn(err);
