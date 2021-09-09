@@ -17,12 +17,13 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const { IamAuthenticator } = require('../../dist/auth');
 const authHelper = require('../resources/auth-helper.js');
 // const authHelper = require('../resources/auth.js');
 
 // testcase timeout value (200s).
 const timeout = 200000;
-const { IamAuthenticator } = require('../../dist/auth');
+
 // Location of our config file.
 // const configFile = 'ibm_analytics_engine_api_v3.env';
 
@@ -46,6 +47,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const params = {
       instanceId: instanceGuid,
     };
+
     const res = await ibmAnalyticsEngineApiService.getInstance(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);

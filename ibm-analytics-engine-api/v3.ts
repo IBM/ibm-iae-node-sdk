@@ -210,7 +210,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   /**
    * Retrieve all Spark applications.
    *
-   * Gets all applications submitted in an instance with a specified inst_id.
+   * Gets all applications submitted in an instance with a specified instance-id.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Identifier of the instance where the applications run.
@@ -526,10 +526,32 @@ namespace IbmAnalyticsEngineApiV3 {
     applications?: Application[];
   }
 
+  /** Application details. */
+  export interface ApplicationDetails {
+    /** Path of the application to run. */
+    application?: string;
+    /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
+     *  applications.
+     */
+    class?: string;
+    /** An array of arguments to be passed to the application. */
+    arguments?: string[];
+    /** Application configurations to override the value specified at instance level. See [Spark environment
+     *  variables]( https://spark.apache.org/docs/latest/configuration.html#available-properties) for a list of the
+     *  supported variables.
+     */
+    conf?: JsonObject;
+    /** Application environment configurations to use. See [Spark environment
+     *  variables](https://spark.apache.org/docs/latest/configuration.html#environment-variables) for a list of the
+     *  supported variables.
+     */
+    env?: JsonObject;
+  }
+
   /** Response of the Application Get API. */
   export interface ApplicationGetResponse {
-    /** Application request details. */
-    application_details?: ApplicationRequest;
+    /** Application details. */
+    application_details?: ApplicationDetails;
     /** Application ID. */
     id?: string;
     /** Application state. */
@@ -550,12 +572,6 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application was completed. */
     finish_time?: string;
-  }
-
-  /** Application request details. */
-  export interface ApplicationRequest {
-    /** Application details. */
-    application_details?: ApplicationRequestApplicationDetails;
   }
 
   /** Application details. */
