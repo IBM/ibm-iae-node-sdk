@@ -17,8 +17,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-// const authHelper = require('../resources/auth-helper.js');
-const authHelper = require('../resources/auth.js');
+const authHelper = require('../resources/auth-helper.js');
+// const authHelper = require('../resources/auth.js');
 const { IamAuthenticator } = require('../../dist/auth');
 // testcase timeout value (200s).
 const timeout = 200000;
@@ -161,34 +161,34 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // 500
     //
   });
-  // test('createInstanceHome()', async () => {
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //     newInstanceId: 'testString',
-  //     newProvider: 'ibm-cos',
-  //     newType: 'objectstore',
-  //     newRegion: 'us-south',
-  //     newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
-  //     newHmacAccessKey: hmacAccessKey,
-  //     newHmacSecretKey: hmacSecretKey,
-  //   };
+  test('createInstanceHome()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      newInstanceId: 'testString',
+      newProvider: 'ibm-cos',
+      newType: 'objectstore',
+      newRegion: 'us-south',
+      newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
+      newHmacAccessKey: hmacAccessKey,
+      newHmacSecretKey: hmacSecretKey,
+    };
 
-  //   const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
-  //   expect(res).toBeDefined();
-  //   expect(res.status).toBe(200);
-  //   expect(res.result).toBeDefined();
+    const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
 
-  //   //
-  //   // The following status codes aren't covered by tests.
-  //   // Please provide integration tests for these too.
-  //   //
-  //   // 400
-  //   // 401
-  //   // 403
-  //   // 404
-  //   // 500
-  //   //
-  // });
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
   test('enablePlatformLogging()', async () => {
     const params = {
       instanceGuid: instanceGuid,
