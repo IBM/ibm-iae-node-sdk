@@ -17,12 +17,11 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-const authHelper = require('../resources/auth-helper.js');
-// const authHelper = require('../resources/auth.js');
+// const authHelper = require('../resources/auth-helper.js');
+const authHelper = require('../resources/auth.js');
 const { IamAuthenticator } = require('../../dist/auth');
-
 // testcase timeout value (200s).
-const timeout = 20000;
+const timeout = 200000;
 
 // Location of our config file.
 // const configFile = 'ibm_analytics_engine_api_v3.env';
@@ -33,6 +32,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   const options = authHelper.ibm_analytics_engine_api_v3;
   options.authenticator = new IamAuthenticator({ apikey: options.apikey });
   const instanceGuid = options.instance_guid;
+  const hmacAccessKey = options.newHmacAccessKey;
+  const hmacSecretKey = options.newHmacSecretKey;
   let applicationId = '';
   const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
 
@@ -69,11 +70,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
-      // application: 'cos://bucket_name.my_cos/my_spark_app.py',
-      // class: 'com.company.path.ClassName',
-      // arguments: ['[arg1, arg2, arg3]'],
-      // conf: { spark.driver.cores: '1', spark.driver.memory: '4G' },
-      // env: { SPARK_ENV_LOADED: '2' },
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
       arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
@@ -152,6 +148,120 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  // test('createInstanceHome()', async () => {
+  //   const params = {
+  //     instanceId: instanceGuid,
+  //     newInstanceId: 'testString',
+  //     newProvider: 'ibm-cos',
+  //     newType: 'objectstore',
+  //     newRegion: 'us-south',
+  //     newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
+  //     newHmacAccessKey: hmacAccessKey,
+  //     newHmacSecretKey: hmacSecretKey,
+  //   };
+
+  //   const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
+  //   expect(res).toBeDefined();
+  //   expect(res.status).toBe(200);
+  //   expect(res.result).toBeDefined();
+
+  //   //
+  //   // The following status codes aren't covered by tests.
+  //   // Please provide integration tests for these too.
+  //   //
+  //   // 400
+  //   // 401
+  //   // 403
+  //   // 404
+  //   // 500
+  //   //
+  // });
+  test('enablePlatformLogging()', async () => {
+    const params = {
+      instanceGuid: instanceGuid,
+      enable: true,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.enablePlatformLogging(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('disablePlatformLogging()', async () => {
+    const params = {
+      instanceGuid: instanceGuid,
+      enable: false,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.disablePlatformLogging(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('getLoggingConfiguration()', async () => {
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('deleteLoggingConfiguration()', async () => {
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.deleteLoggingConfiguration(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
 
     //

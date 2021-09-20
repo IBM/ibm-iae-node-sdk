@@ -51,28 +51,33 @@ const originalLog = console.log;
 // Mocks for console.log and console.warn
 const consoleLogMock = jest.spyOn(console, 'log');
 const consoleWarnMock = jest.spyOn(console, 'warn');
+
 describe('IbmAnalyticsEngineApiV3', () => {
   const options = authHelper.ibm_analytics_engine_api_v3;
   options.authenticator = new IamAuthenticator({ apikey: options.apikey });
   const instanceGuid = options.instance_guid;
+  const hmacAccessKey = options.newHmacAccessKey;
+  const hmacSecretKey = options.newHmacSecretKey;
   let applicationId = '';
   // begin-common
+
   const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
 
   // end-common
 
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
-  jest.setTimeout(timeout);
+
   test('getInstance request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-   
+    originalLog('getInstance() result:');
     // begin-get_instance
 
     const params = {
@@ -92,13 +97,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('createApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
-   
+    originalLog('createApplication() result:');
     // begin-create_application
     const applicationRequestApplicationDetailsModel = {
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
@@ -123,12 +129,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('listApplications request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
+    originalLog('listApplications() result:');
     // begin-list_applications
 
     const params = {
@@ -148,12 +156,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('getApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
+    originalLog('getApplication() result:');
     // begin-get_application
 
     const params = {
@@ -174,12 +184,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
   test('getApplicationState request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
       done(output);
     });
 
+    originalLog('getApplicationState() result:');
     // begin-get_application_state
 
     const params = {
@@ -198,8 +210,150 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     // end-get_application_state
   });
+  test('createInstanceHome request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      done(output);
+    });
+
+    originalLog('createInstanceHome() result:');
+    // begin-create_instance_home
+
+    const params = {
+      instanceId: instanceGuid,
+      newInstanceId: 'testString',
+      newProvider: 'ibm-cos',
+      newType: 'objectstore',
+      newRegion: 'us-south',
+      newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
+      newHmacAccessKey: hmacAccessKey,
+      newHmacSecretKey: hmacSecretKey,
+    };
+
+    ibmAnalyticsEngineApiService
+      .createInstanceHome(params)
+      .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+
+    // end-create_instance_home
+  });
+  test('enablePlatformLogging request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      done(output);
+    });
+
+    originalLog('enablePlatformLogging() result:');
+    // begin-enable_platform_logging
+
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    ibmAnalyticsEngineApiService
+      .enablePlatformLogging(params)
+      .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+
+    // end-enable_platform_logging
+  });
+  test('disablePlatformLogging request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      done(output);
+    });
+
+    originalLog('disablePlatformLogging() result:');
+    // begin-disable_platform_logging
+
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    ibmAnalyticsEngineApiService
+      .disablePlatformLogging(params)
+      .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+
+    // end-disable_platform_logging
+  });
+  test('getLoggingConfiguration request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      done(output);
+    });
+
+    originalLog('getLoggingConfiguration() result:');
+    // begin-get_logging_configuration
+
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    ibmAnalyticsEngineApiService
+      .getLoggingConfiguration(params)
+      .then((res) => {
+        console.log(JSON.stringify(res.result, null, 2));
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+
+    // end-get_logging_configuration
+  });
+  test('deleteLoggingConfiguration request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      done(output);
+    });
+
+    // begin-delete_logging_configuration
+
+    const params = {
+      instanceGuid: instanceGuid,
+    };
+
+    ibmAnalyticsEngineApiService
+      .deleteLoggingConfiguration(params)
+      .then((res) => {
+        done();
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+
+    // end-delete_logging_configuration
+  });
   test('deleteApplication request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
       done();
     });
     consoleWarnMock.mockImplementation((output) => {
