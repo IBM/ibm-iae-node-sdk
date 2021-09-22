@@ -56,6 +56,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
   const options = authHelper.ibm_analytics_engine_api_v3;
   options.authenticator = new IamAuthenticator({ apikey: options.apikey });
   const instanceGuid = options.instance_guid;
+  const instanceIdInstanceHome = options.instance_guid_instance_home;
   const hmacAccessKey = options.newHmacAccessKey;
   const hmacSecretKey = options.newHmacSecretKey;
   let applicationId = '';
@@ -67,7 +68,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
-
+  jest.setTimeout(timeout);
   test('getInstance request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -223,7 +224,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-create_instance_home
 
     const params = {
-      instanceId: instanceGuid,
+      instanceId: instanceIdInstanceHome,
       newInstanceId: 'testString',
       newProvider: 'ibm-cos',
       newType: 'objectstore',
