@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.41.1-790c0dfc-20211021-231519
  */
 
 import * as extend from 'extend';
@@ -149,6 +149,130 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
+   * Find Analytics Engine state by id.
+   *
+   * Retrieve the state of a single Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - GUID of the Analytics Engine service instance to retrieve state.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceGetStateResponse>>}
+   */
+  public getInstanceState(
+    params: IbmAnalyticsEngineApiV3.GetInstanceStateParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceGetStateResponse>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getInstanceState'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/state',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Edit Instance Home details.
+   *
+   * Instance details of the Object Storage instance that will be used as instance home.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The identifier of the instance details to be added.
+   * @param {string} [params.newInstanceId] - UUID of the instance home storage instance.
+   * @param {string} [params.newProvider] - Currently only ibm-cos (IBM Cloud Object Storage) is supported.
+   * @param {string} [params.newType] - Type of the instance home storage. Currently, only objectstore (Cloud Object
+   * Storage) is supported.
+   * @param {string} [params.newRegion] - Region of the Cloud Object Storage instance.
+   * @param {string} [params.newEndpoint] - Endpoint to access the Cloud Object Storage instance.
+   * @param {string} [params.newHmacAccessKey] - Cloud Object Storage access key.
+   * @param {string} [params.newHmacSecretKey] - Cloud Object Storage secret key.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>>}
+   */
+  public createInstanceHome(
+    params: IbmAnalyticsEngineApiV3.CreateInstanceHomeParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'instance_id': _params.newInstanceId,
+      'provider': _params.newProvider,
+      'type': _params.newType,
+      'region': _params.newRegion,
+      'endpoint': _params.newEndpoint,
+      'hmac_access_key': _params.newHmacAccessKey,
+      'hmac_secret_key': _params.newHmacSecretKey,
+    };
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'createInstanceHome'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/instance_home',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
    * Deploy a Spark application.
    *
    * Deploys a Spark application on a given serverless Spark instance.
@@ -210,7 +334,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   /**
    * Retrieve all Spark applications.
    *
-   * Gets all applications submitted in an instance with a specified inst_id.
+   * Gets all applications submitted in an instance with a specified instance-id.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Identifier of the instance where the applications run.
@@ -420,6 +544,227 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
 
     return this.createRequest(parameters);
   }
+
+  /**
+   * Enable/disable platform logging.
+   *
+   * Enable platform logging from IBM Analytics Engine.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - The identifier of the instance details to be added.
+   * @param {boolean} [params.enable] - enable platform logging.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   */
+  public enablePlatformLogging(
+    params: IbmAnalyticsEngineApiV3.EnablePlatformLoggingParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceGuid'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'enable': _params.enable,
+    };
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'enablePlatformLogging'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Disable platform logging.
+   *
+   * Disable platform logging from IBM Analytics Engine.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - The identifier of the instance details to be added.
+   * @param {boolean} [params.enable] - enable platform logging.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   */
+  public disablePlatformLogging(
+    params: IbmAnalyticsEngineApiV3.DisablePlatformLoggingParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceGuid'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = {
+      'enable': _params.enable,
+    };
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'disablePlatformLogging'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
+        method: 'PATCH',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Find logging configuration by instance id.
+   *
+   * Retrieve the logging configuration of a single Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - GUID of the Analytics Engine service instance to retrieve.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   */
+  public getLoggingConfiguration(
+    params: IbmAnalyticsEngineApiV3.GetLoggingConfigurationParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceGuid'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getLoggingConfiguration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Delete logging configuration by instance id.
+   *
+   * Delete the logging configuration of a single Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - Identifier of the instance to which the application belongs.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   */
+  public deleteLoggingConfiguration(
+    params: IbmAnalyticsEngineApiV3.DeleteLoggingConfigurationParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceGuid'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'deleteLoggingConfiguration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
 }
 
 /*************************
@@ -454,6 +799,34 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface GetInstanceParams {
     /** GUID of the Analytics Engine service instance to retrieve. */
     instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getInstanceState` operation. */
+  export interface GetInstanceStateParams {
+    /** GUID of the Analytics Engine service instance to retrieve state. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `createInstanceHome` operation. */
+  export interface CreateInstanceHomeParams {
+    /** The identifier of the instance details to be added. */
+    instanceId: string;
+    /** UUID of the instance home storage instance. */
+    newInstanceId?: string;
+    /** Currently only ibm-cos (IBM Cloud Object Storage) is supported. */
+    newProvider?: string;
+    /** Type of the instance home storage. Currently, only objectstore (Cloud Object Storage) is supported. */
+    newType?: string;
+    /** Region of the Cloud Object Storage instance. */
+    newRegion?: string;
+    /** Endpoint to access the Cloud Object Storage instance. */
+    newEndpoint?: string;
+    /** Cloud Object Storage access key. */
+    newHmacAccessKey?: string;
+    /** Cloud Object Storage secret key. */
+    newHmacSecretKey?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -500,6 +873,38 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `enablePlatformLogging` operation. */
+  export interface EnablePlatformLoggingParams {
+    /** The identifier of the instance details to be added. */
+    instanceGuid: string;
+    /** enable platform logging. */
+    enable?: boolean;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `disablePlatformLogging` operation. */
+  export interface DisablePlatformLoggingParams {
+    /** The identifier of the instance details to be added. */
+    instanceGuid: string;
+    /** enable platform logging. */
+    enable?: boolean;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getLoggingConfiguration` operation. */
+  export interface GetLoggingConfigurationParams {
+    /** GUID of the Analytics Engine service instance to retrieve. */
+    instanceGuid: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `deleteLoggingConfiguration` operation. */
+  export interface DeleteLoggingConfigurationParams {
+    /** Identifier of the instance to which the application belongs. */
+    instanceGuid: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /*************************
    * model interfaces
    ************************/
@@ -526,10 +931,32 @@ namespace IbmAnalyticsEngineApiV3 {
     applications?: Application[];
   }
 
+  /** Application details. */
+  export interface ApplicationDetails {
+    /** Path of the application to run. */
+    application?: string;
+    /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
+     *  applications.
+     */
+    class?: string;
+    /** An array of arguments to be passed to the application. */
+    arguments?: string[];
+    /** Application configurations to override the value specified at instance level. See [Spark environment
+     *  variables]( https://spark.apache.org/docs/latest/configuration.html#available-properties) for a list of the
+     *  supported variables.
+     */
+    conf?: JsonObject;
+    /** Application environment configurations to use. See [Spark environment
+     *  variables](https://spark.apache.org/docs/latest/configuration.html#environment-variables) for a list of the
+     *  supported variables.
+     */
+    env?: JsonObject;
+  }
+
   /** Response of the Application Get API. */
   export interface ApplicationGetResponse {
-    /** Application request details. */
-    application_details?: ApplicationRequest;
+    /** Application details. */
+    application_details?: ApplicationDetails;
     /** Application ID. */
     id?: string;
     /** Application state. */
@@ -550,12 +977,6 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application was completed. */
     finish_time?: string;
-  }
-
-  /** Application request details. */
-  export interface ApplicationRequest {
-    /** Application details. */
-    application_details?: ApplicationRequestApplicationDetails;
   }
 
   /** Application details. */
@@ -618,6 +1039,14 @@ namespace IbmAnalyticsEngineApiV3 {
     spark_version?: string;
   }
 
+  /** State details of Analytics Engine instance. */
+  export interface InstanceGetStateResponse {
+    /** GUID of the Analytics Engine instance. */
+    id?: string;
+    /** Instance state. */
+    state?: string;
+  }
+
   /** Object storage instance that acts as the home for custom libraries and Spark events. */
   export interface InstanceHome {
     /** UUID of the instance home storage instance. */
@@ -636,6 +1065,39 @@ namespace IbmAnalyticsEngineApiV3 {
     hmac_access_key?: string;
     /** Cloud Object Storage secret key. Masked for security reasons. */
     hmac_secret_key?: string;
+  }
+
+  /** Response of Instance home API. */
+  export interface InstanceHomeResponse {
+    /** UUID of the instance home storage instance. */
+    instance_id?: string;
+    /** Currently only ibm-cos (IBM Cloud Object Storage) is supported. */
+    provider?: string;
+    /** Type of the instance home storage. Currently, only objectstore (Cloud Object Storage) is supported. */
+    type?: string;
+    /** Region of the Cloud Object Storage instance. */
+    region?: string;
+    /** Endpoint to access the Cloud Object Storage instance. */
+    endpoint?: string;
+    /** Cloud Object Storage access key. */
+    hmac_access_key?: string;
+    /** Cloud Object Storage secret key. */
+    hmac_secret_key?: string;
+  }
+
+  /** Response of logging API. */
+  export interface LoggingConfigurationResponse {
+    /** component array. */
+    components?: string[];
+    log_server?: LoggingConfigurationResponseLogServer;
+    /** enable. */
+    enable?: boolean;
+  }
+
+  /** LoggingConfigurationResponseLogServer. */
+  export interface LoggingConfigurationResponseLogServer {
+    /** type of log server. */
+    type?: string;
   }
 }
 
