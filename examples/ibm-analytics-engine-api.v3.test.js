@@ -21,8 +21,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
-// const authHelper = require('../test/resources/auth-helper.js');
-const authHelper = require('../test/resources/auth.js');
+const authHelper = require('../test/resources/auth-helper.js');
+// const authHelper = require('../test/resources/auth.js');
 const { IamAuthenticator } = require('../dist/auth');
 const timeout = 20000;
 // You can use the readExternalSources method to access additional configuration values
