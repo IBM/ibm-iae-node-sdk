@@ -99,36 +99,36 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // 500
     //
   });
-  // test('createInstanceHome()', async () => {
-  //   console.log('createInstanceHome()');
-  //   const params = {
-  //     instanceId: instanceIdInstanceHome,
-  //     newInstanceId: 'testString',
-  //     newProvider: 'ibm-cos',
-  //     newType: 'objectstore',
-  //     newRegion: 'us-south',
-  //     newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
-  //     newHmacAccessKey: hmacAccessKey,
-  //     newHmacSecretKey: hmacSecretKey,
-  //   };
+  test('createInstanceHome()', async () => {
+    console.log('createInstanceHome()');
+    const params = {
+      instanceId: instanceIdInstanceHome,
+      newInstanceId: 'testString',
+      newProvider: 'ibm-cos',
+      newType: 'objectstore',
+      newRegion: 'us-south',
+      newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
+      newHmacAccessKey: hmacAccessKey,
+      newHmacSecretKey: hmacSecretKey,
+    };
 
-  //   const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
-  //   expect(res).toBeDefined();
-  //   expect(res.status).toBe(200);
-  //   expect(res.result).toBeDefined();
-  //   console.log(res);
+    const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    console.log(res);
 
-  //   //
-  //   // The following status codes aren't covered by tests.
-  //   // Please provide integration tests for these too.
-  //   //
-  //   // 400
-  //   // 401
-  //   // 403
-  //   // 404
-  //   // 500
-  //   //
-  // });
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
   test('createApplication()', async () => {
     console.log('createApplication()');
     // Request models needed by this operation.
