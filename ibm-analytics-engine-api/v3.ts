@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.41.1-790c0dfc-20211021-231519
+ * IBM OpenAPI SDK Code Generator Version: 3.39.0-748eb4ca-20210917-165907
  */
 
 import * as extend from 'extend';
@@ -935,6 +935,18 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface ApplicationDetails {
     /** Path of the application to run. */
     application?: string;
+    /** Path of the jar files containing the application. */
+    jars?: string;
+    /** Package names. */
+    packages?: string;
+    /** Repositories names. */
+    repositories?: string;
+    /** File names. */
+    files?: string;
+    /** Archive Names. */
+    archives?: string;
+    /** Name of the application. */
+    name?: string;
     /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
      *  applications.
      */
@@ -983,6 +995,18 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface ApplicationRequestApplicationDetails {
     /** Path of the application to run. */
     application?: string;
+    /** Path of the jar files containing the application. */
+    jars?: string;
+    /** Package names. */
+    packages?: string;
+    /** Repositories names. */
+    repositories?: string;
+    /** File names. */
+    files?: string;
+    /** Archive Names. */
+    archives?: string;
+    /** Name of the application. */
+    name?: string;
     /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
      *  applications.
      */
