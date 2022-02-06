@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
-const authHelper = require('../test/resources/auth-helper.js');
-// const authHelper = require('../test/resources/auth.js');
+// const authHelper = require('../test/resources/auth-helper.js');
+const authHelper = require('../test/resources/auth.js');
 const { IamAuthenticator } = require('../dist/auth');
 const timeout = 20000;
 // You can use the readExternalSources method to access additional configuration values
@@ -70,13 +70,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
   // begin-common
 
     ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
+    expect(ibmAnalyticsEngineApiService).not.toBeNull();
 
   // end-common
   });
   
-/** The testcase functions are introduced with a callback function (done), so that the test
-halts till the async tasks complete and only after completion (done) is called to indicate
-completion of the testcase */
 
   test('getInstance request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
@@ -85,8 +83,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -97,14 +95,14 @@ completion of the testcase */
       instanceId: instanceGuid,
     };
 
-      ibmAnalyticsEngineApiService
+    ibmAnalyticsEngineApiService
       .getInstance(params)
       .then((res)=>{
         console.log(JSON.stringify(res.result, null, 2));
       })
       .catch((err) => {
-      console.warn(err);
-    });
+        console.warn(err);
+      });  
 
     // end-get_instance
   });
@@ -112,12 +110,12 @@ completion of the testcase */
   test('getInstanceState request example', (done) => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-       done();      
+      done();   
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -128,7 +126,7 @@ completion of the testcase */
       instanceId: instanceGuid,
     };
 
-     ibmAnalyticsEngineApiService
+    ibmAnalyticsEngineApiService
      .getInstanceState(params)
      .then((res)=>{
         console.log(JSON.stringify(res.result, null, 2));
@@ -136,7 +134,6 @@ completion of the testcase */
      .catch((err)=>{
         console.warn(err);
       });
-  
 
     // end-get_instance_state
   });
@@ -148,9 +145,9 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
-       done();
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      done();
     });
 
     originalLog('createInstanceHome() result:');
@@ -167,8 +164,7 @@ completion of the testcase */
       newHmacSecretKey: hmacSecretKey,
     };
 
- 
-  ibmAnalyticsEngineApiService
+    ibmAnalyticsEngineApiService
   .createInstanceHome(params)
   .then((res)=>{
     console.log(JSON.stringify(res.result, null, 2));
@@ -176,9 +172,100 @@ completion of the testcase */
   .catch((err)=>{
     console.warn(err);
   })
-  
 
     // end-create_instance_home
+  });
+
+  test('getDefaultConfigs request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      done();
+    });
+
+    // begin-get_default_configs
+
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    ibmAnalyticsEngineApiService
+    .getDefaultConfigs(params)
+    .then((res)=>{
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err)=>{
+      console.warn(err);
+    })
+
+    // end-get_default_configs
+  });
+
+  test('updateDefaultConfigs request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      done();
+    });
+
+    // begin-update_default_configs
+
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key1': 'value1' },
+    };
+
+    ibmAnalyticsEngineApiService
+    .updateDefaultConfigs(params)
+    .then((res)=>{
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err)=>{
+      console.warn(err);
+    })
+
+    // end-update_default_configs
+  });
+
+  test('editDefaultConfigs request example', (done) => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      done();
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      done();
+    });
+
+    // begin-edit_default_configs
+
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key2': 'value2' },
+    };
+
+    ibmAnalyticsEngineApiService
+    .editDefaultConfigs(params)
+    .then((res)=>{
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err)=>{
+      console.warn(err);
+    })
+
+    // end-edit_default_configs
   });
 
   test('createApplication request example', (done) => {
@@ -188,8 +275,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -199,6 +286,7 @@ completion of the testcase */
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
       arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
+
     const params = {
       instanceId: instanceGuid,
       applicationDetails: applicationRequestApplicationDetailsModel,
@@ -207,11 +295,12 @@ completion of the testcase */
     ibmAnalyticsEngineApiService
     .createApplication(params)
     .then((res) => {
+      applicationId=res.result.id
       console.log(JSON.stringify(res.result, null, 2));
     })
-    .catch((err) => {
+    .catch ((err) => {
       console.warn(err);
-    });
+    })
 
     // end-create_application
   });
@@ -223,8 +312,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -235,7 +324,7 @@ completion of the testcase */
       instanceId: instanceGuid,
     };
 
-      ibmAnalyticsEngineApiService.
+    ibmAnalyticsEngineApiService.
       listApplications(params)
       .then((res) => {
         console.log(JSON.stringify(res.result, null, 2));
@@ -254,8 +343,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -267,14 +356,14 @@ completion of the testcase */
       applicationId: applicationId,
     };
 
-      ibmAnalyticsEngineApiService
-      .getApplication(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    ibmAnalyticsEngineApiService
+    .getApplication(params)
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
 
     // end-get_application
   });
@@ -286,8 +375,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -301,12 +390,12 @@ completion of the testcase */
 
     ibmAnalyticsEngineApiService
     .getApplicationState(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
 
     // end-get_application_state
   });
@@ -318,8 +407,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -328,11 +417,12 @@ completion of the testcase */
 
     const params = {
       instanceGuid: instanceGuid,
+      enable: true,
     };
-
     ibmAnalyticsEngineApiService
     .enablePlatformLogging(params)
     .then((res) => {
+      console.log(res);
       console.log(JSON.stringify(res.result, null, 2));
     })
     .catch((err) => {
@@ -349,8 +439,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -359,6 +449,7 @@ completion of the testcase */
 
     const params = {
       instanceGuid: instanceGuid,
+      enable: false,
     };
 
     ibmAnalyticsEngineApiService
@@ -380,8 +471,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -411,8 +502,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -424,12 +515,12 @@ completion of the testcase */
 
     ibmAnalyticsEngineApiService
     .deleteLoggingConfiguration(params)
-      .then((res) => {
-        done();
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
 
     // end-delete_logging_configuration
   });
@@ -441,8 +532,8 @@ completion of the testcase */
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
-      // originalWarn(output);
-      // expect(true).toBeFalsy();
+      originalWarn(output);
+      expect(true).toBeFalsy();
       done();
     });
 
@@ -456,7 +547,7 @@ completion of the testcase */
     ibmAnalyticsEngineApiService
     .deleteApplication(params)
     .then((res) => {
-      done();
+      console.log(JSON.stringify(res.result, null, 2));
     })
     .catch((err) => {
       console.warn(err);

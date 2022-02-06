@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.41.1-790c0dfc-20211021-231519
+ * IBM OpenAPI SDK Code Generator Version: 3.43.5-e0ec19e2-20220124-172004
  */
 
 import * as extend from 'extend';
@@ -253,6 +253,173 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       options: {
         url: '/v3/analytics_engines/{instance_id}/instance_home',
         method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get the default spark configuration by instance id.
+   *
+   * Instance level default configuration for Spark workloads.This can also contain custom spark configs, like
+   * "ae.spark.executor.count", "ae.spark.librarysets" or "ae.spark.autoscale.enable".
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The identifier of the instance details to be added.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   */
+  public getDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.GetDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update default spark configuration.
+   *
+   * Instance level default configuration for Spark workloads.This can also contain custom spark configs, like
+   * "ae.spark.executor.count", "ae.spark.librarysets" or "ae.spark.autoscale.enable".
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The identifier of the instance details to be updated.
+   * @param {JsonObject} params.body - Request json with default configuration details of the Object Storage instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   */
+  public updateDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.UpdateDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = _params.body;
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'updateDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Edit default spark configuration.
+   *
+   * Instance level default configuration for Spark workloads.This can also contain custom spark configs, like
+   * "ae.spark.executor.count", "ae.spark.librarysets" or "ae.spark.autoscale.enable".
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The identifier of the instance details to be edited.
+   * @param {JsonObject} params.body - Request json with default configuration details of the Object Storage instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   */
+  public editDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.EditDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+    const _params = { ...params };
+    const requiredParams = ['instanceId'];
+
+    const missingParams = getMissingParams(_params, requiredParams);
+    if (missingParams) {
+      return Promise.reject(missingParams);
+    }
+
+    const body = _params.body;
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'editDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'PATCH',
         body,
         path,
       },
@@ -827,6 +994,31 @@ namespace IbmAnalyticsEngineApiV3 {
     newHmacAccessKey?: string;
     /** Cloud Object Storage secret key. */
     newHmacSecretKey?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getDefaultConfigs` operation. */
+  export interface GetDefaultConfigsParams {
+    /** The identifier of the instance details to be added. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateDefaultConfigs` operation. */
+  export interface UpdateDefaultConfigsParams {
+    /** The identifier of the instance details to be updated. */
+    instanceId: string;
+    /** Request json with default configuration details of the Object Storage instance. */
+    body: JsonObject;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `editDefaultConfigs` operation. */
+  export interface EditDefaultConfigsParams {
+    /** The identifier of the instance details to be edited. */
+    instanceId: string;
+    /** Request json with default configuration details of the Object Storage instance. */
+    body: JsonObject;
     headers?: OutgoingHttpHeaders;
   }
 

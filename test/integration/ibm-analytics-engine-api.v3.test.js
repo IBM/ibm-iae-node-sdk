@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-const authHelper = require('../resources/auth-helper.js');
-// const authHelper = require('../resources/auth.js');
+// const authHelper = require('../resources/auth-helper.js');
+const authHelper = require('../resources/auth.js');
 const { IamAuthenticator } = require('../../dist/auth');
 // testcase timeout value (200s).
 const timeout = 200000;
@@ -37,8 +37,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   const hmacAccessKey = options.newHmacAccessKey;
   const hmacSecretKey = options.newHmacSecretKey;
   let applicationId = '';
-  // const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
-
   jest.setTimeout(timeout);
 
   let ibmAnalyticsEngineApiService;
@@ -65,7 +63,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -87,7 +85,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -116,8 +114,75 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('getDefaultConfigs()', async () => {
+    console.log('getDefaultConfigs()');
+    const params = {
+      instanceId: instanceGuid,
+    };
 
+    const res = await ibmAnalyticsEngineApiService.getDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('updateDefaultConfigs()', async () => {
+    console.log('updateDefaultConfigs()');
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key1': 'value1' },
+    };
+
+    const res = await ibmAnalyticsEngineApiService.updateDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('editDefaultConfigs()', async () => {
+    console.log('editDefaultConfigs()');
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key2': 'value2' },
+    };
+
+    const res = await ibmAnalyticsEngineApiService.editDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -149,8 +214,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
-    // console.log(res);
-
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -172,7 +236,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -195,7 +259,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -218,8 +282,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
-
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -242,7 +305,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -265,7 +328,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -287,7 +350,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -309,7 +372,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-    // console.log(res);
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -332,8 +395,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-    // console.log(res);
-
+    console.log(res);
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.

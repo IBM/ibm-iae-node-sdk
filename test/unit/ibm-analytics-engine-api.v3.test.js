@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,11 +102,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __getInstanceTest() {
         // Construct the params object for operation getInstance
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const params = {
+        const getInstanceParams = {
           instanceId: instanceId,
         };
 
-        const getInstanceResult = ibmAnalyticsEngineApiService.getInstance(params);
+        const getInstanceResult = ibmAnalyticsEngineApiService.getInstance(getInstanceParams);
 
         // all methods should return a Promise
         expectToBePromise(getInstanceResult);
@@ -143,7 +143,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const getInstanceParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -151,7 +151,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getInstance(params);
+        ibmAnalyticsEngineApiService.getInstance(getInstanceParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -185,11 +185,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __getInstanceStateTest() {
         // Construct the params object for operation getInstanceState
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const params = {
+        const getInstanceStateParams = {
           instanceId: instanceId,
         };
 
-        const getInstanceStateResult = ibmAnalyticsEngineApiService.getInstanceState(params);
+        const getInstanceStateResult = ibmAnalyticsEngineApiService.getInstanceState(
+          getInstanceStateParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getInstanceStateResult);
@@ -226,7 +228,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const getInstanceStateParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -234,7 +236,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getInstanceState(params);
+        ibmAnalyticsEngineApiService.getInstanceState(getInstanceStateParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -275,7 +277,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const newEndpoint = 's3.direct.us-south.cloud-object-storage.appdomain.cloud';
         const newHmacAccessKey = '821**********0ae';
         const newHmacSecretKey = '03e****************4fc3';
-        const params = {
+        const createInstanceHomeParams = {
           instanceId: instanceId,
           newInstanceId: newInstanceId,
           newProvider: newProvider,
@@ -286,7 +288,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
           newHmacSecretKey: newHmacSecretKey,
         };
 
-        const createInstanceHomeResult = ibmAnalyticsEngineApiService.createInstanceHome(params);
+        const createInstanceHomeResult = ibmAnalyticsEngineApiService.createInstanceHome(
+          createInstanceHomeParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(createInstanceHomeResult);
@@ -334,7 +338,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const createInstanceHomeParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -342,7 +346,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.createInstanceHome(params);
+        ibmAnalyticsEngineApiService.createInstanceHome(createInstanceHomeParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -371,6 +375,283 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
     });
   });
+  describe('getDefaultConfigs', () => {
+    describe('positive tests', () => {
+      function __getDefaultConfigsTest() {
+        // Construct the params object for operation getDefaultConfigs
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const getDefaultConfigsParams = {
+          instanceId: instanceId,
+        };
+
+        const getDefaultConfigsResult = ibmAnalyticsEngineApiService.getDefaultConfigs(
+          getDefaultConfigsParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getDefaultConfigsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/default_configs',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getDefaultConfigsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.enableRetries();
+        __getDefaultConfigsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.disableRetries();
+        __getDefaultConfigsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getDefaultConfigsParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.getDefaultConfigs(getDefaultConfigsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getDefaultConfigs({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getDefaultConfigs();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('updateDefaultConfigs', () => {
+    describe('positive tests', () => {
+      function __updateDefaultConfigsTest() {
+        // Construct the params object for operation updateDefaultConfigs
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const body = { 'key1': 'testString' };
+        const updateDefaultConfigsParams = {
+          instanceId: instanceId,
+          body: body,
+        };
+
+        const updateDefaultConfigsResult = ibmAnalyticsEngineApiService.updateDefaultConfigs(
+          updateDefaultConfigsParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(updateDefaultConfigsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/default_configs',
+          'PUT'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(body);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateDefaultConfigsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.enableRetries();
+        __updateDefaultConfigsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.disableRetries();
+        __updateDefaultConfigsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const body = { 'key1': 'testString' };
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateDefaultConfigsParams = {
+          instanceId,
+          body,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.updateDefaultConfigs(updateDefaultConfigsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.updateDefaultConfigs({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.updateDefaultConfigs();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+  describe('editDefaultConfigs', () => {
+    describe('positive tests', () => {
+      function __editDefaultConfigsTest() {
+        // Construct the params object for operation editDefaultConfigs
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const body = { 'key1': 'testString' };
+        const editDefaultConfigsParams = {
+          instanceId: instanceId,
+          body: body,
+        };
+
+        const editDefaultConfigsResult = ibmAnalyticsEngineApiService.editDefaultConfigs(
+          editDefaultConfigsParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(editDefaultConfigsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/default_configs',
+          'PATCH'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body).toEqual(body);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __editDefaultConfigsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.enableRetries();
+        __editDefaultConfigsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        // ibmAnalyticsEngineApiService.disableRetries();
+        __editDefaultConfigsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const body = { 'key1': 'testString' };
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const editDefaultConfigsParams = {
+          instanceId,
+          body,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.editDefaultConfigs(editDefaultConfigsParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.editDefaultConfigs({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.editDefaultConfigs();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
   describe('createApplication', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
@@ -388,12 +669,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation createApplication
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const applicationDetails = applicationRequestApplicationDetailsModel;
-        const params = {
+        const createApplicationParams = {
           instanceId: instanceId,
           applicationDetails: applicationDetails,
         };
 
-        const createApplicationResult = ibmAnalyticsEngineApiService.createApplication(params);
+        const createApplicationResult = ibmAnalyticsEngineApiService.createApplication(
+          createApplicationParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(createApplicationResult);
@@ -435,7 +718,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const createApplicationParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -443,7 +726,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.createApplication(params);
+        ibmAnalyticsEngineApiService.createApplication(createApplicationParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -477,11 +760,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __listApplicationsTest() {
         // Construct the params object for operation listApplications
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const params = {
+        const listApplicationsParams = {
           instanceId: instanceId,
         };
 
-        const listApplicationsResult = ibmAnalyticsEngineApiService.listApplications(params);
+        const listApplicationsResult = ibmAnalyticsEngineApiService.listApplications(
+          listApplicationsParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(listApplicationsResult);
@@ -522,7 +807,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const listApplicationsParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -530,7 +815,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.listApplications(params);
+        ibmAnalyticsEngineApiService.listApplications(listApplicationsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -565,12 +850,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation getApplication
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
-        const params = {
+        const getApplicationParams = {
           instanceId: instanceId,
           applicationId: applicationId,
         };
 
-        const getApplicationResult = ibmAnalyticsEngineApiService.getApplication(params);
+        const getApplicationResult = ibmAnalyticsEngineApiService.getApplication(
+          getApplicationParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getApplicationResult);
@@ -613,7 +900,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const getApplicationParams = {
           instanceId,
           applicationId,
           headers: {
@@ -622,7 +909,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getApplication(params);
+        ibmAnalyticsEngineApiService.getApplication(getApplicationParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -657,12 +944,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation deleteApplication
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
-        const params = {
+        const deleteApplicationParams = {
           instanceId: instanceId,
           applicationId: applicationId,
         };
 
-        const deleteApplicationResult = ibmAnalyticsEngineApiService.deleteApplication(params);
+        const deleteApplicationResult = ibmAnalyticsEngineApiService.deleteApplication(
+          deleteApplicationParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(deleteApplicationResult);
@@ -705,7 +994,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const deleteApplicationParams = {
           instanceId,
           applicationId,
           headers: {
@@ -714,7 +1003,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.deleteApplication(params);
+        ibmAnalyticsEngineApiService.deleteApplication(deleteApplicationParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -749,12 +1038,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation getApplicationState
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
-        const params = {
+        const getApplicationStateParams = {
           instanceId: instanceId,
           applicationId: applicationId,
         };
 
-        const getApplicationStateResult = ibmAnalyticsEngineApiService.getApplicationState(params);
+        const getApplicationStateResult = ibmAnalyticsEngineApiService.getApplicationState(
+          getApplicationStateParams
+        );
 
         // all methods should return a Promise
         expectToBePromise(getApplicationStateResult);
@@ -797,7 +1088,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const applicationId = 'ff48cc19-0e7e-4627-aac6-0b4ad080397b';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const getApplicationStateParams = {
           instanceId,
           applicationId,
           headers: {
@@ -806,7 +1097,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getApplicationState(params);
+        ibmAnalyticsEngineApiService.getApplicationState(getApplicationStateParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -841,13 +1132,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation enablePlatformLogging
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const enable = true;
-        const params = {
+        const enablePlatformLoggingParams = {
           instanceGuid: instanceGuid,
           enable: enable,
         };
 
         const enablePlatformLoggingResult = ibmAnalyticsEngineApiService.enablePlatformLogging(
-          params
+          enablePlatformLoggingParams
         );
 
         // all methods should return a Promise
@@ -890,7 +1181,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const enablePlatformLoggingParams = {
           instanceGuid,
           headers: {
             Accept: userAccept,
@@ -898,7 +1189,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.enablePlatformLogging(params);
+        ibmAnalyticsEngineApiService.enablePlatformLogging(enablePlatformLoggingParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -933,13 +1224,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation disablePlatformLogging
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const enable = true;
-        const params = {
+        const disablePlatformLoggingParams = {
           instanceGuid: instanceGuid,
           enable: enable,
         };
 
         const disablePlatformLoggingResult = ibmAnalyticsEngineApiService.disablePlatformLogging(
-          params
+          disablePlatformLoggingParams
         );
 
         // all methods should return a Promise
@@ -982,7 +1273,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const disablePlatformLoggingParams = {
           instanceGuid,
           headers: {
             Accept: userAccept,
@@ -990,7 +1281,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.disablePlatformLogging(params);
+        ibmAnalyticsEngineApiService.disablePlatformLogging(disablePlatformLoggingParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1024,12 +1315,12 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __getLoggingConfigurationTest() {
         // Construct the params object for operation getLoggingConfiguration
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const params = {
+        const getLoggingConfigurationParams = {
           instanceGuid: instanceGuid,
         };
 
         const getLoggingConfigurationResult = ibmAnalyticsEngineApiService.getLoggingConfiguration(
-          params
+          getLoggingConfigurationParams
         );
 
         // all methods should return a Promise
@@ -1071,7 +1362,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const getLoggingConfigurationParams = {
           instanceGuid,
           headers: {
             Accept: userAccept,
@@ -1079,7 +1370,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
+        ibmAnalyticsEngineApiService.getLoggingConfiguration(getLoggingConfigurationParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1113,12 +1404,12 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __deleteLoggingConfigurationTest() {
         // Construct the params object for operation deleteLoggingConfiguration
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const params = {
+        const deleteLoggingConfigurationParams = {
           instanceGuid: instanceGuid,
         };
 
         const deleteLoggingConfigurationResult = ibmAnalyticsEngineApiService.deleteLoggingConfiguration(
-          params
+          deleteLoggingConfigurationParams
         );
 
         // all methods should return a Promise
@@ -1160,7 +1451,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const params = {
+        const deleteLoggingConfigurationParams = {
           instanceGuid,
           headers: {
             Accept: userAccept,
@@ -1168,7 +1459,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.deleteLoggingConfiguration(params);
+        ibmAnalyticsEngineApiService.deleteLoggingConfiguration(deleteLoggingConfigurationParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
