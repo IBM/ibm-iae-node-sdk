@@ -23,8 +23,8 @@ const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
 
 //!!! Start of custom content to be copied !!!
-// const authHelper = require('../resources/auth-helper.js');
-const authHelper = require('../test/resources/auth.js');
+// Replace auth-helper.js with auth.js
+const authHelper = require('../resources/auth-helper.js');
 const { IamAuthenticator } = require('../dist/auth');
 const timeout = 200000;
 // !!! End of custom content to be copied !!!
@@ -503,135 +503,135 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // end-get_logging_configuration
   });
 
-  // //!!! Start of custom content to be copied !!!
-  // test('startSparkHistoryServer request example', (done) => {
-  // // !!! End of custom content to be copied !!!  
-  //   consoleLogMock.mockImplementation((output) => {
-  //     originalLog(output);
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
+  //!!! Start of custom content to be copied !!!
+  test('startSparkHistoryServer request example', (done) => {
+  // !!! End of custom content to be copied !!!  
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
 
-  //   });
-  //   consoleWarnMock.mockImplementation((output) => {
-  //     // if an error occurs, display the message and then fail the test
-  //     originalWarn(output);
-  //     expect(true).toBeFalsy();
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
-  //   });
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
+    });
 
-  //   originalLog('startSparkHistoryServer() result:');
-  //   // begin-start_spark_history_server
+    originalLog('startSparkHistoryServer() result:');
+    // begin-start_spark_history_server
 
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
-  //   //!!! Start of custom content to be copied !!!
-  //   ibmAnalyticsEngineApiService
-  //   .startSparkHistoryServer(params)
-  //   .then((res) => {
-  //     console.log(JSON.stringify(res.result, null, 2));
-  //   })
-  //   .catch((err) => {
-  //     console.warn(err);
-  //   });
-  //   // let res;
-  //   // try {
-  //   //   res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
-  //   //   console.log(JSON.stringify(res.result, null, 2));
-  //   // } catch (err) {
-  //   //   console.warn(err);
-  //   // }
-  //   // !!! End of custom content to be copied !!!
-  //   // end-start_spark_history_server
-  // });
+    const params = {
+      instanceId: instanceGuid,
+    };
+    //!!! Start of custom content to be copied !!!
+    ibmAnalyticsEngineApiService
+    .startSparkHistoryServer(params)
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
+    // let res;
+    // try {
+    //   res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
+    //   console.log(JSON.stringify(res.result, null, 2));
+    // } catch (err) {
+    //   console.warn(err);
+    // }
+    // !!! End of custom content to be copied !!!
+    // end-start_spark_history_server
+  });
 
-  // //!!! Start of custom content to be copied !!!
-  // test('getSparkHistoryServer request example', (done) => {
-  // // !!! End of custom content to be copied !!!  
-  //   consoleLogMock.mockImplementation((output) => {
-  //     originalLog(output);
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
-  //   });
-  //   consoleWarnMock.mockImplementation((output) => {
-  //     // if an error occurs, display the message and then fail the test
-  //     originalWarn(output);
-  //     expect(true).toBeFalsy();
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
-  //   });
+  //!!! Start of custom content to be copied !!!
+  test('getSparkHistoryServer request example', (done) => {
+  // !!! End of custom content to be copied !!!  
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
+    });
 
-  //   originalLog('getSparkHistoryServer() result:');
-  //   // begin-get_spark_history_server
+    originalLog('getSparkHistoryServer() result:');
+    // begin-get_spark_history_server
 
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
-  //   //!!! Start of custom content to be copied !!!
-  //   ibmAnalyticsEngineApiService
-  //   .getSparkHistoryServer(params)
-  //   .then((res) => {
-  //     console.log(JSON.stringify(res.result, null, 2));
-  //   })
-  //   .catch((err) => {
-  //     console.warn(err);
-  //   });
-  //   // let res;
-  //   // try {
-  //   //   res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
-  //   //   console.log(JSON.stringify(res.result, null, 2));
-  //   // } catch (err) {
-  //   //   console.warn(err);
-  //   // }
-  //   // !!! End of custom content to be copied !!!
-  //   // end-get_spark_history_server
-  // });
+    const params = {
+      instanceId: instanceGuid,
+    };
+    //!!! Start of custom content to be copied !!!
+    ibmAnalyticsEngineApiService
+    .getSparkHistoryServer(params)
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
+    // let res;
+    // try {
+    //   res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
+    //   console.log(JSON.stringify(res.result, null, 2));
+    // } catch (err) {
+    //   console.warn(err);
+    // }
+    // !!! End of custom content to be copied !!!
+    // end-get_spark_history_server
+  });
 
-  // //!!! Start of custom content to be copied !!!
-  // test('stopSparkHistoryServer request example', (done) => {
-  // // !!! End of custom content to be copied !!!  
-  //   consoleLogMock.mockImplementation((output) => {
-  //     originalLog(output);
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
-  //   });
-  //   consoleWarnMock.mockImplementation((output) => {
-  //     // if an error occurs, display the message and then fail the test
-  //     originalWarn(output);
-  //     expect(true).toBeFalsy();
-  //     //!!! Start of custom content to be copied !!!
-  //     done();
-  //     // !!! End of custom content to be copied !!!
-  //   });
+  //!!! Start of custom content to be copied !!!
+  test('stopSparkHistoryServer request example', (done) => {
+  // !!! End of custom content to be copied !!!  
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+      //!!! Start of custom content to be copied !!!
+      done();
+      // !!! End of custom content to be copied !!!
+    });
 
-  //   // begin-stop_spark_history_server
+    // begin-stop_spark_history_server
 
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
-  //    //!!! Start of custom content to be copied !!!
-  //   ibmAnalyticsEngineApiService
-  //   .stopSparkHistoryServer(params)
-  //   .then((res) => {
-  //     console.log(JSON.stringify(res.result, null, 2));
-  //   })
-  //   .catch((err) => {
-  //     console.warn(err);
-  //   });
-  //   // try {
-  //   //   await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-  //   // } catch (err) {
-  //   //   console.warn(err);
-  //   // }
-  //   // !!! End of custom content to be copied !!!
-  //   // end-stop_spark_history_server
-  // });
+    const params = {
+      instanceId: instanceGuid,
+    };
+     //!!! Start of custom content to be copied !!!
+    ibmAnalyticsEngineApiService
+    .stopSparkHistoryServer(params)
+    .then((res) => {
+      console.log(JSON.stringify(res.result, null, 2));
+    })
+    .catch((err) => {
+      console.warn(err);
+    });
+    // try {
+    //   await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+    // } catch (err) {
+    //   console.warn(err);
+    // }
+    // !!! End of custom content to be copied !!!
+    // end-stop_spark_history_server
+  });
 
   //!!! Start of custom content to be copied !!!
   test('deleteLoggingConfiguration request example', (done) => {

@@ -20,8 +20,8 @@ const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3'
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 
 // !!! Start of custom content to be copied !!!
-// const authHelper = require('../resources/auth-helper.js');
-const authHelper = require('../resources/auth.js');
+// Replace auth-helper.js with auth.js
+const authHelper = require('../resources/auth-helper.js');
 const { IamAuthenticator } = require('../../dist/auth');
 // !!! End of custom content to be copied !!!
 
@@ -282,72 +282,72 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // 500
     //
   });
-  // test('startSparkHistoryServer()', async () => {
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
+  test('startSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
 
-  //   const res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
-  //   expect(res).toBeDefined();
-  //   expect(res.status).toBe(201);
-  //   expect(res.result).toBeDefined();
-  //   console.log('startSparkHistoryServer');
-  //   console.log(res);
-  //   //
-  //   // The following status codes aren't covered by tests.
-  //   // Please provide integration tests for these too.
-  //   //
-  //   // 400
-  //   // 401
-  //   // 403
-  //   // 404
-  //   // 500
-  //   //
-  // });
-  // test('getSparkHistoryServer()', async () => {
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
+    const res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+    console.log('startSparkHistoryServer');
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('getSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
 
-  //   const res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
-  //   expect(res).toBeDefined();
-  //   expect(res.status).toBe(200);
-  //   expect(res.result).toBeDefined();
-  //   console.log('getSparkHistoryServer');
-  //   console.log(res);
-  //   //
-  //   // The following status codes aren't covered by tests.
-  //   // Please provide integration tests for these too.
-  //   //
-  //   // 400
-  //   // 401
-  //   // 403
-  //   // 404
-  //   // 500
-  //   //
-  // });
-  // test('stopSparkHistoryServer()', async () => {
-  //   const params = {
-  //     instanceId: instanceGuid,
-  //   };
+    const res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+    console.log('getSparkHistoryServer');
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
+  test('stopSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
 
-  //   const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-  //   expect(res).toBeDefined();
-  //   expect(res.status).toBe(204);
-  //   expect(res.result).toBeDefined();
-  //   console.log('stopSparkHistoryServer');
-  //   console.log(res);
-  //   //
-  //   // The following status codes aren't covered by tests.
-  //   // Please provide integration tests for these too.
-  //   //
-  //   // 400
-  //   // 401
-  //   // 403
-  //   // 404
-  //   // 500
-  //   //
-  // });
+    const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
+    expect(res.result).toBeDefined();
+    console.log('stopSparkHistoryServer');
+    console.log(res);
+    //
+    // The following status codes aren't covered by tests.
+    // Please provide integration tests for these too.
+    //
+    // 400
+    // 401
+    // 403
+    // 404
+    // 500
+    //
+  });
   test('deleteLoggingConfiguration()', async () => {
     const params = {
       instanceGuid: instanceGuid,
