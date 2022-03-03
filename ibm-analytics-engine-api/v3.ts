@@ -24,8 +24,8 @@ import {
   Authenticator,
   BaseService,
   getAuthenticatorFromEnvironment,
-  //!!! Start of custom content to be copied !!!
-  //validateParams,
+  // !!! Start of custom content to be copied !!!
+  // validateParams,
   getMissingParams,
   // !!! End of custom content to be copied !!!
   UserOptions,
@@ -42,11 +42,6 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
-
-  private static _regionalEndpoints = new Map([
-    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
-    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
-  ]);
 
   /**
    * Returns the service URL associated with the specified region.
@@ -89,6 +84,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     return service;
   }
 
+  private static _regionalEndpoints = new Map([
+    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
+    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
+  ]);
+
   /**
    * Construct a IbmAnalyticsEngineApiV3 object.
    *
@@ -128,7 +128,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetInstanceParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Instance>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -187,7 +187,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetInstanceStateParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceGetStateResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -256,7 +256,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.CreateInstanceHomeParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -328,7 +328,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.CreateApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -394,7 +394,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.ListApplicationsParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
 
     const requiredParams = ['instanceId'];
 
@@ -456,7 +456,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId', 'applicationId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -518,7 +518,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.DeleteApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId', 'applicationId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -578,7 +578,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetApplicationStateParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId', 'applicationId'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -639,7 +639,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.ConfigurePlatformLoggingParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceGuid'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -705,7 +705,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetLoggingConfigurationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceGuid'];
 
     const missingParams = getMissingParams(_params, requiredParams);
@@ -764,7 +764,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.DeleteLoggingConfigurationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
     const _params = { ...params };
-     //!!! Start of custom content to be copied !!!
+     // !!! Start of custom content to be copied !!!
      const requiredParams = ['instanceGuid'];
 
      const missingParams = getMissingParams(_params, requiredParams);
@@ -822,7 +822,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.StartSparkHistoryServerParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerStartResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
      const missingParams = getMissingParams(_params, requiredParams);
@@ -881,7 +881,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetSparkHistoryServerParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
      const missingParams = getMissingParams(_params, requiredParams);
@@ -940,7 +940,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.StopSparkHistoryServerParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
     const _params = { ...params };
-    //!!! Start of custom content to be copied !!!
+    // !!! Start of custom content to be copied !!!
     const requiredParams = ['instanceId'];
 
      const missingParams = getMissingParams(_params, requiredParams);
