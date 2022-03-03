@@ -24,6 +24,12 @@ module.exports = {
   ibm_analytics_engine_api_v2: {
     serviceUrl: '',
     apikey: '',
+    apiAuthUrl: '',
     instance_guid: '',
+    instance_guid_instance_home: '',
+    instance_guid_example: '',
+    instance_guid_example_instance_home: '',
+    newHmacAccessKey: '',
+    newHmacSecretKey: '',
   },
 };
