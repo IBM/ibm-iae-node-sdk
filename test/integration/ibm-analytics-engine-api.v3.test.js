@@ -37,6 +37,7 @@ const timeout = 200000;
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
   // !!! Start of custom content to be copied !!!
+  // Assignment of configuration variables from auth.js
   const options = authHelper.ibm_analytics_engine_api_v3;
   options.authenticator = new IamAuthenticator({ apikey: options.apikey, url: options.apiAuthUrl });
   const instanceGuid = options.instance_guid;
