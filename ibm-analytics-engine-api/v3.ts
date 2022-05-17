@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.45.1-632ec580-20220210-190638
+ * IBM OpenAPI SDK Code Generator Version: 3.49.0-be9b22fb-20220504-154308
  */
 
 import * as extend from 'extend';
@@ -42,6 +42,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
+
+  private static _regionalEndpoints = new Map([
+    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
+    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
+  ]);
 
   /**
    * Returns the service URL associated with the specified region.
@@ -83,11 +88,6 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     }
     return service;
   }
-
-  private static _regionalEndpoints = new Map([
-    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
-    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
-  ]);
 
   /**
    * Construct a IbmAnalyticsEngineApiV3 object.
@@ -198,8 +198,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     // const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     // if (_validationErrors) {
     //   return Promise.reject(_validationErrors);
-    // !!! End of custom content to be copied !!!
-
+    // !!! End of custom content to be copied !!! 
     }
 
     const path = {
@@ -234,13 +233,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
-   * Edit instance home details.
+   * Set instance home.
    *
-   * Update details of the Object Storage associated as 'instance home' for an Analytics Engine instance.
+   * Provide the details of the Cloud Object Storage instance to associate with the Analytics Engine instance and use as
+   * 'instance home' if 'instance home' has not already been set.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - GUID of the Analytics Engine instance for which 'instance home' is to be
-   * updated.
+   * @param {string} params.instanceId - GUID of the Analytics Engine instance for which 'instance home' is to be set.
    * @param {string} [params.newInstanceId] - UUID of the instance home storage instance.
    * @param {string} [params.newProvider] - Currently only ibm-cos (IBM Cloud Object Storage) is supported.
    * @param {string} [params.newType] - Type of the instance home storage. Currently, only objectstore (Cloud Object
@@ -252,8 +251,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>>}
    */
-  public createInstanceHome(
-    params: IbmAnalyticsEngineApiV3.CreateInstanceHomeParams
+  public setInstanceHome(
+    params: IbmAnalyticsEngineApiV3.SetInstanceHomeParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
     const _params = { ...params };
     // !!! Start of custom content to be copied !!!
@@ -287,7 +286,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     const sdkHeaders = getSdkHeaders(
       IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
       'v3',
-      'createInstanceHome'
+      'setInstanceHome'
     );
 
     const parameters = {
@@ -339,8 +338,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     // const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     // if (_validationErrors) {
     //   return Promise.reject(_validationErrors);
-    // !!! End of custom content to be copied !!!
-
+    // !!! End of custom content to be copied !!!  
     }
 
     const body = {
@@ -625,7 +623,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
-   * Enable or disable log fowarding.
+   * Enable or disable log forwarding.
    *
    * Enable or disable log forwarding from IBM Analytics Engine to IBM Log Analysis server.
    *
@@ -651,7 +649,6 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     // if (_validationErrors) {
     //   return Promise.reject(_validationErrors);
     // !!! End of custom content to be copied !!!
-
     }
 
     const body = {
@@ -716,7 +713,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     // const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     // if (_validationErrors) {
     //   return Promise.reject(_validationErrors);
-    // !!! End of custom content to be copied !!!
+    // !!! End of custom content to be copied !!! 
     }
 
     const path = {
@@ -751,70 +748,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
-   * Delete logging configuration of a given instance id.
-   *
-   * Delete the logging configuration of a given Analytics Engine instance.
-   *
-   * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceGuid - GUID of the instance for which log configuration is to be deleted.
-   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
-   */
-  public deleteLoggingConfiguration(
-    params: IbmAnalyticsEngineApiV3.DeleteLoggingConfigurationParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
-    const _params = { ...params };
-     // !!! Start of custom content to be copied !!!
-     const requiredParams = ['instanceGuid'];
-
-     const missingParams = getMissingParams(_params, requiredParams);
-     if (missingParams) {
-       return Promise.reject(missingParams);
-    // const _requiredParams = ['instanceGuid'];
-    // const _validParams = ['instanceGuid', 'headers'];
-    // const _validationErrors = validateParams(_params, _requiredParams, _validParams);
-    // if (_validationErrors) {
-    //   return Promise.reject(_validationErrors);
-    // !!! End of custom content to be copied !!!
-    }
-
-    const path = {
-      'instance_guid': _params.instanceGuid,
-    };
-
-    const sdkHeaders = getSdkHeaders(
-      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
-      'v3',
-      'deleteLoggingConfiguration'
-    );
-
-    const parameters = {
-      options: {
-        url: '/v3/analytics_engines/{instance_guid}/logging',
-        method: 'DELETE',
-        path,
-      },
-      defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
-      }),
-    };
-
-    return this.createRequest(parameters);
-  }
-
-  /**
    * Start Spark history server.
    *
-   * Start the Spark history server for a given serverless Spark instance.
+   * Start the Spark history server for the given Analytics Engine instance.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - The identifier of the instance for which the Spark history server is started.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance whose Spark history server is to be
+   * started.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerStartResponse>>}
    */
@@ -833,7 +773,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     // const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     // if (_validationErrors) {
     //   return Promise.reject(_validationErrors);
-     // !!! End of custom content to be copied !!!
+     // !!! End of custom content to be copied !!! 
     }
 
     const path = {
@@ -868,12 +808,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
-   * Retrieve Spark history server details by ID.
+   * Retrieve Spark history server details.
    *
-   * Retrieve the Spark history server details for an Analytics Engine instance by the instance ID.
+   * Get the details of the Spark history server of the given Analytics Engine instance.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - The identifier of the instance for which the Spark history server is started.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance to which the Spark history server
+   * belongs.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>>}
    */
@@ -929,10 +870,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   /**
    * Stop Spark history server.
    *
-   * Stop the Spark history server for a given serverless Spark instance.
+   * Stop the Spark history server of the given Analytics Engine instance.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - The identifier of the instance for which the Spark history server is stopped.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance whose Spark history server is to be
+   * stopped.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
    */
@@ -1027,9 +969,9 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Parameters for the `createInstanceHome` operation. */
-  export interface CreateInstanceHomeParams {
-    /** GUID of the Analytics Engine instance for which 'instance home' is to be updated. */
+  /** Parameters for the `setInstanceHome` operation. */
+  export interface SetInstanceHomeParams {
+    /** GUID of the Analytics Engine instance for which 'instance home' is to be set. */
     instanceId: string;
     /** UUID of the instance home storage instance. */
     newInstanceId?: string;
@@ -1107,30 +1049,23 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
-  /** Parameters for the `deleteLoggingConfiguration` operation. */
-  export interface DeleteLoggingConfigurationParams {
-    /** GUID of the instance for which log configuration is to be deleted. */
-    instanceGuid: string;
-    headers?: OutgoingHttpHeaders;
-  }
-
   /** Parameters for the `startSparkHistoryServer` operation. */
   export interface StartSparkHistoryServerParams {
-    /** The identifier of the instance for which the Spark history server is started. */
+    /** The ID of the Analytics Engine instance whose Spark history server is to be started. */
     instanceId: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `getSparkHistoryServer` operation. */
   export interface GetSparkHistoryServerParams {
-    /** The identifier of the instance for which the Spark history server is started. */
+    /** The ID of the Analytics Engine instance to which the Spark history server belongs. */
     instanceId: string;
     headers?: OutgoingHttpHeaders;
   }
 
   /** Parameters for the `stopSparkHistoryServer` operation. */
   export interface StopSparkHistoryServerParams {
-    /** The identifier of the instance for which the Spark history server is stopped. */
+    /** The ID of the Analytics Engine instance whose Spark history server is to be stopped. */
     instanceId: string;
     headers?: OutgoingHttpHeaders;
   }
@@ -1355,13 +1290,13 @@ namespace IbmAnalyticsEngineApiV3 {
     type?: string;
   }
 
-  /** State of Spark history server. */
+  /** State of the Spark history server. */
   export interface SparkHistoryServerResponse {
-    /** State of Spark history server. */
+    /** State of the Spark history server. */
     state?: string;
-    /** Number of cores used for the Spark history server. */
+    /** Number of cpu cores used by the Spark history server. */
     cores?: string;
-    /** Memory used for the Spark history server. */
+    /** Amount of memory used by the Spark history server. */
     memory?: string;
     /** Time when the Spark history server was started. */
     start_time?: string;
@@ -1369,13 +1304,13 @@ namespace IbmAnalyticsEngineApiV3 {
     stop_time?: string;
   }
 
-  /** Spark history server started response. */
+  /** Response of the request to start the Spark history server. */
   export interface SparkHistoryServerStartResponse {
-    /** State of Spark history server. */
+    /** State of the Spark history server. */
     state?: string;
-    /** Number of cores used for the Spark history server. */
+    /** Number of cpu cores used by the Spark history server. */
     cores?: string;
-    /** Memory used for the Spark history server. */
+    /** Amount of memory used by the Spark history server. */
     memory?: string;
     /** Time when the Spark history server was started. */
     start_time?: string;
