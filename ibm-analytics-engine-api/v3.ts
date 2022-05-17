@@ -43,11 +43,6 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
 
-  private static _regionalEndpoints = new Map([
-    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
-    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
-  ]);
-
   /**
    * Returns the service URL associated with the specified region.
    * @param region a string representing the region
@@ -88,6 +83,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     }
     return service;
   }
+
+  private static _regionalEndpoints = new Map([
+    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
+    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
+  ]);
 
   /**
    * Construct a IbmAnalyticsEngineApiV3 object.
