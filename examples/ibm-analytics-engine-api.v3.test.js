@@ -23,8 +23,8 @@ const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
 
 //!!! Start of custom content to be copied !!!
-// Replace auth-helper.js with auth.js
-const authHelper = require('../resources/auth-helper.js');
+// Replace auth-helper.js with auth.js for testing
+const authHelper = require('../test/resources/auth-helper.js');
 const { IamAuthenticator } = require('../dist/auth');
 const timeout = 200000;
 // !!! End of custom content to be copied !!!
@@ -60,6 +60,9 @@ const consoleLogMock = jest.spyOn(console, 'log');
 const consoleWarnMock = jest.spyOn(console, 'warn');
 
 describe('IbmAnalyticsEngineApiV3', () => {
+  // Service instance
+  let ibmAnalyticsEngineApiService;
+
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
 
@@ -73,7 +76,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
   let applicationId = '';
   jest.setTimeout(timeout);
   // !!! End of custom content to be copied !!!
-  let ibmAnalyticsEngineApiService;
 
   test('Initialize services', async () => {
   // begin-common
@@ -152,7 +154,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
     const params = {
       instanceId: instanceGuid,
     };
-
     //!!! Start of custom content to be copied !!!
     ibmAnalyticsEngineApiService
      .getInstanceState(params)
@@ -174,7 +175,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
   });
 
   //!!! Start of custom content to be copied !!!
-  test('createInstanceHome request example', (done) => {
+  test('setInstanceHome request example', (done) => {
   // !!! End of custom content to be copied !!!  
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
@@ -191,8 +192,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
       // !!! End of custom content to be copied !!!
     });
 
-    originalLog('createInstanceHome() result:');
-    // begin-create_instance_home
+    originalLog('setInstanceHome() result:');
+    // begin-set_instance_home
     //!!! Start of custom content to be copied !!!
     const params = {
       instanceId: instanceIdInstanceHome,
@@ -207,7 +208,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // !!! End of custom content to be copied !!!
     //!!! Start of custom content to be copied !!!
     ibmAnalyticsEngineApiService
-    .createInstanceHome(params)
+    .setInstanceHome(params)
     .then((res)=>{
       console.log(JSON.stringify(res.result, null, 2));
     })
@@ -222,7 +223,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     //   console.warn(err);
     // }
     // !!! End of custom content to be copied !!!
-    // end-create_instance_home
+    // end-set_instance_home
   });
 
   //!!! Start of custom content to be copied !!!
@@ -272,7 +273,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
     //   console.warn(err);
     // }
     // !!! End of custom content to be copied !!!
-    
 
     // end-create_application
   });
@@ -511,7 +511,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
       //!!! Start of custom content to be copied !!!
       done();
       // !!! End of custom content to be copied !!!
-
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
@@ -616,72 +615,31 @@ describe('IbmAnalyticsEngineApiV3', () => {
       instanceId: instanceGuid,
     };
      //!!! Start of custom content to be copied !!!
-    ibmAnalyticsEngineApiService
-    .stopSparkHistoryServer(params)
-    .then((res) => {
-      console.log(JSON.stringify(res.result, null, 2));
-    })
-    .catch((err) => {
-      console.warn(err);
-    });
-    // try {
-    //   await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-    // } catch (err) {
-    //   console.warn(err);
-    // }
-    // !!! End of custom content to be copied !!!
-    // end-stop_spark_history_server
-  });
-
-  //!!! Start of custom content to be copied !!!
-  test('deleteLoggingConfiguration request example', (done) => {
-  // !!! End of custom content to be copied !!!  
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-      //!!! Start of custom content to be copied !!!
-      done();
+     ibmAnalyticsEngineApiService
+     .stopSparkHistoryServer(params)
+     .then((res) => {
+       console.log(JSON.stringify(res.result, null, 2));
+     })
+     .catch((err) => {
+       console.warn(err);
+      });
+      // try {
+      //   await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+      // } catch (err) {
+      //   console.warn(err);
+      // }
       // !!! End of custom content to be copied !!!
+      // end-stop_spark_history_server
     });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-      //!!! Start of custom content to be copied !!!
-      done();
-      // !!! End of custom content to be copied !!!
-    });
-
-    // begin-delete_logging_configuration
-
-    const params = {
-      instanceGuid: instanceGuid,
-    };
-    //!!! Start of custom content to be copied !!!
-    ibmAnalyticsEngineApiService
-    .deleteLoggingConfiguration(params)
-    .then((res) => {
-      console.log(JSON.stringify(res.result, null, 2));
-    })
-    .catch((err) => {
-      console.warn(err);
-    });
-    // try {
-    //   await ibmAnalyticsEngineApiService.deleteLoggingConfiguration(params);
-    // } catch (err) {
-    //   console.warn(err);
-    // }
-     // !!! End of custom content to be copied !!!
-    // end-delete_logging_configuration
-  });
 
   //!!! Start of custom content to be copied !!!
   test('deleteApplication request example', (done) => {
-  // !!! End of custom content to be copied !!!  
+  // !!! End of custom content to be copied !!! 
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
       //!!! Start of custom content to be copied !!!
       done();
-      // !!! End of custom content to be copied !!!
+      // !!! End of custom content to be copied !!!      
     });
     consoleWarnMock.mockImplementation((output) => {
       // if an error occurs, display the message and then fail the test
@@ -698,6 +656,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       instanceId: instanceGuid,
       applicationId: applicationId,
     };
+
     //!!! Start of custom content to be copied !!!
     ibmAnalyticsEngineApiService
     .deleteApplication(params)

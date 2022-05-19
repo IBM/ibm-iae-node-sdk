@@ -18,9 +18,8 @@
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
-
 // !!! Start of custom content to be copied !!!
-// Replace auth-helper.js with auth.js
+// Replace auth-helper.js with auth.js for integration testing
 const authHelper = require('../resources/auth-helper.js');
 const { IamAuthenticator } = require('../../dist/auth');
 // !!! End of custom content to be copied !!!
@@ -31,7 +30,6 @@ const timeout = 200000;
 // !!! Start of custom content to be copied !!!
 // Location of our config file.
 // const configFile = 'ibm_analytics_engine_api_v3.env';
-
 // const describe = authHelper.prepareTests(configFile);
 // !!! End of custom content to be copied !!!
 
@@ -49,6 +47,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
   jest.setTimeout(timeout);
 
+  // Service instance
   let ibmAnalyticsEngineApiService;
 
   test('Initialise service', async () => {
@@ -59,7 +58,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-
     // ibmAnalyticsEngineApiService.enableRetries();
   });
 
@@ -67,7 +65,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const params = {
       instanceId: instanceGuid,
     };
-
     const res = await ibmAnalyticsEngineApiService.getInstance(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
@@ -77,7 +74,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
@@ -98,14 +94,13 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
     // 500
     //
   });
-  test('createInstanceHome()', async () => {
+  test('setInstanceHome()', async () => {
     const params = {
       instanceId: instanceIdInstanceHome,
       newInstanceId: 'testString',
@@ -117,7 +112,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
       newHmacSecretKey: hmacSecretKey,
     };
 
-    const res = await ibmAnalyticsEngineApiService.createInstanceHome(params);
+    const res = await ibmAnalyticsEngineApiService.setInstanceHome(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
@@ -130,6 +125,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // 401
     // 403
     // 404
+    // 409
     // 500
     //
   });
@@ -189,7 +185,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
@@ -211,7 +206,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
@@ -233,7 +227,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
@@ -276,7 +269,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
     //
-    // 400
     // 401
     // 403
     // 404
@@ -292,8 +284,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
-    console.log('startSparkHistoryServer');
-    console.log(res);
+
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -314,8 +305,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-    console.log('getSparkHistoryServer');
-    console.log(res);
+
     //
     // The following status codes aren't covered by tests.
     // Please provide integration tests for these too.
@@ -333,28 +323,6 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(204);
-    expect(res.result).toBeDefined();
-    console.log('stopSparkHistoryServer');
-    console.log(res);
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
-  });
-  test('deleteLoggingConfiguration()', async () => {
-    const params = {
-      instanceGuid: instanceGuid,
-    };
-
-    const res = await ibmAnalyticsEngineApiService.deleteLoggingConfiguration(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();

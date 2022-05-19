@@ -286,10 +286,10 @@ describe('IbmAnalyticsEngineApiV3', () => {
       });
     });
   });
-  describe('createInstanceHome', () => {
+  describe('setInstanceHome', () => {
     describe('positive tests', () => {
-      function __createInstanceHomeTest() {
-        // Construct the params object for operation createInstanceHome
+      function __setInstanceHomeTest() {
+        // Construct the params object for operation setInstanceHome
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const newInstanceId = 'testString';
         const newProvider = 'ibm-cos';
@@ -298,7 +298,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const newEndpoint = 's3.direct.us-south.cloud-object-storage.appdomain.cloud';
         const newHmacAccessKey = '821**********0ae';
         const newHmacSecretKey = '03e****************4fc3';
-        const createInstanceHomeParams = {
+        const setInstanceHomeParams = {
           instanceId: instanceId,
           newInstanceId: newInstanceId,
           newProvider: newProvider,
@@ -309,12 +309,12 @@ describe('IbmAnalyticsEngineApiV3', () => {
           newHmacSecretKey: newHmacSecretKey,
         };
 
-        const createInstanceHomeResult = ibmAnalyticsEngineApiService.createInstanceHome(
-          createInstanceHomeParams
+        const setInstanceHomeResult = ibmAnalyticsEngineApiService.setInstanceHome(
+          setInstanceHomeParams
         );
 
         // all methods should return a Promise
-        expectToBePromise(createInstanceHomeResult);
+        expectToBePromise(setInstanceHomeResult);
 
         // assert that create request was called
         expect(createRequestMock).toHaveBeenCalledTimes(1);
@@ -341,21 +341,21 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       test('should pass the right params to createRequest with enable and disable retries', () => {
         // baseline test
-        __createInstanceHomeTest();
+        __setInstanceHomeTest();
 
         // enable retries and test again
         createRequestMock.mockClear();
         // !!! Start of custom content to be copied !!!
         // ibmAnalyticsEngineApiService.enableRetries();
         // !!! End of custom content to be copied !!!
-        __createInstanceHomeTest();
+        __setInstanceHomeTest();
 
         // disable retries and test again
         createRequestMock.mockClear();
         // !!! Start of custom content to be copied !!!
         // ibmAnalyticsEngineApiService.disableRetries();
         // !!! End of custom content to be copied !!!
-        __createInstanceHomeTest();
+        __setInstanceHomeTest();
       });
 
       test('should prioritize user-given headers', () => {
@@ -363,7 +363,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const userAccept = 'fake/accept';
         const userContentType = 'fake/contentType';
-        const createInstanceHomeParams = {
+        const setInstanceHomeParams = {
           instanceId,
           headers: {
             Accept: userAccept,
@@ -371,7 +371,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.createInstanceHome(createInstanceHomeParams);
+        ibmAnalyticsEngineApiService.setInstanceHome(setInstanceHomeParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -380,7 +380,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       test('should enforce required parameters', async () => {
         let err;
         try {
-          await ibmAnalyticsEngineApiService.createInstanceHome({});
+          await ibmAnalyticsEngineApiService.setInstanceHome({});
         } catch (e) {
           err = e;
         }
@@ -391,7 +391,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       test('should reject promise when required params are not given', async () => {
         let err;
         try {
-          await ibmAnalyticsEngineApiService.createInstanceHome();
+          await ibmAnalyticsEngineApiService.setInstanceHome();
         } catch (e) {
           err = e;
         }
@@ -1081,99 +1081,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getLoggingConfiguration();
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-    });
-  });
-  describe('deleteLoggingConfiguration', () => {
-    describe('positive tests', () => {
-      function __deleteLoggingConfigurationTest() {
-        // Construct the params object for operation deleteLoggingConfiguration
-        const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const deleteLoggingConfigurationParams = {
-          instanceGuid: instanceGuid,
-        };
-
-        const deleteLoggingConfigurationResult = ibmAnalyticsEngineApiService.deleteLoggingConfiguration(
-          deleteLoggingConfigurationParams
-        );
-
-        // all methods should return a Promise
-        expectToBePromise(deleteLoggingConfigurationResult);
-
-        // assert that create request was called
-        expect(createRequestMock).toHaveBeenCalledTimes(1);
-
-        const mockRequestOptions = getOptions(createRequestMock);
-
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_guid}/logging',
-          'DELETE'
-        );
-        const expectedAccept = undefined;
-        const expectedContentType = undefined;
-        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
-        expect(mockRequestOptions.path.instance_guid).toEqual(instanceGuid);
-      }
-
-      test('should pass the right params to createRequest with enable and disable retries', () => {
-        // baseline test
-        __deleteLoggingConfigurationTest();
-
-        // enable retries and test again
-        createRequestMock.mockClear();
-        // !!! Start of custom content to be copied !!!
-        // ibmAnalyticsEngineApiService.enableRetries();
-        // !!! End of custom content to be copied !!!
-        __deleteLoggingConfigurationTest();
-
-        // disable retries and test again
-        createRequestMock.mockClear();
-        // !!! Start of custom content to be copied !!!
-        // ibmAnalyticsEngineApiService.disableRetries();
-        // !!! End of custom content to be copied !!!
-        __deleteLoggingConfigurationTest();
-      });
-
-      test('should prioritize user-given headers', () => {
-        // parameters
-        const instanceGuid = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const userAccept = 'fake/accept';
-        const userContentType = 'fake/contentType';
-        const deleteLoggingConfigurationParams = {
-          instanceGuid,
-          headers: {
-            Accept: userAccept,
-            'Content-Type': userContentType,
-          },
-        };
-
-        ibmAnalyticsEngineApiService.deleteLoggingConfiguration(deleteLoggingConfigurationParams);
-        checkMediaHeaders(createRequestMock, userAccept, userContentType);
-      });
-    });
-
-    describe('negative tests', () => {
-      test('should enforce required parameters', async () => {
-        let err;
-        try {
-          await ibmAnalyticsEngineApiService.deleteLoggingConfiguration({});
-        } catch (e) {
-          err = e;
-        }
-
-        expect(err.message).toMatch(/Missing required parameters/);
-      });
-
-      test('should reject promise when required params are not given', async () => {
-        let err;
-        try {
-          await ibmAnalyticsEngineApiService.deleteLoggingConfiguration();
         } catch (e) {
           err = e;
         }
