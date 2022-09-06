@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,28 +44,35 @@ const describe = authHelper.prepareTests(configFile);
 
 // Save original console.log
 const originalLog = console.log;
+const originalWarn = console.warn;
 
 // Mocks for console.log and console.warn
 const consoleLogMock = jest.spyOn(console, 'log');
 const consoleWarnMock = jest.spyOn(console, 'warn');
 
 describe('IbmAnalyticsEngineApiV3', () => {
-  // begin-common
-
-  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance({});
-
-  // end-common
+  // Service instance
+  let ibmAnalyticsEngineApiService;
 
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
 
-  test('getInstance request example', (done) => {
+  test('Initialize services', async () => {
+    // begin-common
+
+    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance();
+
+    // end-common
+  });
+
+  test('getInstance request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     originalLog('getInstance() result:');
@@ -75,24 +82,167 @@ describe('IbmAnalyticsEngineApiV3', () => {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
-    ibmAnalyticsEngineApiService
-      .getInstance(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getInstance(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-get_instance
   });
-  test('createApplication request example', (done) => {
+
+  test('getInstanceState request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getInstanceState() result:');
+    // begin-get_instance_state
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getInstanceState(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_instance_state
+  });
+
+  test('setInstanceHome request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('setInstanceHome() result:');
+    // begin-set_instance_home
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.setInstanceHome(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-set_instance_home
+  });
+
+  test('getInstanceDefaultConfigs request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getInstanceDefaultConfigs() result:');
+    // begin-get_instance_default_configs
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getInstanceDefaultConfigs(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_instance_default_configs
+  });
+
+  test('replaceInstanceDefaultConfigs request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('replaceInstanceDefaultConfigs() result:');
+    // begin-replace_instance_default_configs
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      body: { 'key1': 'testString' },
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-replace_instance_default_configs
+  });
+
+  test('updateInstanceDefaultConfigs request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateInstanceDefaultConfigs() result:');
+    // begin-update_instance_default_configs
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      body: { 'key1': 'testString' },
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_instance_default_configs
+  });
+
+  test('createApplication request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     originalLog('createApplication() result:');
@@ -102,24 +252,25 @@ describe('IbmAnalyticsEngineApiV3', () => {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
-    ibmAnalyticsEngineApiService
-      .createApplication(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.createApplication(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-create_application
   });
-  test('listApplications request example', (done) => {
+
+  test('listApplications request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     originalLog('listApplications() result:');
@@ -129,24 +280,25 @@ describe('IbmAnalyticsEngineApiV3', () => {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
-    ibmAnalyticsEngineApiService
-      .listApplications(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.listApplications(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-list_applications
   });
-  test('getApplication request example', (done) => {
+
+  test('getApplication request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     originalLog('getApplication() result:');
@@ -157,24 +309,25 @@ describe('IbmAnalyticsEngineApiV3', () => {
       applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
-    ibmAnalyticsEngineApiService
-      .getApplication(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getApplication(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-get_application
   });
-  test('getApplicationState request example', (done) => {
+
+  test('getApplicationState request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     originalLog('getApplicationState() result:');
@@ -185,24 +338,165 @@ describe('IbmAnalyticsEngineApiV3', () => {
       applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
-    ibmAnalyticsEngineApiService
-      .getApplicationState(params)
-      .then((res) => {
-        console.log(JSON.stringify(res.result, null, 2));
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getApplicationState(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-get_application_state
   });
-  test('deleteApplication request example', (done) => {
+
+  test('getCurrentResourceConsumption request example', async () => {
     consoleLogMock.mockImplementation((output) => {
       originalLog(output);
-      done();
     });
     consoleWarnMock.mockImplementation((output) => {
-      done(output);
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getCurrentResourceConsumption() result:');
+    // begin-get_current_resource_consumption
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getCurrentResourceConsumption(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_current_resource_consumption
+  });
+
+  test('replaceLogForwardingConfig request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('replaceLogForwardingConfig() result:');
+    // begin-replace_log_forwarding_config
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.replaceLogForwardingConfig(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-replace_log_forwarding_config
+  });
+
+  test('getLogForwardingConfig request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getLogForwardingConfig() result:');
+    // begin-get_log_forwarding_config
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getLogForwardingConfig(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_log_forwarding_config
+  });
+
+  test('configurePlatformLogging request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('configurePlatformLogging() result:');
+    // begin-configure_platform_logging
+
+    const params = {
+      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.configurePlatformLogging(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-configure_platform_logging
+  });
+
+  test('getLoggingConfiguration request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getLoggingConfiguration() result:');
+    // begin-get_logging_configuration
+
+    const params = {
+      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_logging_configuration
+  });
+
+  test('deleteApplication request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
     });
 
     // begin-delete_application
@@ -212,14 +506,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
       applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
-    ibmAnalyticsEngineApiService
-      .deleteApplication(params)
-      .then((res) => {
-        done();
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+    try {
+      await ibmAnalyticsEngineApiService.deleteApplication(params);
+    } catch (err) {
+      console.warn(err);
+    }
 
     // end-delete_application
   });

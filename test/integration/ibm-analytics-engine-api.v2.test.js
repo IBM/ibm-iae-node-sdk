@@ -1,247 +1,213 @@
-'use strict';
+/**
+ * (C) Copyright IBM Corp. 2022.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
+/* eslint-disable no-console */
+
+const { readExternalSources } = require('ibm-cloud-sdk-core');
 const IbmAnalyticsEngineApiV2 = require('../../dist/ibm-analytics-engine-api/v2');
-const { IamAuthenticator } = require('../../dist/auth');
 const authHelper = require('../resources/auth-helper.js');
-const describe = authHelper.describe; // this runs describe.skip if there is no auth.js file :)
-const timeout = 20000; // jest timeout in ms
 
-describe('IBM Analytics Engine ApiV2 integration', () => {
-  const options = authHelper.auth.ibm_analytics_engine_api_v2;
-  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
-  const instanceGuid = options.instanceGuid;
+// testcase timeout value (200s).
+const timeout = 200000;
 
-  const IbmAnalyticsEngineServiceClient = new IbmAnalyticsEngineApiV2(options);
+// Location of our config file.
+const configFile = 'ibm_analytics_engine_api_v2.env';
+
+const describe = authHelper.prepareTests(configFile);
+
+describe('IbmAnalyticsEngineApiV2_integration', () => {
   jest.setTimeout(timeout);
-  // nested describe statements are helpful when organizing multiple categories of an api
-  describe('analyticsEngines', () => {
-    // let resourceId;
 
-    it('getAnalyticsEngineById', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
+  // Service instance
+  let ibmAnalyticsEngineV2ApiService;
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getAnalyticsEngineById(params);
-      } catch (err) {
-        done(err);
-      }
+  test('Initialise service', async () => {
+    ibmAnalyticsEngineV2ApiService = IbmAnalyticsEngineApiV2.newInstance();
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    expect(ibmAnalyticsEngineV2ApiService).not.toBeNull();
 
-    it('getAnalyticsEngineStateById', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
+    const config = readExternalSources(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME);
+    expect(config).not.toBeNull();
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getAnalyticsEngineStateById(params);
-      } catch (err) {
-        done(err);
-      }
+    ibmAnalyticsEngineV2ApiService.enableRetries();
+  });
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+  test('getAllAnalyticsEngines()', async () => {
+    const res = await ibmAnalyticsEngineV2ApiService.getAllAnalyticsEngines();
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getAnalyticsEngineById()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-    it('createCustomizationRequest', async done => {
-      // AnalyticsEngineCustomActionScript
-      const analyticsEngineCustomActionScriptModel = {
-        source_type: 'http',
-        script_path: 'testString',
-        source_props: { foo: 'bar' },
-      };
+    const res = await ibmAnalyticsEngineV2ApiService.getAnalyticsEngineById(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getAnalyticsEngineStateById()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-      // AnalyticsEngineCustomAction
-      const analyticsEngineCustomActionModel = {
-        name: 'testString',
-        type: 'bootstrap',
-        script: analyticsEngineCustomActionScriptModel,
-        script_params: ['testString'],
-      };
+    const res = await ibmAnalyticsEngineV2ApiService.getAnalyticsEngineStateById(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('createCustomizationRequest()', async () => {
+    // Request models needed by this operation.
 
-      const target = 'all';
-      const customActions = [analyticsEngineCustomActionModel];
-      const params = {
-        instanceGuid: instanceGuid,
-        target: target,
-        customActions: customActions,
-      };
+    // AnalyticsEngineCustomActionScript
+    const analyticsEngineCustomActionScriptModel = {
+      source_type: 'http',
+      script_path: 'testString',
+      source_props: { foo: 'bar' },
+    };
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.createCustomizationRequest(params);
-      } catch (err) {
-        done(err);
-      }
+    // AnalyticsEngineCustomAction
+    const analyticsEngineCustomActionModel = {
+      name: 'testString',
+      type: 'bootstrap',
+      script: analyticsEngineCustomActionScriptModel,
+      script_params: ['testString'],
+    };
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const params = {
+      instanceGuid: 'testString',
+      target: 'all',
+      customActions: [analyticsEngineCustomActionModel],
+    };
 
-    it('getAllCustomizationRequests', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
+    const res = await ibmAnalyticsEngineV2ApiService.createCustomizationRequest(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getAllCustomizationRequests()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getAllCustomizationRequests(params);
-      } catch (err) {
-        done(err);
-      }
+    const res = await ibmAnalyticsEngineV2ApiService.getAllCustomizationRequests(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getCustomizationRequestById()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+      requestId: 'testString',
+    };
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const res = await ibmAnalyticsEngineV2ApiService.getCustomizationRequestById(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('resizeCluster()', async () => {
+    // Request models needed by this operation.
 
-    it('getCustomizationRequestById', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
+    // ResizeClusterRequestAnalyticsEngineResizeClusterByComputeNodesRequest
+    const resizeClusterRequestModel = {
+      compute_nodes_count: 38,
+    };
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getAllCustomizationRequests(params);
-      } catch (err) {
-        done(err);
-      }
+    const params = {
+      instanceGuid: 'testString',
+      body: resizeClusterRequestModel,
+    };
 
-      params['requestId'] = response.result[0].id;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getCustomizationRequestById(params);
-      } catch (err) {
-        done(err);
-      }
+    const res = await ibmAnalyticsEngineV2ApiService.resizeCluster(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('resetClusterPassword()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const res = await ibmAnalyticsEngineV2ApiService.resetClusterPassword(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('configureLogging()', async () => {
+    // Request models needed by this operation.
 
-    it('resizeCluster', async done => {
-      const computeNodesCount = 1;
-      const params = {
-        instanceGuid: instanceGuid,
-        computeNodesCount: computeNodesCount,
-      };
+    // AnalyticsEngineLoggingNodeSpec
+    const analyticsEngineLoggingNodeSpecModel = {
+      node_type: 'management',
+      components: ['ambari-server'],
+    };
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.resizeCluster(params);
-      } catch (err) {
-        done(err);
-      }
+    // AnalyticsEngineLoggingServer
+    const analyticsEngineLoggingServerModel = {
+      type: 'logdna',
+      credential: 'testString',
+      api_host: 'testString',
+      log_host: 'testString',
+      owner: 'testString',
+    };
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const params = {
+      instanceGuid: 'testString',
+      logSpecs: [analyticsEngineLoggingNodeSpecModel],
+      logServer: analyticsEngineLoggingServerModel,
+    };
 
-    it('resetClusterPassword', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
+    const res = await ibmAnalyticsEngineV2ApiService.configureLogging(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('getLoggingConfig()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.resetClusterPassword(params);
-      } catch (err) {
-        done(err);
-      }
+    const res = await ibmAnalyticsEngineV2ApiService.getLoggingConfig(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('updatePrivateEndpointWhitelist()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+      ipRanges: ['testString'],
+      action: 'add',
+    };
 
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const res = await ibmAnalyticsEngineV2ApiService.updatePrivateEndpointWhitelist(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('deleteLoggingConfig()', async () => {
+    const params = {
+      instanceGuid: 'testString',
+    };
 
-    it('configureLogging', async done => {
-      // AnalyticsEngineLoggingNodeSpec
-      const analyticsEngineLoggingNodeSpecModel = {
-        node_type: 'management',
-        components: ['ambari-server'],
-      };
-
-      // AnalyticsEngineLoggingServer
-      const analyticsEngineLoggingServerModel = {
-        type: 'logdna',
-        credential: 'testString',
-        api_host: 'testString',
-        log_host: 'testString',
-        owner: 'testString',
-      };
-
-      const logSpecs = [analyticsEngineLoggingNodeSpecModel];
-      const logServer = analyticsEngineLoggingServerModel;
-      const params = {
-        instanceGuid: instanceGuid,
-        logSpecs: logSpecs,
-        logServer: logServer,
-      };
-
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.configureLogging(params);
-      } catch (err) {
-        done(err);
-      }
-
-      expect(response.status).toEqual(202);
-      done();
-    });
-
-    it('getLoggingConfig', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
-
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.getLoggingConfig(params);
-      } catch (err) {
-        done(err);
-      }
-
-      expect(response.status).toEqual(200);
-      done();
-    });
-
-    it('deleteLoggingConfig', async done => {
-      const params = {
-        instanceGuid: instanceGuid,
-      };
-
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.deleteLoggingConfig(params);
-      } catch (err) {
-        done(err);
-      }
-
-      expect(response.status).toEqual(202);
-      done();
-    });
-
-    it('updatePrivateEndpointWhitelist', async done => {
-      const ipRanges = ['testString'];
-      const action = 'add';
-      const params = {
-        instanceGuid: instanceGuid,
-        ipRanges: ipRanges,
-        action: action,
-      };
-
-      let response;
-      try {
-        response = await IbmAnalyticsEngineServiceClient.updatePrivateEndpointWhitelist(params);
-      } catch (err) {
-        done(err);
-      }
-
-      expect(response.status).toEqual(200);
-      done();
-    });
+    const res = await ibmAnalyticsEngineV2ApiService.deleteLoggingConfig(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
   });
 });

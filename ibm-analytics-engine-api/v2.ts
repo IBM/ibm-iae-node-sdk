@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,30 @@
  * limitations under the License.
  */
 
+/**
+ * IBM OpenAPI SDK Code Generator Version: 3.54.1-1d9808a7-20220817-143039
+ */
+
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
-import { Authenticator, BaseService, getAuthenticatorFromEnvironment, getMissingParams, UserOptions } from 'ibm-cloud-sdk-core';
+import {
+  Authenticator,
+  BaseService,
+  getAuthenticatorFromEnvironment,
+  validateParams,
+  UserOptions,
+} from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
 /**
  * With IBM Analytics Engine you can create Apache Spark and Apache Hadoop clusters and customize these clusters by
  * using scripts. You can work with data in IBM Cloud Object Storage, as well as integrate other Watson Data Platform
  * services like IBM Watson Studio and Machine Learning.
+ *
+ * API Version: 2.0.5
  */
 
 class IbmAnalyticsEngineApiV2 extends BaseService {
-
-  static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
 
   /*************************
@@ -61,12 +71,11 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
     return service;
   }
 
-
   /**
    * Construct a IbmAnalyticsEngineApiV2 object.
    *
    * @param {Object} options - Options for the service.
-   * @param {string} [options.serviceUrl] - The base url to use when contacting the service (e.g. 'https://gateway.watsonplatform.net'). The base url may differ between IBM Cloud regions.
+   * @param {string} [options.serviceUrl] - The base url to use when contacting the service. The base url may differ between IBM Cloud regions.
    * @param {OutgoingHttpHeaders} [options.headers] - Default headers that shall be included with every request to the service.
    * @param {Authenticator} options.authenticator - The Authenticator object used to authenticate requests to the service
    * @constructor
@@ -78,13 +87,11 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
     super(options);
     if (options.serviceUrl) {
       this.setServiceUrl(options.serviceUrl);
-    } else {
-      this.setServiceUrl(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_URL);
     }
   }
 
   /*************************
-   * analyticsEngines
+   * analyticsEnginesV2
    ************************/
 
   /**
@@ -98,26 +105,35 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public getAllAnalyticsEngines(params?: IbmAnalyticsEngineApiV2.GetAllAnalyticsEnginesParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
-    const _params = extend({}, params);
+  public getAllAnalyticsEngines(
+    params?: IbmAnalyticsEngineApiV2.GetAllAnalyticsEnginesParams
+  ): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = [];
+    const _validParams = ['headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAllAnalyticsEngines');
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getAllAnalyticsEngines'
+    );
 
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines',
-          method: 'GET',
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
-          }, _params.headers),
-        }),
-      };
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines',
+        method: 'GET',
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Get details of Analytics Engine.
@@ -135,38 +151,47 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngine>>}
    */
-  public getAnalyticsEngineById(params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngine>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public getAnalyticsEngineById(
+    params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineByIdParams
+  ): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngine>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getAnalyticsEngineById'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineById');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Get state of Analytics Engine.
@@ -184,38 +209,47 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineState>>}
    */
-  public getAnalyticsEngineStateById(params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineStateByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineState>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public getAnalyticsEngineStateById(
+    params: IbmAnalyticsEngineApiV2.GetAnalyticsEngineStateByIdParams
+  ): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineState>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getAnalyticsEngineStateById'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAnalyticsEngineStateById');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/state',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/state',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Create an adhoc customization request.
@@ -230,45 +264,56 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>>}
    */
-  public createCustomizationRequest(params: IbmAnalyticsEngineApiV2.CreateCustomizationRequestParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid', 'target', 'customActions'];
+  public createCustomizationRequest(
+    params: IbmAnalyticsEngineApiV2.CreateCustomizationRequestParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCreateCustomizationResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid', 'target', 'customActions'];
+    const _validParams = ['instanceGuid', 'target', 'customActions', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const body = {
+      'target': _params.target,
+      'custom_actions': _params.customActions,
+    };
 
-      const body = {
-        'target': _params.target,
-        'custom_actions': _params.customActions
-      };
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'createCustomizationRequest'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'createCustomizationRequest');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/customization_requests',
-          method: 'POST',
-          body,
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/customization_requests',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Get all customization requests run on an Analytics Engine cluster.
@@ -280,38 +325,51 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRequestCollectionItem[]>>}
    */
-  public getAllCustomizationRequests(params: IbmAnalyticsEngineApiV2.GetAllCustomizationRequestsParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRequestCollectionItem[]>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public getAllCustomizationRequests(
+    params: IbmAnalyticsEngineApiV2.GetAllCustomizationRequestsParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<
+      IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRequestCollectionItem[]
+    >
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getAllCustomizationRequests'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getAllCustomizationRequests');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/customization_requests',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/customization_requests',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Retrieve details of specified customization request ID.
@@ -325,93 +383,121 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>>}
    */
-  public getCustomizationRequestById(params: IbmAnalyticsEngineApiV2.GetCustomizationRequestByIdParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid', 'requestId'];
+  public getCustomizationRequestById(
+    params: IbmAnalyticsEngineApiV2.GetCustomizationRequestByIdParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineCustomizationRunDetails>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid', 'requestId'];
+    const _validParams = ['instanceGuid', 'requestId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+      'request_id': _params.requestId,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid,
-        'request_id': _params.requestId
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getCustomizationRequestById'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getCustomizationRequestById');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/customization_requests/{request_id}',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/customization_requests/{request_id}',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
-   * Add nodes to the cluster.
+   * Resize the cluster.
    *
-   * Resizes the cluster by adding compute nodes.
+   * Resizes the cluster by adjusting the number of compute and task nodes. Task nodes can be added and removed. Compute
+   * nodes, once added, can't be removed.
    *
-   * **Note:** You can't resize the cluster if the software package on the cluster is deprecated or if the software
-   * package doesn't permit cluster resizing. See
-   * [here](https://cloud.ibm.com/docs/AnalyticsEngine?topic=AnalyticsEngine-unsupported-operations).
+   * **Note:**
+   *
+   *  1. You can't modify the number of compute nodes and tasks nodes in the same request.
+   *
+   * 2. You can't modify the number of task nodes if you enabled auto scaling when you created the cluster.
+   *
+   * 3. Task nodes are not supported on Lite plan clusters.
+   *
+   * 4. You can't resize the cluster if the software package on the cluster is deprecated or doesn't permit cluster
+   * resizing. See [here](https://cloud.ibm.com/docs/AnalyticsEngine?topic=AnalyticsEngine-unsupported-operations).
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - Service instance GUID.
-   * @param {number} [params.computeNodesCount] - Expected number of nodes in the cluster after the resize operation.
+   * @param {ResizeClusterRequest} params.body - Expected size of the cluster after the resize operation. If the number
+   * of nodes in the cluster is 5 and you want to add 2 nodes, specify 7.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>>}
    */
-  public resizeCluster(params: IbmAnalyticsEngineApiV2.ResizeClusterParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public resizeCluster(
+    params: IbmAnalyticsEngineApiV2.ResizeClusterParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResizeClusterResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid', 'body'];
+    const _validParams = ['instanceGuid', 'body', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const { body } = _params;
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const body = {
-        'compute_nodes_count': _params.computeNodesCount
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'resizeCluster'
+    );
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
-
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'resizeCluster');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/resize',
-          method: 'POST',
-          body,
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/resize',
+        method: 'POST',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Reset cluster password.
@@ -425,45 +511,56 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>>}
    */
-  public resetClusterPassword(params: IbmAnalyticsEngineApiV2.ResetClusterPasswordParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public resetClusterPassword(
+    params: IbmAnalyticsEngineApiV2.ResetClusterPasswordParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineResetClusterPasswordResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'resetClusterPassword'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'resetClusterPassword');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/reset_password',
-          method: 'POST',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/reset_password',
+        method: 'POST',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Configure log aggregation.
    *
    * Collects the logs for the following components in an IBM Analytics Engine cluster:
-   * * IBM Analytics Engine daemon logs, for example those for Spark, Hive, Yarn, and Knox on the management and data
-   * nodes
+   * * IBM Analytics Engine daemon logs, for example those for Spark, Hive, Yarn, and Knox on the management, data and
+   * task nodes
    * * Yarn application job logs.
    *
    * @param {Object} params - The parameters to send to the service.
@@ -473,44 +570,53 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public configureLogging(params: IbmAnalyticsEngineApiV2.ConfigureLoggingParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid', 'logSpecs', 'logServer'];
+  public configureLogging(
+    params: IbmAnalyticsEngineApiV2.ConfigureLoggingParams
+  ): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid', 'logSpecs', 'logServer'];
+    const _validParams = ['instanceGuid', 'logSpecs', 'logServer', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const body = {
+      'log_specs': _params.logSpecs,
+      'log_server': _params.logServer,
+    };
 
-      const body = {
-        'log_specs': _params.logSpecs,
-        'log_server': _params.logServer
-      };
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'configureLogging'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'configureLogging');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/log_config',
-          method: 'PUT',
-          body,
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/log_config',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Content-Type': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Retrieve the status of log configuration.
@@ -522,38 +628,49 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>>}
    */
-  public getLoggingConfig(params: IbmAnalyticsEngineApiV2.GetLoggingConfigParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public getLoggingConfig(
+    params: IbmAnalyticsEngineApiV2.GetLoggingConfigParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineLoggingConfigDetails>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'getLoggingConfig'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'getLoggingConfig');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/log_config',
-          method: 'GET',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/log_config',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Delete the log configuration.
@@ -565,37 +682,40 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>>}
    */
-  public deleteLoggingConfig(params: IbmAnalyticsEngineApiV2.DeleteLoggingConfigParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid'];
+  public deleteLoggingConfig(
+    params: IbmAnalyticsEngineApiV2.DeleteLoggingConfigParams
+  ): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'deleteLoggingConfig'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'deleteLoggingConfig');
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/log_config',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
+      }),
+    };
 
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/log_config',
-          method: 'DELETE',
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
-          }, _params.headers),
-        }),
-      };
-
-      return resolve(this.createRequest(parameters));
-    });
-  };
+    return this.createRequest(parameters);
+  }
 
   /**
    * Update private endpoint whitelist.
@@ -610,46 +730,56 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineWhitelistResponse>>}
    */
-  public updatePrivateEndpointWhitelist(params: IbmAnalyticsEngineApiV2.UpdatePrivateEndpointWhitelistParams): Promise<IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineWhitelistResponse>> {
-    const _params = extend({}, params);
-    const requiredParams = ['instanceGuid', 'ipRanges', 'action'];
+  public updatePrivateEndpointWhitelist(
+    params: IbmAnalyticsEngineApiV2.UpdatePrivateEndpointWhitelistParams
+  ): Promise<
+    IbmAnalyticsEngineApiV2.Response<IbmAnalyticsEngineApiV2.AnalyticsEngineWhitelistResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid', 'ipRanges', 'action'];
+    const _validParams = ['instanceGuid', 'ipRanges', 'action', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
 
-    return new Promise((resolve, reject) => {
-      const missingParams = getMissingParams(_params, requiredParams);
-      if (missingParams) {
-        return reject(missingParams);
-      }
+    const body = {
+      'ip_ranges': _params.ipRanges,
+      'action': _params.action,
+    };
 
-      const body = {
-        'ip_ranges': _params.ipRanges,
-        'action': _params.action
-      };
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
 
-      const path = {
-        'instance_guid': _params.instanceGuid
-      };
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME,
+      'v2',
+      'updatePrivateEndpointWhitelist'
+    );
 
-      const sdkHeaders = getSdkHeaders(IbmAnalyticsEngineApiV2.DEFAULT_SERVICE_NAME, 'v2', 'updatePrivateEndpointWhitelist');
-
-      const parameters = {
-        options: {
-          url: '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist',
-          method: 'PATCH',
-          body,
-          path,
-        },
-        defaultOptions: extend(true, {}, this.baseOptions, {
-          headers: extend(true, sdkHeaders, {
+    const parameters = {
+      options: {
+        url: '/v2/analytics_engines/{instance_guid}/private_endpoint_whitelist',
+        method: 'PATCH',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-          }, _params.headers),
-        }),
-      };
+          },
+          _params.headers
+        ),
+      }),
+    };
 
-      return resolve(this.createRequest(parameters));
-    });
-  };
-
+    return this.createRequest(parameters);
+  }
 }
 
 /*************************
@@ -657,9 +787,8 @@ class IbmAnalyticsEngineApiV2 extends BaseService {
  ************************/
 
 namespace IbmAnalyticsEngineApiV2 {
-
   /** An operation response. */
-  export interface Response<T = any>  {
+  export interface Response<T = any> {
     result: T;
     status: number;
     statusText: string;
@@ -670,7 +799,7 @@ namespace IbmAnalyticsEngineApiV2 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty { }
+  export interface Empty {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -718,6 +847,7 @@ namespace IbmAnalyticsEngineApiV2 {
       ALL = 'all',
       MASTER_MANAGEMENT = 'master-management',
       DATA = 'data',
+      TASK = 'task',
     }
   }
 
@@ -741,8 +871,10 @@ namespace IbmAnalyticsEngineApiV2 {
   export interface ResizeClusterParams {
     /** Service instance GUID. */
     instanceGuid: string;
-    /** Expected number of nodes in the cluster after the resize operation. */
-    computeNodesCount?: number;
+    /** Expected size of the cluster after the resize operation. If the number of nodes in the cluster is 5 and you
+     *  want to add 2 nodes, specify 7.
+     */
+    body: ResizeClusterRequest;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1014,6 +1146,9 @@ namespace IbmAnalyticsEngineApiV2 {
     private_endpoint_whitelist?: string[];
   }
 
+  /** ResizeClusterRequest. */
+  export interface ResizeClusterRequest {}
+
   /** Service Endpoints. */
   export interface ServiceEndpoints {
     /** Phoenix JDBC service endpoint. */
@@ -1040,6 +1175,19 @@ namespace IbmAnalyticsEngineApiV2 {
     spark_sql?: string;
   }
 
+  /** Resize cluster request. */
+  export interface ResizeClusterRequestAnalyticsEngineResizeClusterByComputeNodesRequest
+    extends ResizeClusterRequest {
+    /** Expected number of compute nodes in the cluster after the resize operation. */
+    compute_nodes_count?: number;
+  }
+
+  /** ResizeClusterRequestAnalyticsEngineResizeClusterByTaskNodesRequest. */
+  export interface ResizeClusterRequestAnalyticsEngineResizeClusterByTaskNodesRequest
+    extends ResizeClusterRequest {
+    /** Expected number of task nodes in the cluster after the resize operation. */
+    task_nodes_count?: number;
+  }
 }
 
 export = IbmAnalyticsEngineApiV2;

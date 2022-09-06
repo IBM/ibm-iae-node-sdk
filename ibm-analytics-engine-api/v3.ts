@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.54.1-1d9808a7-20220817-143039
  */
 
 import * as extend from 'extend';
@@ -24,7 +24,7 @@ import {
   Authenticator,
   BaseService,
   getAuthenticatorFromEnvironment,
-  getMissingParams,
+  validateParams,
   UserOptions,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
@@ -39,6 +39,21 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
+
+  private static _regionalEndpoints = new Map([
+    ['us-south', 'https://api.us-south.ae.cloud.ibm.com'],
+    ['eu-de', 'https://api.eu-de.ae.cloud.ibm.com'],
+  ]);
+
+  /**
+   * Returns the service URL associated with the specified region.
+   * @param region a string representing the region
+   * @returns the service URL associated with the specified region or undefined
+   * if no mapping for the region exists
+   */
+  public static getServiceUrlForRegion(region: string): string {
+    return this._regionalEndpoints.get(region);
+  }
 
   /*************************
    * Factory method
@@ -110,11 +125,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetInstanceParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Instance>> {
     const _params = { ...params };
-    const requiredParams = ['instanceId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const path = {
@@ -149,6 +164,307 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
+   * Find Analytics Engine state by id.
+   *
+   * Retrieve the state of a single Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - GUID of the Analytics Engine service instance to retrieve state.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceGetStateResponse>>}
+   */
+  public getInstanceState(
+    params: IbmAnalyticsEngineApiV3.GetInstanceStateParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceGetStateResponse>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getInstanceState'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/state',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Set instance home.
+   *
+   * Provide the details of the Cloud Object Storage instance to associate with the Analytics Engine instance and use as
+   * 'instance home' if 'instance home' has not already been set.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance for which 'instance home' is to be set.
+   * @param {string} [params.newInstanceId] - UUID of the instance home storage instance.
+   * @param {string} [params.newProvider] - Currently only ibm-cos (IBM Cloud Object Storage) is supported.
+   * @param {string} [params.newType] - Type of the instance home storage. Currently, only objectstore (Cloud Object
+   * Storage) is supported.
+   * @param {string} [params.newRegion] - Region of the Cloud Object Storage instance.
+   * @param {string} [params.newEndpoint] - Endpoint to access the Cloud Object Storage instance.
+   * @param {string} [params.newHmacAccessKey] - Cloud Object Storage access key.
+   * @param {string} [params.newHmacSecretKey] - Cloud Object Storage secret key.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>>}
+   */
+  public setInstanceHome(
+    params: IbmAnalyticsEngineApiV3.SetInstanceHomeParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = [
+      'instanceId',
+      'newInstanceId',
+      'newProvider',
+      'newType',
+      'newRegion',
+      'newEndpoint',
+      'newHmacAccessKey',
+      'newHmacSecretKey',
+      'headers',
+    ];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'instance_id': _params.newInstanceId,
+      'provider': _params.newProvider,
+      'type': _params.newType,
+      'region': _params.newRegion,
+      'endpoint': _params.newEndpoint,
+      'hmac_access_key': _params.newHmacAccessKey,
+      'hmac_secret_key': _params.newHmacSecretKey,
+    };
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'setInstanceHome'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/instance_home',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get instance default Spark configurations.
+   *
+   * Get the default Spark configuration properties that will be applied to all applications of the instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>>}
+   */
+  public getInstanceDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.GetInstanceDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getInstanceDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Replace instance default Spark configurations.
+   *
+   * Replace the default Spark configuration properties that will be applied to all applications of the instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {JsonObject} params.body - Spark configuration properties to replace existing instance default Spark
+   * configurations.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>>}
+   */
+  public replaceInstanceDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.ReplaceInstanceDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId', 'body'];
+    const _validParams = ['instanceId', 'body', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const { body } = _params;
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'replaceInstanceDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update instance default Spark configurations.
+   *
+   * Update the default Spark configuration properties that will be applied to all applications of the instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {JsonObject} params.body - Spark configuration properties to be updated. Properties will be merged with
+   * existing configuration properties. Set a property value to `null` in order to unset it.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>>}
+   */
+  public updateInstanceDefaultConfigs(
+    params: IbmAnalyticsEngineApiV3.UpdateInstanceDefaultConfigsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.JsonObject>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId', 'body'];
+    const _validParams = ['instanceId', 'body', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const { body } = _params;
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'updateInstanceDefaultConfigs'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_configs',
+        method: 'PATCH',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/merge-patch+json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
    * Deploy a Spark application.
    *
    * Deploys a Spark application on a given serverless Spark instance.
@@ -163,11 +479,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.CreateApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationResponse>> {
     const _params = { ...params };
-    const requiredParams = ['instanceId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'applicationDetails', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const body = {
@@ -210,7 +526,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   /**
    * Retrieve all Spark applications.
    *
-   * Gets all applications submitted in an instance with a specified inst_id.
+   * Gets all applications submitted in an instance with a specified instance-id.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Identifier of the instance where the applications run.
@@ -221,11 +537,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.ListApplicationsParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
-    const requiredParams = ['instanceId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const path = {
@@ -262,7 +578,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   /**
    * Retrieve the details of a given Spark application.
    *
-   * Gets the details of the given Spark application.
+   * Gets the details of a given Spark application.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - Identifier of the instance to which the application belongs.
@@ -274,11 +590,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.GetApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetResponse>> {
     const _params = { ...params };
-    const requiredParams = ['instanceId', 'applicationId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId', 'applicationId'];
+    const _validParams = ['instanceId', 'applicationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const path = {
@@ -329,11 +645,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     params: IbmAnalyticsEngineApiV3.DeleteApplicationParams
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
     const _params = { ...params };
-    const requiredParams = ['instanceId', 'applicationId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId', 'applicationId'];
+    const _validParams = ['instanceId', 'applicationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const path = {
@@ -354,13 +670,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -380,13 +690,15 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getApplicationState(
     params: IbmAnalyticsEngineApiV3.GetApplicationStateParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>
+  > {
     const _params = { ...params };
-    const requiredParams = ['instanceId', 'applicationId'];
-
-    const missingParams = getMissingParams(_params, requiredParams);
-    if (missingParams) {
-      return Promise.reject(missingParams);
+    const _requiredParams = ['instanceId', 'applicationId'];
+    const _validParams = ['instanceId', 'applicationId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
     }
 
     const path = {
@@ -403,6 +715,301 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     const parameters = {
       options: {
         url: '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get current resource consumption.
+   *
+   * Gives the total memory and virtual processor cores allotted to all the applications running in the service instance
+   * at this point in time. When auto-scaled applications are running, the resources allotted will change over time,
+   * based on the applications's demands. Note: The consumption is not an indication of actual resource consumption by
+   * Spark processes. It is the sum of resources allocated to the currently running applications at the time of
+   * application submission.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - ID of the Analytics Engine instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>>}
+   */
+  public getCurrentResourceConsumption(
+    params: IbmAnalyticsEngineApiV3.GetCurrentResourceConsumptionParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getCurrentResourceConsumption'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/current_resource_consumption',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Replace log forwarding configuration.
+   *
+   * Modify the configuration for forwarding logs from the Analytics Engine instance to IBM Log Analysis server. Use
+   * this endpoint to enable or disable log forwarding.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - ID of the Analytics Engine instance.
+   * @param {boolean} [params.enabled] - Enable or disable log forwarding.
+   * @param {string[]} [params.sources] - List of sources of logs that will be forwarded. By default, only
+   * 'spark-driver' logs are forwarded.
+   * @param {string[]} [params.tags] - List of tags to be applied to the logs being forwarded. They can be used to
+   * filter the logs in the IBM Log Analysis server.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>>}
+   */
+  public replaceLogForwardingConfig(
+    params: IbmAnalyticsEngineApiV3.ReplaceLogForwardingConfigParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'enabled', 'sources', 'tags', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'enabled': _params.enabled,
+      'sources': _params.sources,
+      'tags': _params.tags,
+    };
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'replaceLogForwardingConfig'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/log_forwarding_config',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get log forwarding configuration.
+   *
+   * Retrieve the log forwarding configuration of the Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - ID of the Analytics Engine instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>>}
+   */
+  public getLogForwardingConfig(
+    params: IbmAnalyticsEngineApiV3.GetLogForwardingConfigParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getLogForwardingConfig'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/log_forwarding_config',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Enable or disable log forwarding.
+   *
+   * Enable or disable log forwarding from IBM Analytics Engine to IBM Log Analysis server.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - GUID of the instance details for which log forwarding is to be configured.
+   * @param {boolean} [params.enable] - Enable or disable log forwarding.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   */
+  public configurePlatformLogging(
+    params: IbmAnalyticsEngineApiV3.ConfigurePlatformLoggingParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'enable', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'enable': _params.enable,
+    };
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'configurePlatformLogging'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Retrieve the logging configuration for a given instance id.
+   *
+   * Retrieve the logging configuration of a given Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceGuid - GUID of the Analytics Engine service instance to retrieve log configuration.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   */
+  public getLoggingConfiguration(
+    params: IbmAnalyticsEngineApiV3.GetLoggingConfigurationParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceGuid'];
+    const _validParams = ['instanceGuid', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_guid': _params.instanceGuid,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getLoggingConfiguration'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_guid}/logging',
         method: 'GET',
         path,
       },
@@ -457,6 +1064,61 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getInstanceState` operation. */
+  export interface GetInstanceStateParams {
+    /** GUID of the Analytics Engine service instance to retrieve state. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `setInstanceHome` operation. */
+  export interface SetInstanceHomeParams {
+    /** The ID of the Analytics Engine instance for which 'instance home' is to be set. */
+    instanceId: string;
+    /** UUID of the instance home storage instance. */
+    newInstanceId?: string;
+    /** Currently only ibm-cos (IBM Cloud Object Storage) is supported. */
+    newProvider?: string;
+    /** Type of the instance home storage. Currently, only objectstore (Cloud Object Storage) is supported. */
+    newType?: string;
+    /** Region of the Cloud Object Storage instance. */
+    newRegion?: string;
+    /** Endpoint to access the Cloud Object Storage instance. */
+    newEndpoint?: string;
+    /** Cloud Object Storage access key. */
+    newHmacAccessKey?: string;
+    /** Cloud Object Storage secret key. */
+    newHmacSecretKey?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getInstanceDefaultConfigs` operation. */
+  export interface GetInstanceDefaultConfigsParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `replaceInstanceDefaultConfigs` operation. */
+  export interface ReplaceInstanceDefaultConfigsParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    /** Spark configuration properties to replace existing instance default Spark configurations. */
+    body: JsonObject;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateInstanceDefaultConfigs` operation. */
+  export interface UpdateInstanceDefaultConfigsParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    /** Spark configuration properties to be updated. Properties will be merged with existing configuration
+     *  properties. Set a property value to `null` in order to unset it.
+     */
+    body: JsonObject;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `createApplication` operation. */
   export interface CreateApplicationParams {
     /** The identifier of the instance where the Spark application is submitted. */
@@ -500,6 +1162,51 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getCurrentResourceConsumption` operation. */
+  export interface GetCurrentResourceConsumptionParams {
+    /** ID of the Analytics Engine instance. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `replaceLogForwardingConfig` operation. */
+  export interface ReplaceLogForwardingConfigParams {
+    /** ID of the Analytics Engine instance. */
+    instanceId: string;
+    /** Enable or disable log forwarding. */
+    enabled?: boolean;
+    /** List of sources of logs that will be forwarded. By default, only 'spark-driver' logs are forwarded. */
+    sources?: string[];
+    /** List of tags to be applied to the logs being forwarded. They can be used to filter the logs in the IBM Log
+     *  Analysis server.
+     */
+    tags?: string[];
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getLogForwardingConfig` operation. */
+  export interface GetLogForwardingConfigParams {
+    /** ID of the Analytics Engine instance. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `configurePlatformLogging` operation. */
+  export interface ConfigurePlatformLoggingParams {
+    /** GUID of the instance details for which log forwarding is to be configured. */
+    instanceGuid: string;
+    /** Enable or disable log forwarding. */
+    enable?: boolean;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getLoggingConfiguration` operation. */
+  export interface GetLoggingConfigurationParams {
+    /** GUID of the Analytics Engine service instance to retrieve log configuration. */
+    instanceGuid: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /*************************
    * model interfaces
    ************************/
@@ -512,10 +1219,14 @@ namespace IbmAnalyticsEngineApiV3 {
     href?: string;
     /** Identifier provided by Apache Spark for the application. */
     spark_application_id?: string;
+    /** Name of the Spark application. */
+    spark_application_name?: string;
     /** Status of the application. */
     state?: string;
     /** Time when the application was started. */
     start_time?: string;
+    /** Time when the application run ended in success, failure or was stopped. */
+    end_time?: string;
     /** Time when the application was completed. */
     finish_time?: string;
   }
@@ -526,17 +1237,57 @@ namespace IbmAnalyticsEngineApiV3 {
     applications?: Application[];
   }
 
+  /** Application details. */
+  export interface ApplicationDetails {
+    /** Path of the application to run. */
+    application?: string;
+    /** Path of the jar files containing the application. */
+    jars?: string;
+    /** Package names. */
+    packages?: string;
+    /** Repositories names. */
+    repositories?: string;
+    /** File names. */
+    files?: string;
+    /** Archive Names. */
+    archives?: string;
+    /** Name of the application. */
+    name?: string;
+    /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
+     *  applications.
+     */
+    class?: string;
+    /** An array of arguments to be passed to the application. */
+    arguments?: string[];
+    /** Application configurations to override the value specified at instance level. See [Spark environment
+     *  variables]( https://spark.apache.org/docs/latest/configuration.html#available-properties) for a list of the
+     *  supported variables.
+     */
+    conf?: JsonObject;
+    /** Application environment configurations to use. See [Spark environment
+     *  variables](https://spark.apache.org/docs/latest/configuration.html#environment-variables) for a list of the
+     *  supported variables.
+     */
+    env?: JsonObject;
+  }
+
   /** Response of the Application Get API. */
   export interface ApplicationGetResponse {
-    /** Application request details. */
-    application_details?: ApplicationRequest;
+    /** Application details. */
+    application_details?: ApplicationDetails;
     /** Application ID. */
     id?: string;
+    /** Identifier provided by Apache Spark for the application. */
+    spark_application_id?: string;
+    /** Name of the Spark application. */
+    spark_application_name?: string;
     /** Application state. */
     state?: string;
     /** Application start time in the format YYYY-MM-DDTHH:mm:ssZ. */
     start_time?: string;
     /** Application end time in the format YYYY-MM-DDTHH:mm:ssZ. */
+    end_time?: string;
+    /** Application finish time in the format YYYY-MM-DDTHH:mm:ssZ. */
     finish_time?: string;
   }
 
@@ -548,20 +1299,28 @@ namespace IbmAnalyticsEngineApiV3 {
     state?: string;
     /** Time when the application was started. */
     start_time?: string;
+    /** Time when the application run ended in success, failure or was stopped. */
+    end_time?: string;
     /** Time when the application was completed. */
     finish_time?: string;
-  }
-
-  /** Application request details. */
-  export interface ApplicationRequest {
-    /** Application details. */
-    application_details?: ApplicationRequestApplicationDetails;
   }
 
   /** Application details. */
   export interface ApplicationRequestApplicationDetails {
     /** Path of the application to run. */
     application?: string;
+    /** Path of the jar files containing the application. */
+    jars?: string;
+    /** Package names. */
+    packages?: string;
+    /** Repositories names. */
+    repositories?: string;
+    /** File names. */
+    files?: string;
+    /** Archive Names. */
+    archives?: string;
+    /** Name of the application. */
+    name?: string;
     /** Entry point for a Spark application bundled as a '.jar' file. This is applicable only for Java or Scala
      *  applications.
      */
@@ -586,6 +1345,14 @@ namespace IbmAnalyticsEngineApiV3 {
     id?: string;
     /** State of the submitted application. */
     state?: string;
+  }
+
+  /** Current resource consumption of the instance. */
+  export interface CurrentResourceConsumptionResponse {
+    /** Number of virtual processor cores used. */
+    cores?: string;
+    /** Amount of memory used. */
+    memory?: string;
   }
 
   /** Details of Analytics Engine instance. */
@@ -618,6 +1385,14 @@ namespace IbmAnalyticsEngineApiV3 {
     spark_version?: string;
   }
 
+  /** State details of Analytics Engine instance. */
+  export interface InstanceGetStateResponse {
+    /** GUID of the Analytics Engine instance. */
+    id?: string;
+    /** Instance state. */
+    state?: string;
+  }
+
   /** Object storage instance that acts as the home for custom libraries and Spark events. */
   export interface InstanceHome {
     /** UUID of the instance home storage instance. */
@@ -636,6 +1411,58 @@ namespace IbmAnalyticsEngineApiV3 {
     hmac_access_key?: string;
     /** Cloud Object Storage secret key. Masked for security reasons. */
     hmac_secret_key?: string;
+  }
+
+  /** Response of Instance home API. */
+  export interface InstanceHomeResponse {
+    /** UUID of the instance home storage instance. */
+    instance_id?: string;
+    /** Currently only ibm-cos (IBM Cloud Object Storage) is supported. */
+    provider?: string;
+    /** Type of the instance home storage. Currently, only objectstore (Cloud Object Storage) is supported. */
+    type?: string;
+    /** Region of the Cloud Object Storage instance. */
+    region?: string;
+    /** Endpoint to access the Cloud Object Storage instance. */
+    endpoint?: string;
+    /** Cloud Object Storage access key. */
+    hmac_access_key?: string;
+    /** Cloud Object Storage secret key. */
+    hmac_secret_key?: string;
+  }
+
+  /** Log forwarding configuration details. */
+  export interface LogForwardingConfigResponse {
+    /** List of sources of logs that are being forwarded. */
+    sources?: string[];
+    /** List of tags that are applied to the logs being forwarded. */
+    tags?: string[];
+    /** Log server properties. */
+    log_server?: LogForwardingConfigResponseLogServer;
+    /** Indicates whether log forwarding is enabled or not. */
+    enabled?: boolean;
+  }
+
+  /** Log server properties. */
+  export interface LogForwardingConfigResponseLogServer {
+    /** Type of the log server. */
+    type?: string;
+  }
+
+  /** Response of logging API. */
+  export interface LoggingConfigurationResponse {
+    /** component array. */
+    components?: string[];
+    /** log server properties. */
+    log_server?: LoggingConfigurationResponseLogServer;
+    /** enable. */
+    enable?: boolean;
+  }
+
+  /** log server properties. */
+  export interface LoggingConfigurationResponseLogServer {
+    /** type of log server. */
+    type?: string;
   }
 }
 
