@@ -19,6 +19,7 @@
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const authHelper = require('../resources/auth-helper.js');
+const { IamAuthenticator } = require('../../dist/auth');
 
 // testcase timeout value (200s).
 const timeout = 200000;
@@ -29,25 +30,50 @@ const configFile = 'ibm_analytics_engine_api_v3.env';
 const describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
+
+  const sdkOptions = {};
+
+  let instanceGuid;
+  let instanceGuidWithoutInstanceHome;
+  let hmacAccessKey;
+  let hmacSecretKey;
+
+  // After creating an application via sdk, store the application id in this variable.
+  // Use the application id for other application sdk tests.
+  let applicationId = '';
+
+  beforeAll(() => {
+    const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
+
+    expect(config).not.toBeNull();
+    let iamUrl = config.authUrl || "https://iam.cloud.ibm.com"
+    sdkOptions.authenticator = new IamAuthenticator({ apikey: config.apikey, url: iamUrl });
+
+    instanceGuid = config.instanceGuid;
+    instanceGuidWithoutInstanceHome = config.instanceGuidWoInstanceHome;
+    hmacAccessKey = config.hmacAccessKey;
+    hmacSecretKey = config.hmacSecretKey;
+  })
+
   jest.setTimeout(timeout);
 
   // Service instance
   let ibmAnalyticsEngineApiService;
 
   test('Initialise service', async () => {
-    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance();
+    //Note: config is loaded in beforeAll
 
-    expect(ibmAnalyticsEngineApiService).not.toBeNull();
+    //Create sdk object based on parameters provided in configuration file / env.
+    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(sdkOptions);
 
-    const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
-    expect(config).not.toBeNull();
+    expect(ibmAnalyticsEngineApiService).not.toBeNull(); 
 
     ibmAnalyticsEngineApiService.enableRetries();
   });
 
   test('getInstance()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getInstance(params);
@@ -57,7 +83,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getInstanceState()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getInstanceState(params);
@@ -67,14 +93,14 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('setInstanceHome()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuidWithoutInstanceHome,
       newInstanceId: 'testString',
       newProvider: 'ibm-cos',
       newType: 'objectstore',
       newRegion: 'us-south',
       newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
-      newHmacAccessKey: '821**********0ae',
-      newHmacSecretKey: '03e****************4fc3',
+      newHmacAccessKey: hmacAccessKey,
+      newHmacSecretKey: hmacSecretKey,
     };
 
     const res = await ibmAnalyticsEngineApiService.setInstanceHome(params);
@@ -84,7 +110,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getInstanceDefaultConfigs()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getInstanceDefaultConfigs(params);
@@ -94,7 +120,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('replaceInstanceDefaultConfigs()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
       body: { 'key1': 'testString' },
     };
 
@@ -105,7 +131,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('updateInstanceDefaultConfigs()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
       body: { 'key1': 'testString' },
     };
 
@@ -119,32 +145,25 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
-      application: 'cos://bucket_name.my_cos/my_spark_app.py',
-      jars: 'cos://cloud-object-storage/jars/tests.jar',
-      packages: 'testString',
-      repositories: 'testString',
-      files: 'testString',
-      archives: 'testString',
-      name: 'spark-app',
-      class: 'com.company.path.ClassName',
-      arguments: ['[arg1, arg2, arg3]'],
-      conf: { 'spark.driver.cores': '1', 'spark.driver.memory': '4G' },
-      env: { SPARK_ENV_LOADED: '2' },
+      application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
+      arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
       applicationDetails: applicationRequestApplicationDetailsModel,
     };
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
+    //Store applicationId for other application based tests below.
+    applicationId = res.result.id; 
     expect(res).toBeDefined();
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
   test('listApplications()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.listApplications(params);
@@ -154,8 +173,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getApplication()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplication(params);
@@ -165,8 +184,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getApplicationState()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
@@ -176,7 +195,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getCurrentResourceConsumption()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getCurrentResourceConsumption(params);
@@ -186,7 +205,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('replaceLogForwardingConfig()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
       enabled: true,
       sources: ['spark-driver', 'spark-executor'],
       tags: ['<tag_1>', '<tag_2>', '<tag_n'],
@@ -199,7 +218,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getLogForwardingConfig()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getLogForwardingConfig(params);
@@ -209,7 +228,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('configurePlatformLogging()', async () => {
     const params = {
-      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceGuid: instanceGuid,
       enable: true,
     };
 
@@ -220,7 +239,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getLoggingConfiguration()', async () => {
     const params = {
-      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceGuid: instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
@@ -230,8 +249,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('deleteApplication()', async () => {
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: instanceGuid,
+      applicationId: applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.deleteApplication(params);
