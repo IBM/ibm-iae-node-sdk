@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-'use strict';
-
 // const testingHeaders = {
 //   // any headers desired for testing (like opting out of analytics)
 // };

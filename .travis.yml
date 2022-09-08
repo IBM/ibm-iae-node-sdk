@@ -3,23 +3,23 @@ language: node_js
 sudo: false
 
 node_js:
-- 12
 - 14
+- 16
+
+before_install:
+- npm i -g npm@8
+- npm --version
 
 script:
-- npm --version
 - npm run build
-- npm run test-unit-travis || travis_terminate 1
+- npm run test-travis || travis_terminate 1
 - npm run lint
 - npm run check-packages
-
-after_success:
-- npm run report-coverage
 
 deploy:
 - provider: script
   skip_cleanup: true
   script: npx semantic-release
   on:
-    node: 12
+    node: 14
     branch: master

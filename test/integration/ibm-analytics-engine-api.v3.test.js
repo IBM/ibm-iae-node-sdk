@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,63 +14,136 @@
  * limitations under the License.
  */
 
-const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
+/* eslint-disable no-console */
+
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const authHelper = require('../resources/auth-helper.js');
-// const authHelper = require('../resources/auth.js');
+const { IamAuthenticator } = require('../../dist/auth');
 
 // testcase timeout value (200s).
 const timeout = 200000;
-const { IamAuthenticator } = require('../../dist/auth');
-// Location of our config file.
-// const configFile = 'ibm_analytics_engine_api_v3.env';
 
-// const describe = authHelper.prepareTests(configFile);
+// Location of our config file.
+const configFile = 'ibm_analytics_engine_api_v3.env';
+
+const describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
-  const options = authHelper.ibm_analytics_engine_api_v3;
-  options.authenticator = new IamAuthenticator({ apikey: options.apikey });
-  const instanceGuid = options.instance_guid;
+  const sdkOptions = {};
+
+  let instanceGuid;
+  let instanceGuidWithoutInstanceHome;
+  let hmacAccessKey;
+  let hmacSecretKey;
+
+  // After creating an application via sdk, store the application id in this variable.
+  // Use the application id for other application sdk tests.
   let applicationId = '';
-  const ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(options);
 
-  expect(ibmAnalyticsEngineApiService).not.toBeNull();
+  beforeAll(() => {
+    const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
 
-  const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
-  expect(config).not.toBeNull();
+    expect(config).not.toBeNull();
+    const iamUrl = config.authUrl || 'https://iam.cloud.ibm.com';
+    sdkOptions.authenticator = new IamAuthenticator({ apikey: config.apikey, url: iamUrl });
+
+    instanceGuid = config.instanceGuid;
+    instanceGuidWithoutInstanceHome = config.instanceGuidWoInstanceHome;
+    hmacAccessKey = config.hmacAccessKey;
+    hmacSecretKey = config.hmacSecretKey;
+  });
 
   jest.setTimeout(timeout);
+
+  // Service instance
+  let ibmAnalyticsEngineApiService;
+
+  test('Initialise service', async () => {
+    // Note: config is loaded in beforeAll
+
+    // Create sdk object based on parameters provided in configuration file / env.
+    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(sdkOptions);
+
+    expect(ibmAnalyticsEngineApiService).not.toBeNull();
+
+    ibmAnalyticsEngineApiService.enableRetries();
+  });
 
   test('getInstance()', async () => {
     const params = {
       instanceId: instanceGuid,
     };
+
     const res = await ibmAnalyticsEngineApiService.getInstance(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+  });
+  test('getInstanceState()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
 
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
+    const res = await ibmAnalyticsEngineApiService.getInstanceState(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('setInstanceHome()', async () => {
+    const params = {
+      instanceId: instanceGuidWithoutInstanceHome,
+      newInstanceId: 'testString',
+      newProvider: 'ibm-cos',
+      newType: 'objectstore',
+      newRegion: 'us-south',
+      newEndpoint: 's3.direct.us-south.cloud-object-storage.appdomain.cloud',
+      newHmacAccessKey: hmacAccessKey,
+      newHmacSecretKey: hmacSecretKey,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.setInstanceHome(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getInstanceDefaultConfigs()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getInstanceDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('replaceInstanceDefaultConfigs()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key1': 'testString' },
+    };
+
+    const res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('updateInstanceDefaultConfigs()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      body: { 'key1': 'testString' },
+    };
+
+    const res = await ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
   });
   test('createApplication()', async () => {
     // Request models needed by this operation.
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
-      // application: 'cos://bucket_name.my_cos/my_spark_app.py',
-      // class: 'com.company.path.ClassName',
-      // arguments: ['[arg1, arg2, arg3]'],
-      // conf: { spark.driver.cores: '1', spark.driver.memory: '4G' },
-      // env: { SPARK_ENV_LOADED: '2' },
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
       arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
     };
@@ -82,21 +154,11 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
+    // Store applicationId for other application based tests below.
     applicationId = res.result.id;
     expect(res).toBeDefined();
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
   });
   test('listApplications()', async () => {
     const params = {
@@ -107,82 +169,92 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
   });
   test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplication(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
   });
   test('getApplicationState()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
+  });
+  test('getCurrentResourceConsumption()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
 
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
+    const res = await ibmAnalyticsEngineApiService.getCurrentResourceConsumption(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('replaceLogForwardingConfig()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      enabled: true,
+      sources: ['spark-driver', 'spark-executor'],
+      tags: ['<tag_1>', '<tag_2>', '<tag_n'],
+    };
+
+    const res = await ibmAnalyticsEngineApiService.replaceLogForwardingConfig(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getLogForwardingConfig()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getLogForwardingConfig(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('configurePlatformLogging()', async () => {
+    const params = {
+      instanceGuid,
+      enable: true,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.configurePlatformLogging(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(201);
+    expect(res.result).toBeDefined();
+  });
+  test('getLoggingConfiguration()', async () => {
+    const params = {
+      instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
   });
   test('deleteApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.deleteApplication(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
-
-    //
-    // The following status codes aren't covered by tests.
-    // Please provide integration tests for these too.
-    //
-    // 400
-    // 401
-    // 403
-    // 404
-    // 500
-    //
   });
 });
