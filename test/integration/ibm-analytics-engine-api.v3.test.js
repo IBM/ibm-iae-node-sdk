@@ -30,7 +30,6 @@ const configFile = 'ibm_analytics_engine_api_v3.env';
 const describe = authHelper.prepareTests(configFile);
 
 describe('IbmAnalyticsEngineApiV3_integration', () => {
-
   const sdkOptions = {};
 
   let instanceGuid;
@@ -46,14 +45,14 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
 
     expect(config).not.toBeNull();
-    let iamUrl = config.authUrl || "https://iam.cloud.ibm.com"
+    const iamUrl = config.authUrl || 'https://iam.cloud.ibm.com';
     sdkOptions.authenticator = new IamAuthenticator({ apikey: config.apikey, url: iamUrl });
 
     instanceGuid = config.instanceGuid;
     instanceGuidWithoutInstanceHome = config.instanceGuidWoInstanceHome;
     hmacAccessKey = config.hmacAccessKey;
     hmacSecretKey = config.hmacSecretKey;
-  })
+  });
 
   jest.setTimeout(timeout);
 
@@ -61,12 +60,12 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   let ibmAnalyticsEngineApiService;
 
   test('Initialise service', async () => {
-    //Note: config is loaded in beforeAll
+    // Note: config is loaded in beforeAll
 
-    //Create sdk object based on parameters provided in configuration file / env.
+    // Create sdk object based on parameters provided in configuration file / env.
     ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(sdkOptions);
 
-    expect(ibmAnalyticsEngineApiService).not.toBeNull(); 
+    expect(ibmAnalyticsEngineApiService).not.toBeNull();
 
     ibmAnalyticsEngineApiService.enableRetries();
   });
@@ -155,8 +154,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
-    //Store applicationId for other application based tests below.
-    applicationId = res.result.id; 
+    // Store applicationId for other application based tests below.
+    applicationId = res.result.id;
     expect(res).toBeDefined();
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
@@ -174,7 +173,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplication(params);
@@ -185,7 +184,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('getApplicationState()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.getApplicationState(params);
@@ -228,7 +227,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('configurePlatformLogging()', async () => {
     const params = {
-      instanceGuid: instanceGuid,
+      instanceGuid,
       enable: true,
     };
 
@@ -239,7 +238,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   });
   test('getLoggingConfiguration()', async () => {
     const params = {
-      instanceGuid: instanceGuid,
+      instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
@@ -250,7 +249,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('deleteApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
-      applicationId: applicationId,
+      applicationId,
     };
 
     const res = await ibmAnalyticsEngineApiService.deleteApplication(params);
