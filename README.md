@@ -42,13 +42,14 @@ Service Name | Import Path
 
 **NOTE**:
 
-IBM Analytics Engine v2 is for the classic plans : Lite, Standard Hourly and Standard monthly
+IBM Analytics Engine v2 is for the classic plans : Lite, Standard Hourly and Standard monthly.
+The classic plans are now deprecated.
 
 IBM Analytics Engine v3 is for the Standard Serverless Spark plan
 
 ## Prerequisites
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
-* **Node.js >=12**: This SDK is tested with Node.js versions 12 and up. It may work on previous versions but this is not officially supported.
+* **Node.js >=14**: This SDK is tested with Node.js versions 14 and up. It may work on previous versions but this is not officially supported.
 
 [ibm-cloud-onboarding]: http://cloud.ibm.com/registration
 
