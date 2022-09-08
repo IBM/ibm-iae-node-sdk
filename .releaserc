@@ -1,7 +1,7 @@
 {
   "debug": true,
   "branches": [
-    "main"
+    "master"
   ],
   "verifyConditions": [
     "@semantic-release/changelog",
