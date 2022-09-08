@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v1.1.1...v2.0.0) (2022-09-08)
+
+
+### Features
+
+* add sdk methods for v3 api and update dependencies ([f740ba2](https://github.com/IBM/ibm-iae-node-sdk/commit/f740ba24e7ea007014a1adc2e48dbfce98b28d97))
+
+
+### BREAKING CHANGES
+
+* Minimum supported nodejs version
+
+The minimum supported version of nodejs is now v14.
+
+Signed-off-by: Subin Shekhar <subinpc@gmail.com>
+
 ## [1.1.1](https://github.com/IBM/ibm-iae-node-sdk/compare/v1.1.0...v1.1.1) (2021-09-07)
 
 
