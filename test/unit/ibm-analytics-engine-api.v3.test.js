@@ -687,13 +687,204 @@ describe('IbmAnalyticsEngineApiV3', () => {
     });
   });
 
+  describe('getInstanceDefaultRuntime', () => {
+    describe('positive tests', () => {
+      function __getInstanceDefaultRuntimeTest() {
+        // Construct the params object for operation getInstanceDefaultRuntime
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const getInstanceDefaultRuntimeParams = {
+          instanceId,
+        };
+
+        const getInstanceDefaultRuntimeResult =
+          ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(getInstanceDefaultRuntimeParams);
+
+        // all methods should return a Promise
+        expectToBePromise(getInstanceDefaultRuntimeResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/default_runtime',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getInstanceDefaultRuntimeTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __getInstanceDefaultRuntimeTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __getInstanceDefaultRuntimeTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getInstanceDefaultRuntimeParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(getInstanceDefaultRuntimeParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getInstanceDefaultRuntime({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getInstanceDefaultRuntime();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('replaceInstanceDefaultRuntime', () => {
+    describe('positive tests', () => {
+      function __replaceInstanceDefaultRuntimeTest() {
+        // Construct the params object for operation replaceInstanceDefaultRuntime
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const sparkVersion = '3.1';
+        const replaceInstanceDefaultRuntimeParams = {
+          instanceId,
+          sparkVersion,
+        };
+
+        const replaceInstanceDefaultRuntimeResult =
+          ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(
+            replaceInstanceDefaultRuntimeParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(replaceInstanceDefaultRuntimeResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/default_runtime',
+          'PUT'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.spark_version).toEqual(sparkVersion);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __replaceInstanceDefaultRuntimeTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __replaceInstanceDefaultRuntimeTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __replaceInstanceDefaultRuntimeTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const replaceInstanceDefaultRuntimeParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(
+          replaceInstanceDefaultRuntimeParams
+        );
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
   describe('createApplication', () => {
     describe('positive tests', () => {
       // Request models needed by this operation.
 
+      // Runtime
+      const runtimeModel = {
+        spark_version: '3.1',
+      };
+
       // ApplicationRequestApplicationDetails
       const applicationRequestApplicationDetailsModel = {
         application: 'cos://bucket_name.my_cos/my_spark_app.py',
+        runtime: runtimeModel,
         jars: 'cos://cloud-object-storage/jars/tests.jar',
         packages: 'testString',
         repositories: 'testString',
@@ -801,8 +992,10 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __listApplicationsTest() {
         // Construct the params object for operation listApplications
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const state = ['finished'];
         const listApplicationsParams = {
           instanceId,
+          state,
         };
 
         const listApplicationsResult =
@@ -824,6 +1017,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.qs.state).toEqual(state);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
@@ -1251,6 +1445,99 @@ describe('IbmAnalyticsEngineApiV3', () => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getCurrentResourceConsumption();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getResourceConsumptionLimits', () => {
+    describe('positive tests', () => {
+      function __getResourceConsumptionLimitsTest() {
+        // Construct the params object for operation getResourceConsumptionLimits
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const getResourceConsumptionLimitsParams = {
+          instanceId,
+        };
+
+        const getResourceConsumptionLimitsResult =
+          ibmAnalyticsEngineApiService.getResourceConsumptionLimits(
+            getResourceConsumptionLimitsParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(getResourceConsumptionLimitsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/resource_consumption_limits',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getResourceConsumptionLimitsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __getResourceConsumptionLimitsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __getResourceConsumptionLimitsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getResourceConsumptionLimitsParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.getResourceConsumptionLimits(
+          getResourceConsumptionLimitsParams
+        );
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getResourceConsumptionLimits({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getResourceConsumptionLimits();
         } catch (e) {
           err = e;
         }

@@ -221,6 +221,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * Provide the details of the Cloud Object Storage instance to associate with the Analytics Engine instance and use as
    * 'instance home' if 'instance home' has not already been set.
    *
+   * **Note**: You can set 'instance home' again if the instance is in 'instance_home_creation_failure' state.
+   *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceId - The ID of the Analytics Engine instance for which 'instance home' is to be set.
    * @param {string} [params.newInstanceId] - UUID of the instance home storage instance.
@@ -465,12 +467,124 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
+   * Get instance default runtime.
+   *
+   * Get the default runtime environment on which all workloads of the instance will run.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Runtime>>}
+   */
+  public getInstanceDefaultRuntime(
+    params: IbmAnalyticsEngineApiV3.GetInstanceDefaultRuntimeParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Runtime>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getInstanceDefaultRuntime'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_runtime',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Replace instance default runtime.
+   *
+   * Replace the default runtime environment on which all workloads of the instance will run.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {string} [params.sparkVersion] - Spark version of the runtime environment.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Runtime>>}
+   */
+  public replaceInstanceDefaultRuntime(
+    params: IbmAnalyticsEngineApiV3.ReplaceInstanceDefaultRuntimeParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Runtime>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'sparkVersion', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'spark_version': _params.sparkVersion,
+    };
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'replaceInstanceDefaultRuntime'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/default_runtime',
+        method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
    * Deploy a Spark application.
    *
    * Deploys a Spark application on a given serverless Spark instance.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - The identifier of the instance where the Spark application is submitted.
+   * @param {string} params.instanceId - The identifier of the Analytics Engine instance associated with the Spark
+   * application(s).
    * @param {ApplicationRequestApplicationDetails} [params.applicationDetails] - Application details.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationResponse>>}
@@ -524,12 +638,15 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   }
 
   /**
-   * Retrieve all Spark applications.
+   * List all Spark applications.
    *
-   * Gets all applications submitted in an instance with a specified instance-id.
+   * Returns a list of all Spark applications submitted to the specified Analytics Engine instance. The result can be
+   * filtered by specifying query parameters.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - Identifier of the instance where the applications run.
+   * @param {string} params.instanceId - The identifier of the Analytics Engine instance associated with the Spark
+   * application(s).
+   * @param {string[]} [params.state] - List of Spark application states that will be used to filter the response.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>>}
    */
@@ -538,11 +655,15 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'headers'];
+    const _validParams = ['instanceId', 'state', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
     }
+
+    const query = {
+      'state': _params.state,
+    };
 
     const path = {
       'instance_id': _params.instanceId,
@@ -558,6 +679,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       options: {
         url: '/v3/analytics_engines/{instance_id}/spark_applications',
         method: 'GET',
+        qs: query,
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
@@ -773,6 +895,61 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
     const parameters = {
       options: {
         url: '/v3/analytics_engines/{instance_id}/current_resource_consumption',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get resource consumption limits.
+   *
+   * Returns the maximum total memory and virtual processor cores that can be allotted across all the applications
+   * running in the service instance at any point in time.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - ID of the Analytics Engine instance.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>>}
+   */
+  public getResourceConsumptionLimits(
+    params: IbmAnalyticsEngineApiV3.GetResourceConsumptionLimitsParams
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>
+  > {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getResourceConsumptionLimits'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/resource_consumption_limits',
         method: 'GET',
         path,
       },
@@ -1119,9 +1296,25 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `getInstanceDefaultRuntime` operation. */
+  export interface GetInstanceDefaultRuntimeParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `replaceInstanceDefaultRuntime` operation. */
+  export interface ReplaceInstanceDefaultRuntimeParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    /** Spark version of the runtime environment. */
+    sparkVersion?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /** Parameters for the `createApplication` operation. */
   export interface CreateApplicationParams {
-    /** The identifier of the instance where the Spark application is submitted. */
+    /** The identifier of the Analytics Engine instance associated with the Spark application(s). */
     instanceId: string;
     /** Application details. */
     applicationDetails?: ApplicationRequestApplicationDetails;
@@ -1130,9 +1323,29 @@ namespace IbmAnalyticsEngineApiV3 {
 
   /** Parameters for the `listApplications` operation. */
   export interface ListApplicationsParams {
-    /** Identifier of the instance where the applications run. */
+    /** The identifier of the Analytics Engine instance associated with the Spark application(s). */
     instanceId: string;
+    /** List of Spark application states that will be used to filter the response. */
+    state?: ListApplicationsConstants.State[] | string[];
     headers?: OutgoingHttpHeaders;
+  }
+
+  /** Constants for the `listApplications` operation. */
+  export namespace ListApplicationsConstants {
+    /** List of Spark application states that will be used to filter the response. */
+    export enum State {
+      FINISHED = 'finished',
+      RUNNING = 'running',
+      FAILED = 'failed',
+      ERROR = 'error',
+      ACCEPTED = 'accepted',
+      SUBMITTED = 'submitted',
+      WAITING = 'waiting',
+      UNKNOWN = 'unknown',
+      STOPPED = 'stopped',
+      AUTO_TERMINATED = 'auto_terminated',
+      OPS_TERMINATED = 'ops_terminated',
+    }
   }
 
   /** Parameters for the `getApplication` operation. */
@@ -1164,6 +1377,13 @@ namespace IbmAnalyticsEngineApiV3 {
 
   /** Parameters for the `getCurrentResourceConsumption` operation. */
   export interface GetCurrentResourceConsumptionParams {
+    /** ID of the Analytics Engine instance. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getResourceConsumptionLimits` operation. */
+  export interface GetResourceConsumptionLimitsParams {
     /** ID of the Analytics Engine instance. */
     instanceId: string;
     headers?: OutgoingHttpHeaders;
@@ -1217,11 +1437,13 @@ namespace IbmAnalyticsEngineApiV3 {
     id?: string;
     /** Full URL of the resource. */
     href?: string;
+    /** Runtime enviroment for applications and other workloads. */
+    runtime?: Runtime;
     /** Identifier provided by Apache Spark for the application. */
     spark_application_id?: string;
     /** Name of the Spark application. */
     spark_application_name?: string;
-    /** Status of the application. */
+    /** State of the Spark application. */
     state?: string;
     /** Time when the application was started. */
     start_time?: string;
@@ -1241,6 +1463,8 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface ApplicationDetails {
     /** Path of the application to run. */
     application?: string;
+    /** Runtime enviroment for applications and other workloads. */
+    runtime?: Runtime;
     /** Path of the jar files containing the application. */
     jars?: string;
     /** Package names. */
@@ -1281,8 +1505,10 @@ namespace IbmAnalyticsEngineApiV3 {
     spark_application_id?: string;
     /** Name of the Spark application. */
     spark_application_name?: string;
-    /** Application state. */
+    /** State of the Spark application. */
     state?: string;
+    /** List of additional information messages on the current state of the application. */
+    state_details?: ApplicationGetResponseStateDetailsItem[];
     /** Application start time in the format YYYY-MM-DDTHH:mm:ssZ. */
     start_time?: string;
     /** Application end time in the format YYYY-MM-DDTHH:mm:ssZ. */
@@ -1291,11 +1517,21 @@ namespace IbmAnalyticsEngineApiV3 {
     finish_time?: string;
   }
 
+  /** Additional information message on the current state of the application. */
+  export interface ApplicationGetResponseStateDetailsItem {
+    /** Type of the message. */
+    type?: string;
+    /** Fixed code for the message. */
+    code?: string;
+    /** A descriptive message providing additional information on the current application state. */
+    message?: string;
+  }
+
   /** State of a given application. */
   export interface ApplicationGetStateResponse {
     /** Identifier of the application. */
     id?: string;
-    /** Status of the application. */
+    /** State of the Spark application. */
     state?: string;
     /** Time when the application was started. */
     start_time?: string;
@@ -1309,6 +1545,8 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface ApplicationRequestApplicationDetails {
     /** Path of the application to run. */
     application?: string;
+    /** Runtime enviroment for applications and other workloads. */
+    runtime?: Runtime;
     /** Path of the jar files containing the application. */
     jars?: string;
     /** Package names. */
@@ -1343,7 +1581,7 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface ApplicationResponse {
     /** Identifier of the application that was submitted. */
     id?: string;
-    /** State of the submitted application. */
+    /** State of the Spark application. */
     state?: string;
   }
 
@@ -1361,12 +1599,12 @@ namespace IbmAnalyticsEngineApiV3 {
     id?: string;
     /** Full URL of the resource. */
     href?: string;
-    /** Instance state. */
+    /** State of the Analytics Engine instance. */
     state?: string;
     /** Timestamp when the state of the instance was changed, in the format YYYY-MM-DDTHH:mm:ssZ. */
     state_change_time?: string;
-    /** Specifies the default runtime to use for all workloads that run in this instance. */
-    default_runtime?: InstanceDefaultRuntime;
+    /** Runtime enviroment for applications and other workloads. */
+    default_runtime?: Runtime;
     /** Object storage instance that acts as the home for custom libraries and Spark events. */
     instance_home?: InstanceHome;
     /** Instance level default configuration for Spark workloads. */
@@ -1379,17 +1617,11 @@ namespace IbmAnalyticsEngineApiV3 {
     key?: string;
   }
 
-  /** Specifies the default runtime to use for all workloads that run in this instance. */
-  export interface InstanceDefaultRuntime {
-    /** Version of Spark runtime to use. Currently, only 3.1 is supported. */
-    spark_version?: string;
-  }
-
   /** State details of Analytics Engine instance. */
   export interface InstanceGetStateResponse {
     /** GUID of the Analytics Engine instance. */
     id?: string;
-    /** Instance state. */
+    /** State of the Analytics Engine instance. */
     state?: string;
   }
 
@@ -1463,6 +1695,20 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface LoggingConfigurationResponseLogServer {
     /** type of log server. */
     type?: string;
+  }
+
+  /** Resource consumption limits for the instance. */
+  export interface ResourceConsumptionLimitsResponse {
+    /** Maximum number of virtual processor cores that be used in the instance. */
+    max_cores?: string;
+    /** Maximum memory that can be used in the instance. */
+    max_memory?: string;
+  }
+
+  /** Runtime enviroment for applications and other workloads. */
+  export interface Runtime {
+    /** Spark version of the runtime environment. */
+    spark_version?: string;
   }
 }
 

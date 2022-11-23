@@ -139,13 +139,40 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+  test('getInstanceDefaultRuntime()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('replaceInstanceDefaultRuntime()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      sparkVersion: '3.3',
+    };
+
+    const res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
   test('createApplication()', async () => {
     // Request models needed by this operation.
+
+    // Runtime
+    const runtimeModel = {
+      spark_version: '3.1',
+    };
 
     // ApplicationRequestApplicationDetails
     const applicationRequestApplicationDetailsModel = {
       application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
       arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
+      runtime: runtimeModel,
     };
 
     const params = {
@@ -163,6 +190,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('listApplications()', async () => {
     const params = {
       instanceId: instanceGuid,
+      state: ['accepted', 'submitted', 'waiting', 'running', 'finished', 'failed'],
     };
 
     const res = await ibmAnalyticsEngineApiService.listApplications(params);
@@ -198,6 +226,16 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.getCurrentResourceConsumption(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('getResourceConsumptionLimits()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getResourceConsumptionLimits(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();

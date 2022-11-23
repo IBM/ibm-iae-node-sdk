@@ -79,7 +79,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance_state
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -135,7 +135,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-set_instance_home
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      newHmacAccessKey: 'b9****************************4b',
+      newHmacSecretKey: 'fa********************************************8a',
     };
 
     let res;
@@ -163,7 +165,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance_default_configs
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -191,8 +193,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-replace_instance_default_configs
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      body: { 'key1': 'testString' },
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      body: {
+        'spark.driver.memory': '8G',
+        'spark.driver.cores': '2',
+      },
     };
 
     let res;
@@ -220,8 +225,11 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-update_instance_default_configs
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      body: { 'key1': 'testString' },
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      body: {
+        'ae.spark.history-server.cores': '1',
+        'ae.spark.history-server.memory': '4G',
+      },
     };
 
     let res;
@@ -233,6 +241,63 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-update_instance_default_configs
+  });
+
+  test('getInstanceDefaultRuntime request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getInstanceDefaultRuntime() result:');
+    // begin-get_instance_default_runtime
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_instance_default_runtime
+  });
+
+  test('replaceInstanceDefaultRuntime request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('replaceInstanceDefaultRuntime() result:');
+    // begin-replace_instance_default_runtime
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      sparkVersion: '3.3',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-replace_instance_default_runtime
   });
 
   test('createApplication request example', async () => {
@@ -249,7 +314,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-create_application
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      applicationDetails: {
+        application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
+        arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
+      },
+      runtime: {
+        spark_version: '3.1',
+      },
     };
 
     let res;
@@ -277,7 +349,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-list_applications
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      state: ['accepted', 'submitted', 'waiting', 'running', 'finished', 'failed'],
     };
 
     let res;
@@ -305,8 +378,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_application
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
     };
 
     let res;
@@ -334,8 +407,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_application_state
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
     };
 
     let res;
@@ -363,7 +436,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_current_resource_consumption
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -375,6 +448,34 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-get_current_resource_consumption
+  });
+
+  test('getResourceConsumptionLimits request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getResourceConsumptionLimits() result:');
+    // begin-get_resource_consumption_limits
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getResourceConsumptionLimits(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_resource_consumption_limits
   });
 
   test('replaceLogForwardingConfig request example', async () => {
@@ -391,7 +492,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-replace_log_forwarding_config
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      enabled: true,
     };
 
     let res;
@@ -419,7 +521,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_log_forwarding_config
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -447,7 +549,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-configure_platform_logging
 
     const params = {
-      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceGuid: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      enable: true,
     };
 
     let res;
@@ -475,7 +578,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_logging_configuration
 
     const params = {
-      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      instanceGuid: 'dc0e9889-eab2-4t9e-9441-566209499546',
     };
 
     let res;
@@ -502,8 +605,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-delete_application
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
     };
 
     try {
