@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.0.0...v2.1.0) (2022-11-24)
+
+
+### Features
+
+* add new sdk methods and updated existing ones ([74dda34](https://github.com/IBM/ibm-iae-node-sdk/commit/74dda34053a911ac31e0e7e57cc1052ed7e4117f))
+
 # [2.0.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v1.1.1...v2.0.0) (2022-09-08)
 
 
