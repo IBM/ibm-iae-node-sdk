@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -302,8 +302,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const newType = 'objectstore';
         const newRegion = 'us-south';
         const newEndpoint = 's3.direct.us-south.cloud-object-storage.appdomain.cloud';
-        const newHmacAccessKey = '821**********0ae';
-        const newHmacSecretKey = '03e****************4fc3';
+        const newHmacAccessKey = 'b9****************************4b';
+        const newHmacSecretKey = 'fa********************************************8a';
         const setInstanceHomeParams = {
           instanceId,
           newInstanceId,
@@ -883,7 +883,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       // ApplicationRequestApplicationDetails
       const applicationRequestApplicationDetailsModel = {
-        application: 'cos://bucket_name.my_cos/my_spark_app.py',
+        application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
         runtime: runtimeModel,
         jars: 'cos://cloud-object-storage/jars/tests.jar',
         packages: 'testString',
@@ -892,7 +892,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
         archives: 'testString',
         name: 'spark-app',
         class: 'com.company.path.ClassName',
-        arguments: ['[arg1, arg2, arg3]'],
+        arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
         conf: { 'key1': 'testString' },
         env: { 'key1': 'testString' },
       };
@@ -1908,6 +1908,276 @@ describe('IbmAnalyticsEngineApiV3', () => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.getLoggingConfiguration();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('startSparkHistoryServer', () => {
+    describe('positive tests', () => {
+      function __startSparkHistoryServerTest() {
+        // Construct the params object for operation startSparkHistoryServer
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const startSparkHistoryServerParams = {
+          instanceId,
+        };
+
+        const startSparkHistoryServerResult = ibmAnalyticsEngineApiService.startSparkHistoryServer(
+          startSparkHistoryServerParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(startSparkHistoryServerResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_history_server',
+          'POST'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __startSparkHistoryServerTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __startSparkHistoryServerTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __startSparkHistoryServerTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const startSparkHistoryServerParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.startSparkHistoryServer(startSparkHistoryServerParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.startSparkHistoryServer({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.startSparkHistoryServer();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('getSparkHistoryServer', () => {
+    describe('positive tests', () => {
+      function __getSparkHistoryServerTest() {
+        // Construct the params object for operation getSparkHistoryServer
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const getSparkHistoryServerParams = {
+          instanceId,
+        };
+
+        const getSparkHistoryServerResult = ibmAnalyticsEngineApiService.getSparkHistoryServer(
+          getSparkHistoryServerParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(getSparkHistoryServerResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_history_server',
+          'GET'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __getSparkHistoryServerTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __getSparkHistoryServerTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __getSparkHistoryServerTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const getSparkHistoryServerParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.getSparkHistoryServer(getSparkHistoryServerParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getSparkHistoryServer({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.getSparkHistoryServer();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('stopSparkHistoryServer', () => {
+    describe('positive tests', () => {
+      function __stopSparkHistoryServerTest() {
+        // Construct the params object for operation stopSparkHistoryServer
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const stopSparkHistoryServerParams = {
+          instanceId,
+        };
+
+        const stopSparkHistoryServerResult = ibmAnalyticsEngineApiService.stopSparkHistoryServer(
+          stopSparkHistoryServerParams
+        );
+
+        // all methods should return a Promise
+        expectToBePromise(stopSparkHistoryServerResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/spark_history_server',
+          'DELETE'
+        );
+        const expectedAccept = undefined;
+        const expectedContentType = undefined;
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __stopSparkHistoryServerTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __stopSparkHistoryServerTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __stopSparkHistoryServerTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const stopSparkHistoryServerParams = {
+          instanceId,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.stopSparkHistoryServer(stopSparkHistoryServerParams);
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.stopSparkHistoryServer({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.stopSparkHistoryServer();
         } catch (e) {
           err = e;
         }

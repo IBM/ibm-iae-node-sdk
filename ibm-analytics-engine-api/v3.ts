@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1094,6 +1094,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * Enable or disable log forwarding.
    *
    * Enable or disable log forwarding from IBM Analytics Engine to IBM Log Analysis server.
+   * *Note:* Deprecated. Use the log forwarding config api instead.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the instance details for which log forwarding is to be configured.
@@ -1155,6 +1156,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * Retrieve the logging configuration for a given instance id.
    *
    * Retrieve the logging configuration of a given Analytics Engine instance.
+   * *Note:* Deprecated. Use the log forwarding config api instead.
    *
    * @param {Object} params - The parameters to send to the service.
    * @param {string} params.instanceGuid - GUID of the Analytics Engine service instance to retrieve log configuration.
@@ -1199,6 +1201,158 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
           },
           _params.headers
         ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Start Spark history server.
+   *
+   * Start the Spark history server for the given Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance to which the Spark history server
+   * belongs.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>>}
+   */
+  public startSparkHistoryServer(
+    params: IbmAnalyticsEngineApiV3.StartSparkHistoryServerParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'startSparkHistoryServer'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/spark_history_server',
+        method: 'POST',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Get Spark history server details.
+   *
+   * Get the details of the Spark history server of the given Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance to which the Spark history server
+   * belongs.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>>}
+   */
+  public getSparkHistoryServer(
+    params: IbmAnalyticsEngineApiV3.GetSparkHistoryServerParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.SparkHistoryServerResponse>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'getSparkHistoryServer'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/spark_history_server',
+        method: 'GET',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Stop Spark history server.
+   *
+   * Stop the Spark history server of the given Analytics Engine instance.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance to which the Spark history server
+   * belongs.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   */
+  public stopSparkHistoryServer(
+    params: IbmAnalyticsEngineApiV3.StopSparkHistoryServerParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId'];
+    const _validParams = ['instanceId', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'stopSparkHistoryServer'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/spark_history_server',
+        method: 'DELETE',
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -1337,11 +1491,7 @@ namespace IbmAnalyticsEngineApiV3 {
       FINISHED = 'finished',
       RUNNING = 'running',
       FAILED = 'failed',
-      ERROR = 'error',
       ACCEPTED = 'accepted',
-      SUBMITTED = 'submitted',
-      WAITING = 'waiting',
-      UNKNOWN = 'unknown',
       STOPPED = 'stopped',
       AUTO_TERMINATED = 'auto_terminated',
       OPS_TERMINATED = 'ops_terminated',
@@ -1427,6 +1577,27 @@ namespace IbmAnalyticsEngineApiV3 {
     headers?: OutgoingHttpHeaders;
   }
 
+  /** Parameters for the `startSparkHistoryServer` operation. */
+  export interface StartSparkHistoryServerParams {
+    /** The ID of the Analytics Engine instance to which the Spark history server belongs. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `getSparkHistoryServer` operation. */
+  export interface GetSparkHistoryServerParams {
+    /** The ID of the Analytics Engine instance to which the Spark history server belongs. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `stopSparkHistoryServer` operation. */
+  export interface StopSparkHistoryServerParams {
+    /** The ID of the Analytics Engine instance to which the Spark history server belongs. */
+    instanceId: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
   /*************************
    * model interfaces
    ************************/
@@ -1445,12 +1616,18 @@ namespace IbmAnalyticsEngineApiV3 {
     spark_application_name?: string;
     /** State of the Spark application. */
     state?: string;
+    /** URL of the Apache Spark web UI that is available when the application is running. */
+    spark_ui?: string;
+    /** Time when the application was submitted. */
+    submission_time?: string;
     /** Time when the application was started. */
     start_time?: string;
     /** Time when the application run ended in success, failure or was stopped. */
     end_time?: string;
-    /** Time when the application was completed. */
+    /** (deprecated) Time when the application was completed. */
     finish_time?: string;
+    /** Time when the application will be automatically stopped by the service. */
+    auto_termination_time?: string;
   }
 
   /** An array of application details. */
@@ -1507,14 +1684,20 @@ namespace IbmAnalyticsEngineApiV3 {
     spark_application_name?: string;
     /** State of the Spark application. */
     state?: string;
+    /** URL of the Apache Spark web UI that is available when the application is running. */
+    spark_ui?: string;
     /** List of additional information messages on the current state of the application. */
     state_details?: ApplicationGetResponseStateDetailsItem[];
-    /** Application start time in the format YYYY-MM-DDTHH:mm:ssZ. */
+    /** Time when the application was submitted. */
+    submission_time?: string;
+    /** Time when the application started, in the format YYYY-MM-DDTHH:mm:ssZ. */
     start_time?: string;
-    /** Application end time in the format YYYY-MM-DDTHH:mm:ssZ. */
+    /** Time when the application ended either in success or failure, in the format YYYY-MM-DDTHH:mm:ssZ. */
     end_time?: string;
-    /** Application finish time in the format YYYY-MM-DDTHH:mm:ssZ. */
+    /** (deprecated) Time when the application completed successfully, in the format YYYY-MM-DDTHH:mm:ssZ. */
     finish_time?: string;
+    /** Time when the application will be automatically stopped by the service. */
+    auto_termination_time?: string;
   }
 
   /** Additional information message on the current state of the application. */
@@ -1537,8 +1720,10 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application run ended in success, failure or was stopped. */
     end_time?: string;
-    /** Time when the application was completed. */
+    /** (deprecated) Time when the application was completed. */
     finish_time?: string;
+    /** Time when the application will be automatically stopped by the service. */
+    auto_termination_time?: string;
   }
 
   /** Application details. */
@@ -1681,7 +1866,7 @@ namespace IbmAnalyticsEngineApiV3 {
     type?: string;
   }
 
-  /** Response of logging API. */
+  /** (deprecated) Response of logging API. */
   export interface LoggingConfigurationResponse {
     /** component array. */
     components?: string[];
@@ -1709,6 +1894,22 @@ namespace IbmAnalyticsEngineApiV3 {
   export interface Runtime {
     /** Spark version of the runtime environment. */
     spark_version?: string;
+  }
+
+  /** Status of the Spark history server. */
+  export interface SparkHistoryServerResponse {
+    /** State of the Spark history server. */
+    state?: string;
+    /** Number of cpu cores used by the Spark history server. */
+    cores?: string;
+    /** Amount of memory used by the Spark history server. */
+    memory?: string;
+    /** Time when the Spark history server was started. */
+    start_time?: string;
+    /** Time when the Spark history server was stopped. */
+    stop_time?: string;
+    /** Time when the Spark history server will be stopped automatically. */
+    auto_termination_time?: string;
   }
 }
 

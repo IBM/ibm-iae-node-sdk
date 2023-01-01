@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -350,7 +350,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     const params = {
       instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-      state: ['accepted', 'submitted', 'waiting', 'running', 'finished', 'failed'],
+      state: ['accepted', 'running', 'finished', 'failed'],
     };
 
     let res;
@@ -590,6 +590,87 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-get_logging_configuration
+  });
+
+  test('startSparkHistoryServer request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('startSparkHistoryServer() result:');
+    // begin-start_spark_history_server
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-start_spark_history_server
+  });
+
+  test('getSparkHistoryServer request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('getSparkHistoryServer() result:');
+    // begin-get_spark_history_server
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-get_spark_history_server
+  });
+
+  test('stopSparkHistoryServer request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-stop_spark_history_server
+
+    const params = {
+      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+    };
+
+    try {
+      await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-stop_spark_history_server
   });
 
   test('deleteApplication request example', async () => {
