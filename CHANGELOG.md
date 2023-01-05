@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.1.0...v2.2.0) (2023-01-05)
+
+
+### Features
+
+* add spark history server api ([0c33c3a](https://github.com/IBM/ibm-iae-node-sdk/commit/0c33c3a0b0a17270814290e440c666ce538386e4))
+
 # [2.1.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.0.0...v2.1.0) (2022-11-24)
 
 
