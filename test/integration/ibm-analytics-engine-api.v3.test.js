@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -190,7 +190,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('listApplications()', async () => {
     const params = {
       instanceId: instanceGuid,
-      state: ['accepted', 'submitted', 'waiting', 'running', 'finished', 'failed'],
+      state: ['accepted', 'running', 'finished', 'failed'],
     };
 
     const res = await ibmAnalyticsEngineApiService.listApplications(params);
@@ -282,6 +282,36 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('startSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.startSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(202);
+    expect(res.result).toBeDefined();
+  });
+  test('getSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.getSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+  test('stopSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
   });
   test('deleteApplication()', async () => {
