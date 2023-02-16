@@ -15,6 +15,7 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
 const { readExternalSources } = require('ibm-cloud-sdk-core');
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
@@ -217,6 +218,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     const params = {
       instanceId: instanceGuid,
       state: ['accepted', 'running', 'finished', 'failed'],
+      limit: 10,
     };
 
     const res = await ibmAnalyticsEngineApiService.listApplications(params);
@@ -224,7 +226,30 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+  test('listApplications() via ApplicationsPager', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      state: ['accepted', 'running', 'finished', 'failed'],
+      limit: 1,
+    };
 
+    const allResults = [];
+
+    // Test getNext().
+    let pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
+    while (pager.hasNext()) {
+      const nextPage = await pager.getNext();
+      expect(nextPage).not.toBeNull();
+      allResults.push(...nextPage);
+    }
+
+    // Test getAll().
+    pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
+    const allItems = await pager.getAll();
+    expect(allItems).not.toBeNull();
+    expect(allItems).toHaveLength(allResults.length);
+    console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
+  });
   test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
