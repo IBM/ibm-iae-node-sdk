@@ -15,7 +15,7 @@
  */
 
 /**
- * IBM OpenAPI SDK Code Generator Version: 3.54.1-1d9808a7-20220817-143039
+ * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
  */
 
 import * as extend from 'extend';
@@ -28,6 +28,7 @@ import {
   UserOptions,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
+//import { getNewLogger, SDKLogger } from 'ibm-cloud-sdk-core';
 
 /**
  * Manage serverless Spark instances and run applications.
@@ -36,6 +37,8 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class IbmAnalyticsEngineApiV3 extends BaseService {
+  //static _logger: SDKLogger = getNewLogger('IbmAnalyticsEngineApiV3');
+
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
@@ -52,7 +55,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region);
+    return this._regionalEndpoints.get(region)
   }
 
   /*************************
@@ -224,7 +227,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * **Note**: You can set 'instance home' again if the instance is in 'instance_home_creation_failure' state.
    *
    * @param {Object} params - The parameters to send to the service.
-   * @param {string} params.instanceId - The ID of the Analytics Engine instance for which 'instance home' is to be set.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
    * @param {string} [params.newInstanceId] - UUID of the instance home storage instance.
    * @param {string} [params.newProvider] - Currently only ibm-cos (IBM Cloud Object Storage) is supported.
    * @param {string} [params.newType] - Type of the instance home storage. Currently, only objectstore (Cloud Object
@@ -241,17 +244,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = [
-      'instanceId',
-      'newInstanceId',
-      'newProvider',
-      'newType',
-      'newRegion',
-      'newEndpoint',
-      'newHmacAccessKey',
-      'newHmacSecretKey',
-      'headers',
-    ];
+    const _validParams = ['instanceId', 'newInstanceId', 'newProvider', 'newType', 'newRegion', 'newEndpoint', 'newHmacAccessKey', 'newHmacSecretKey', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -281,6 +274,72 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       options: {
         url: '/v3/analytics_engines/{instance_id}/instance_home',
         method: 'PUT',
+        body,
+        path,
+      },
+      defaultOptions: extend(true, {}, this.baseOptions, {
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          _params.headers
+        ),
+      }),
+    };
+
+    return this.createRequest(parameters);
+  }
+
+  /**
+   * Update instance home credentials.
+   *
+   * Update the HMAC credentials used to access the instance home, if the instance home was set earlier. Credentials
+   * must have write access to the object storage used as instance home.
+   *
+   * **Note**: Your running applications and the Spark history server would continue to use the old credentials after
+   * updating the HMAC credentials. Before revoking the old credentials, you must either wait for them to finish running
+   * or stop them.
+   *
+   * @param {Object} params - The parameters to send to the service.
+   * @param {string} params.instanceId - The ID of the Analytics Engine instance.
+   * @param {string} params.hmacAccessKey - Cloud Object Storage access key.
+   * @param {string} params.hmacSecretKey - Cloud Object Storage secret key.
+   * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>>}
+   */
+  public updateInstanceHomeCredentials(
+    params: IbmAnalyticsEngineApiV3.UpdateInstanceHomeCredentialsParams
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
+    const _params = { ...params };
+    const _requiredParams = ['instanceId', 'hmacAccessKey', 'hmacSecretKey'];
+    const _validParams = ['instanceId', 'hmacAccessKey', 'hmacSecretKey', 'headers'];
+    const _validationErrors = validateParams(_params, _requiredParams, _validParams);
+    if (_validationErrors) {
+      return Promise.reject(_validationErrors);
+    }
+
+    const body = {
+      'hmac_access_key': _params.hmacAccessKey,
+      'hmac_secret_key': _params.hmacSecretKey,
+    };
+
+    const path = {
+      'instance_id': _params.instanceId,
+    };
+
+    const sdkHeaders = getSdkHeaders(
+      IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME,
+      'v3',
+      'updateInstanceHomeCredentials'
+    );
+
+    const parameters = {
+      options: {
+        url: '/v3/analytics_engines/{instance_id}/instance_home',
+        method: 'PATCH',
         body,
         path,
       },
@@ -375,7 +434,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const { body } = _params;
+    const body = _params.body;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -432,7 +491,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const { body } = _params;
+    const body = _params.body;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -761,11 +820,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceId - Identifier of the instance to which the application belongs.
    * @param {string} params.applicationId - Identifier of the application that needs to be stopped.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.EmptyObject>>}
    */
   public deleteApplication(
     params: IbmAnalyticsEngineApiV3.DeleteApplicationParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'applicationId'];
     const _validParams = ['instanceId', 'applicationId', 'headers'];
@@ -792,7 +851,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -812,9 +877,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getApplicationState(
     params: IbmAnalyticsEngineApiV3.GetApplicationStateParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'applicationId'];
     const _validParams = ['instanceId', 'applicationId', 'headers'];
@@ -871,9 +934,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getCurrentResourceConsumption(
     params: IbmAnalyticsEngineApiV3.GetCurrentResourceConsumptionParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -926,9 +987,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getResourceConsumptionLimits(
     params: IbmAnalyticsEngineApiV3.GetResourceConsumptionLimitsParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -986,9 +1045,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public replaceLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.ReplaceLogForwardingConfigParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'enabled', 'sources', 'tags', 'headers'];
@@ -1048,9 +1105,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.GetLogForwardingConfigParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1101,12 +1156,12 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {boolean} [params.enable] - Enable or disable log forwarding.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   * @deprecated this method is deprecated and may be removed in a future release
    */
   public configurePlatformLogging(
     params: IbmAnalyticsEngineApiV3.ConfigurePlatformLoggingParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+   // IbmAnalyticsEngineApiV3._logger.warn('A deprecated operation has been invoked: configurePlatformLogging');
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'enable', 'headers'];
@@ -1162,12 +1217,12 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceGuid - GUID of the Analytics Engine service instance to retrieve log configuration.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>>}
+   * @deprecated this method is deprecated and may be removed in a future release
    */
   public getLoggingConfiguration(
     params: IbmAnalyticsEngineApiV3.GetLoggingConfigurationParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    // IbmAnalyticsEngineApiV3._logger.warn('A deprecated operation has been invoked: getLoggingConfiguration');
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'headers'];
@@ -1322,11 +1377,11 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceId - The ID of the Analytics Engine instance to which the Spark history server
    * belongs.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
-   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>>}
+   * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.EmptyObject>>}
    */
   public stopSparkHistoryServer(
     params: IbmAnalyticsEngineApiV3.StopSparkHistoryServerParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.Empty>> {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.EmptyObject>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1352,7 +1407,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1377,7 +1438,7 @@ namespace IbmAnalyticsEngineApiV3 {
   export type Callback<T> = (error: any, response?: Response<T>) => void;
 
   /** The body of a service request that returns no response data. */
-  export interface Empty {}
+  export interface EmptyObject {}
 
   /** A standard JS object, defined to avoid the limitations of `Object` and `object` */
   export interface JsonObject {
@@ -1404,7 +1465,7 @@ namespace IbmAnalyticsEngineApiV3 {
 
   /** Parameters for the `setInstanceHome` operation. */
   export interface SetInstanceHomeParams {
-    /** The ID of the Analytics Engine instance for which 'instance home' is to be set. */
+    /** The ID of the Analytics Engine instance. */
     instanceId: string;
     /** UUID of the instance home storage instance. */
     newInstanceId?: string;
@@ -1420,6 +1481,17 @@ namespace IbmAnalyticsEngineApiV3 {
     newHmacAccessKey?: string;
     /** Cloud Object Storage secret key. */
     newHmacSecretKey?: string;
+    headers?: OutgoingHttpHeaders;
+  }
+
+  /** Parameters for the `updateInstanceHomeCredentials` operation. */
+  export interface UpdateInstanceHomeCredentialsParams {
+    /** The ID of the Analytics Engine instance. */
+    instanceId: string;
+    /** Cloud Object Storage access key. */
+    hmacAccessKey: string;
+    /** Cloud Object Storage secret key. */
+    hmacSecretKey: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1624,7 +1696,7 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application run ended in success, failure or was stopped. */
     end_time?: string;
-    /** (deprecated) Time when the application was completed. */
+    /** Deprecated: (deprecated) Time when the application was completed. */
     finish_time?: string;
     /** Time when the application will be automatically stopped by the service. */
     auto_termination_time?: string;
@@ -1694,7 +1766,9 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application ended either in success or failure, in the format YYYY-MM-DDTHH:mm:ssZ. */
     end_time?: string;
-    /** (deprecated) Time when the application completed successfully, in the format YYYY-MM-DDTHH:mm:ssZ. */
+    /** Deprecated: (deprecated) Time when the application completed successfully, in the format
+     *  YYYY-MM-DDTHH:mm:ssZ.
+     */
     finish_time?: string;
     /** Time when the application will be automatically stopped by the service. */
     auto_termination_time?: string;
@@ -1720,7 +1794,7 @@ namespace IbmAnalyticsEngineApiV3 {
     start_time?: string;
     /** Time when the application run ended in success, failure or was stopped. */
     end_time?: string;
-    /** (deprecated) Time when the application was completed. */
+    /** Deprecated: (deprecated) Time when the application was completed. */
     finish_time?: string;
     /** Time when the application will be automatically stopped by the service. */
     auto_termination_time?: string;

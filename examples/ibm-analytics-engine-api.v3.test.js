@@ -57,7 +57,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
   // To access additional configuration values, uncomment this line and extract the values from config
   // const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
 
-  test('Initialize services', async () => {
+  test('Initialize service', async () => {
     // begin-common
 
     ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance();
@@ -79,7 +79,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -107,7 +107,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance_state
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -135,7 +135,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-set_instance_home
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       newHmacAccessKey: 'b9****************************4b',
       newHmacSecretKey: 'fa********************************************8a',
     };
@@ -149,6 +149,36 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-set_instance_home
+  });
+
+  test('updateInstanceHomeCredentials request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    originalLog('updateInstanceHomeCredentials() result:');
+    // begin-update_instance_home_credentials
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      hmacAccessKey: 'b9****************************4b',
+      hmacSecretKey: 'fa********************************************8a',
+    };
+
+    let res;
+    try {
+      res = await ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(params);
+      console.log(JSON.stringify(res.result, null, 2));
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-update_instance_home_credentials
   });
 
   test('getInstanceDefaultConfigs request example', async () => {
@@ -165,7 +195,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance_default_configs
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -193,7 +223,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-replace_instance_default_configs
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       body: {
         'spark.driver.memory': '8G',
         'spark.driver.cores': '2',
@@ -225,6 +255,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-update_instance_default_configs
 
     const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
       body: {
         'ae.spark.history-server.cores': '1',
@@ -257,7 +288,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_instance_default_runtime
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -285,7 +316,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-replace_instance_default_runtime
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       sparkVersion: '3.3',
     };
 
@@ -313,15 +344,23 @@ describe('IbmAnalyticsEngineApiV3', () => {
     originalLog('createApplication() result:');
     // begin-create_application
 
+    // Request models needed by this operation.
+
+    // Runtime
+    const runtimeModel = {
+      spark_version: '3.3',
+    };
+
+    // ApplicationRequestApplicationDetails
+    const applicationRequestApplicationDetailsModel = {
+      application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
+      runtime: runtimeModel,
+      arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
+    };
+
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-      applicationDetails: {
-        application: '/opt/ibm/spark/examples/src/main/python/wordcount.py',
-        arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
-      },
-      runtime: {
-        spark_version: '3.1',
-      },
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      applicationDetails: applicationRequestApplicationDetailsModel,
     };
 
     let res;
@@ -349,7 +388,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-list_applications
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       state: ['accepted', 'running', 'finished', 'failed'],
     };
 
@@ -378,8 +417,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_application
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
     let res;
@@ -407,8 +446,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_application_state
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
     let res;
@@ -436,7 +475,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_current_resource_consumption
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -464,7 +503,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_resource_consumption_limits
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -492,7 +531,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-replace_log_forwarding_config
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       enabled: true,
     };
 
@@ -521,7 +560,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_log_forwarding_config
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -549,7 +588,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-configure_platform_logging
 
     const params = {
-      instanceGuid: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       enable: true,
     };
 
@@ -578,7 +617,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_logging_configuration
 
     const params = {
-      instanceGuid: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceGuid: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -606,7 +645,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-start_spark_history_server
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -634,7 +673,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-get_spark_history_server
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
     };
 
     let res;
@@ -646,31 +685,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-get_spark_history_server
-  });
-
-  test('stopSparkHistoryServer request example', async () => {
-    consoleLogMock.mockImplementation((output) => {
-      originalLog(output);
-    });
-    consoleWarnMock.mockImplementation((output) => {
-      // if an error occurs, display the message and then fail the test
-      originalWarn(output);
-      expect(true).toBeFalsy();
-    });
-
-    // begin-stop_spark_history_server
-
-    const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-    };
-
-    try {
-      await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-    } catch (err) {
-      console.warn(err);
-    }
-
-    // end-stop_spark_history_server
   });
 
   test('deleteApplication request example', async () => {
@@ -686,8 +700,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-delete_application
 
     const params = {
-      instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
-      applicationId: 'db933645-0b68-4dcb-80d8-7b71a6c8e542',
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+      applicationId: 'ff48cc19-0e7e-4627-aac6-0b4ad080397b',
     };
 
     try {
@@ -697,5 +711,30 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
 
     // end-delete_application
+  });
+
+  test('stopSparkHistoryServer request example', async () => {
+    consoleLogMock.mockImplementation((output) => {
+      originalLog(output);
+    });
+    consoleWarnMock.mockImplementation((output) => {
+      // if an error occurs, display the message and then fail the test
+      originalWarn(output);
+      expect(true).toBeFalsy();
+    });
+
+    // begin-stop_spark_history_server
+
+    const params = {
+      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+    };
+
+    try {
+      await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
+    } catch (err) {
+      console.warn(err);
+    }
+
+    // end-stop_spark_history_server
   });
 });
