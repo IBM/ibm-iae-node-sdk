@@ -55,7 +55,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region)
+    return this._regionalEndpoints.get(region);
   }
 
   /*************************
@@ -244,7 +244,17 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'newInstanceId', 'newProvider', 'newType', 'newRegion', 'newEndpoint', 'newHmacAccessKey', 'newHmacSecretKey', 'headers'];
+    const _validParams = [
+      'instanceId',
+      'newInstanceId',
+      'newProvider',
+      'newType',
+      'newRegion',
+      'newEndpoint',
+      'newHmacAccessKey',
+      'newHmacSecretKey',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -434,7 +444,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const body = _params.body;
+    const { body } = _params;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -491,7 +501,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const body = _params.body;
+    const { body } = _params;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -851,13 +861,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 
@@ -877,7 +881,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getApplicationState(
     params: IbmAnalyticsEngineApiV3.GetApplicationStateParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>
+  > {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'applicationId'];
     const _validParams = ['instanceId', 'applicationId', 'headers'];
@@ -934,7 +940,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getCurrentResourceConsumption(
     params: IbmAnalyticsEngineApiV3.GetCurrentResourceConsumptionParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>
+  > {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -987,7 +995,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getResourceConsumptionLimits(
     params: IbmAnalyticsEngineApiV3.GetResourceConsumptionLimitsParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>
+  > {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1045,7 +1055,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public replaceLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.ReplaceLogForwardingConfigParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
+  > {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'enabled', 'sources', 'tags', 'headers'];
@@ -1105,7 +1117,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.GetLogForwardingConfigParams
-  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
+  ): Promise<
+    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
+  > {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1411,13 +1425,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(
-          true,
-          sdkHeaders,
-          {
-          },
-          _params.headers
-        ),
+        headers: extend(true, sdkHeaders, {}, _params.headers),
       }),
     };
 

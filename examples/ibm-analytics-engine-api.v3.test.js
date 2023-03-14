@@ -255,7 +255,6 @@ describe('IbmAnalyticsEngineApiV3', () => {
     // begin-update_instance_default_configs
 
     const params = {
-      instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       instanceId: 'dc0e9889-eab2-4t9e-9441-566209499546',
       body: {
         'ae.spark.history-server.cores': '1',

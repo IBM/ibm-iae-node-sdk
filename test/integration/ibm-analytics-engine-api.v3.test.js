@@ -16,8 +16,8 @@
 
 /* eslint-disable no-console */
 
-const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const { readExternalSources } = require('ibm-cloud-sdk-core');
+const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 const authHelper = require('../resources/auth-helper.js');
 const { IamAuthenticator } = require('../../dist/auth');
 // testcase timeout value (200s).
@@ -205,7 +205,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     const res = await ibmAnalyticsEngineApiService.createApplication(params);
     // Store applicationId for other application based tests below.
-    applicationId = res.result.id;    
+    applicationId = res.result.id;
     expect(res).toBeDefined();
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
@@ -214,7 +214,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('listApplications()', async () => {
     const params = {
       instanceId: instanceGuid,
-      state: ['accepted','running', 'finished', 'failed'],
+      state: ['accepted', 'running', 'finished', 'failed'],
     };
 
     const res = await ibmAnalyticsEngineApiService.listApplications(params);
@@ -296,7 +296,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
   test('configurePlatformLogging()', async () => {
     const params = {
-      instanceGuid: instanceGuid,
+      instanceGuid,
       enable: true,
     };
 
@@ -308,7 +308,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
   test('getLoggingConfiguration()', async () => {
     const params = {
-      instanceGuid: instanceGuid,
+      instanceGuid,
     };
 
     const res = await ibmAnalyticsEngineApiService.getLoggingConfiguration(params);
