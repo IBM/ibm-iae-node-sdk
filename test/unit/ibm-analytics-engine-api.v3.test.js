@@ -15,9 +15,9 @@
  */
 
 // need to import the whole package to mock getAuthenticatorFromEnvironment
-const core = require('ibm-cloud-sdk-core');
+const sdkCorePackage = require('ibm-cloud-sdk-core');
 
-const { NoAuthAuthenticator, unitTestUtils } = core;
+const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
 
@@ -41,7 +41,7 @@ function mock_createRequest() {
 }
 
 // dont actually construct an authenticator
-const getAuthenticatorMock = jest.spyOn(core, 'getAuthenticatorFromEnvironment');
+const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnvironment');
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('IbmAnalyticsEngineApiV3', () => {
@@ -393,6 +393,109 @@ describe('IbmAnalyticsEngineApiV3', () => {
         let err;
         try {
           await ibmAnalyticsEngineApiService.setInstanceHome();
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+  });
+
+  describe('updateInstanceHomeCredentials', () => {
+    describe('positive tests', () => {
+      function __updateInstanceHomeCredentialsTest() {
+        // Construct the params object for operation updateInstanceHomeCredentials
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const hmacAccessKey = 'b9****************************4b';
+        const hmacSecretKey = 'fa********************************************8a';
+        const updateInstanceHomeCredentialsParams = {
+          instanceId,
+          hmacAccessKey,
+          hmacSecretKey,
+        };
+
+        const updateInstanceHomeCredentialsResult =
+          ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(
+            updateInstanceHomeCredentialsParams
+          );
+
+        // all methods should return a Promise
+        expectToBePromise(updateInstanceHomeCredentialsResult);
+
+        // assert that create request was called
+        expect(createRequestMock).toHaveBeenCalledTimes(1);
+
+        const mockRequestOptions = getOptions(createRequestMock);
+
+        checkUrlAndMethod(
+          mockRequestOptions,
+          '/v3/analytics_engines/{instance_id}/instance_home',
+          'PATCH'
+        );
+        const expectedAccept = 'application/json';
+        const expectedContentType = 'application/json';
+        checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
+        expect(mockRequestOptions.body.hmac_access_key).toEqual(hmacAccessKey);
+        expect(mockRequestOptions.body.hmac_secret_key).toEqual(hmacSecretKey);
+        expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
+      }
+
+      test('should pass the right params to createRequest with enable and disable retries', () => {
+        // baseline test
+        __updateInstanceHomeCredentialsTest();
+
+        // enable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.enableRetries();
+        __updateInstanceHomeCredentialsTest();
+
+        // disable retries and test again
+        createRequestMock.mockClear();
+        ibmAnalyticsEngineApiService.disableRetries();
+        __updateInstanceHomeCredentialsTest();
+      });
+
+      test('should prioritize user-given headers', () => {
+        // parameters
+        const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
+        const hmacAccessKey = 'b9****************************4b';
+        const hmacSecretKey = 'fa********************************************8a';
+        const userAccept = 'fake/accept';
+        const userContentType = 'fake/contentType';
+        const updateInstanceHomeCredentialsParams = {
+          instanceId,
+          hmacAccessKey,
+          hmacSecretKey,
+          headers: {
+            Accept: userAccept,
+            'Content-Type': userContentType,
+          },
+        };
+
+        ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(
+          updateInstanceHomeCredentialsParams
+        );
+        checkMediaHeaders(createRequestMock, userAccept, userContentType);
+      });
+    });
+
+    describe('negative tests', () => {
+      test('should enforce required parameters', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.updateInstanceHomeCredentials({});
+        } catch (e) {
+          err = e;
+        }
+
+        expect(err.message).toMatch(/Missing required parameters/);
+      });
+
+      test('should reject promise when required params are not given', async () => {
+        let err;
+        try {
+          await ibmAnalyticsEngineApiService.updateInstanceHomeCredentials();
         } catch (e) {
           err = e;
         }
@@ -878,7 +981,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       // Runtime
       const runtimeModel = {
-        spark_version: '3.1',
+        spark_version: '3.3',
       };
 
       // ApplicationRequestApplicationDetails

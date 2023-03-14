@@ -36,6 +36,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   let instanceGuidWithoutInstanceHome;
   let hmacAccessKey;
   let hmacSecretKey;
+  let alternateHmacAccessKey;
+  let alternateHmacSecretKey;
 
   // After creating an application via sdk, store the application id in this variable.
   // Use the application id for other application sdk tests.
@@ -52,6 +54,8 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     instanceGuidWithoutInstanceHome = config.instanceGuidWoInstanceHome;
     hmacAccessKey = config.hmacAccessKey;
     hmacSecretKey = config.hmacSecretKey;
+    alternateHmacAccessKey = config.alternateHmacAccessKey;
+    alternateHmacSecretKey = config.alternateHmacSecretKey;
   });
 
   jest.setTimeout(timeout);
@@ -59,13 +63,13 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   // Service instance
   let ibmAnalyticsEngineApiService;
 
-  test('Initialise service', async () => {
-    // Note: config is loaded in beforeAll
-
-    // Create sdk object based on parameters provided in configuration file / env.
-    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance(sdkOptions);
+  test('Initialize service', async () => {
+    ibmAnalyticsEngineApiService = IbmAnalyticsEngineApiV3.newInstance();
 
     expect(ibmAnalyticsEngineApiService).not.toBeNull();
+
+    const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
+    expect(config).not.toBeNull();
 
     ibmAnalyticsEngineApiService.enableRetries();
   });
@@ -80,6 +84,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getInstanceState()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -90,6 +95,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('setInstanceHome()', async () => {
     const params = {
       instanceId: instanceGuidWithoutInstanceHome,
@@ -107,6 +113,20 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
+  test('updateInstanceHomeCredentials()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+      hmacAccessKey: alternateHmacAccessKey,
+      hmacSecretKey: alternateHmacSecretKey,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(200);
+    expect(res.result).toBeDefined();
+  });
+
   test('getInstanceDefaultConfigs()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -117,6 +137,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceInstanceDefaultConfigs()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -128,6 +149,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('updateInstanceDefaultConfigs()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -139,6 +161,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getInstanceDefaultRuntime()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -149,6 +172,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceInstanceDefaultRuntime()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -160,12 +184,13 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('createApplication()', async () => {
     // Request models needed by this operation.
 
     // Runtime
     const runtimeModel = {
-      spark_version: '3.1',
+      spark_version: '3.3',
     };
 
     // ApplicationRequestApplicationDetails
@@ -187,6 +212,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
+
   test('listApplications()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -198,6 +224,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -209,6 +236,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getApplicationState()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -220,6 +248,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getCurrentResourceConsumption()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -230,6 +259,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getResourceConsumptionLimits()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -240,6 +270,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('replaceLogForwardingConfig()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -253,6 +284,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('getLogForwardingConfig()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -263,6 +295,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('configurePlatformLogging()', async () => {
     const params = {
       instanceGuid,
@@ -274,6 +307,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(201);
     expect(res.result).toBeDefined();
   });
+
   test('getLoggingConfiguration()', async () => {
     const params = {
       instanceGuid,
@@ -284,6 +318,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('startSparkHistoryServer()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -294,6 +329,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(202);
     expect(res.result).toBeDefined();
   });
+
   test('getSparkHistoryServer()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -304,16 +340,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
-  test('stopSparkHistoryServer()', async () => {
-    const params = {
-      instanceId: instanceGuid,
-    };
 
-    const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
-    expect(res).toBeDefined();
-    expect(res.status).toBe(204);
-    expect(res.result).toBeDefined();
-  });
   test('deleteApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -321,6 +348,17 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     };
 
     const res = await ibmAnalyticsEngineApiService.deleteApplication(params);
+    expect(res).toBeDefined();
+    expect(res.status).toBe(204);
+    expect(res.result).toBeDefined();
+  });
+
+  test('stopSparkHistoryServer()', async () => {
+    const params = {
+      instanceId: instanceGuid,
+    };
+
+    const res = await ibmAnalyticsEngineApiService.stopSparkHistoryServer(params);
     expect(res).toBeDefined();
     expect(res.status).toBe(204);
     expect(res.result).toBeDefined();
