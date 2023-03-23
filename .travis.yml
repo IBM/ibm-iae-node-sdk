@@ -1,12 +1,15 @@
-language: node_js
+dist: focal
 
-sudo: false
+
+language: node_js
 
 node_js:
 - 14
 - 16
+- 18
 
 before_install:
+- echo -e "machine github.ibm.com\n  login $GITHUB_OAUTH_TOKEN" > ~/.netrc
 - npm i -g npm@8
 - npm --version
 
