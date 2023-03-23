@@ -1,8 +1,5 @@
 dist: focal
 
-# Remove this if using external Travis
-group: beta
-
 language: node_js
 
 node_js:
