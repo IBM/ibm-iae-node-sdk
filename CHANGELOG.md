@@ -1,3 +1,16 @@
+# [2.3.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.2.0...v2.3.0) (2023-03-23)
+
+
+### Bug Fixes
+
+* remove unused config from travis ([903fc5a](https://github.com/IBM/ibm-iae-node-sdk/commit/903fc5abac3e37b393a6f57f7cbf8eaf0896c5fd))
+* remove unused config from travis ([11afa05](https://github.com/IBM/ibm-iae-node-sdk/commit/11afa05aba6c573e4882690a5fa7114565e452a4))
+
+
+### Features
+
+* add new sdk method to update instance home credentials ([3a54f1e](https://github.com/IBM/ibm-iae-node-sdk/commit/3a54f1e7bc2f71d7345f0190af4d6e2d27a4234e))
+
 # [2.2.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.1.0...v2.2.0) (2023-01-05)
 
 
