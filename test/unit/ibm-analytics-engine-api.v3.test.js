@@ -1005,8 +1005,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
         name: 'spark-app',
         class: 'com.company.path.ClassName',
         arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
-        conf: { 'key1': 'testString' },
-        env: { 'key1': 'testString' },
+        conf: { foo: 'bar' },
+        env: { foo: 'bar' },
       };
 
       function __createApplicationTest() {

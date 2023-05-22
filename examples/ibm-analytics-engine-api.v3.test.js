@@ -401,6 +401,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       );
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
         allResults.push(...nextPage);
       }
       console.log(JSON.stringify(allResults, null, 2));

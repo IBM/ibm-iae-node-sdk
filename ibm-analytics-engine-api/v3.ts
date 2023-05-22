@@ -29,6 +29,8 @@ import {
   getAuthenticatorFromEnvironment,
   validateParams,
   UserOptions,
+  getNewLogger,
+  SDKLogger,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
@@ -39,6 +41,8 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class IbmAnalyticsEngineApiV3 extends BaseService {
+  static _logger: SDKLogger = getNewLogger('IbmAnalyticsEngineApiV3');
+
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
@@ -1181,6 +1185,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<
     IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
   > {
+    IbmAnalyticsEngineApiV3._logger.warn(
+      'A deprecated operation has been invoked: configurePlatformLogging'
+    );
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'enable', 'headers'];
@@ -1243,6 +1250,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<
     IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
   > {
+    IbmAnalyticsEngineApiV3._logger.warn(
+      'A deprecated operation has been invoked: getLoggingConfiguration'
+    );
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'headers'];

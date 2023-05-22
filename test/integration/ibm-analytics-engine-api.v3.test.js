@@ -177,7 +177,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('replaceInstanceDefaultRuntime()', async () => {
     const params = {
       instanceId: instanceGuid,
-      sparkVersion: '3.3',
+      sparkVersion: '3.1',
     };
 
     const res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(params);
@@ -226,6 +226,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(res.status).toBe(200);
     expect(res.result).toBeDefined();
   });
+
   test('listApplications() via ApplicationsPager', async () => {
     const params = {
       instanceId: instanceGuid,
@@ -250,6 +251,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
     expect(allItems).toHaveLength(allResults.length);
     console.log(`Retrieved a total of ${allResults.length} items(s) with pagination.`);
   });
+
   test('getApplication()', async () => {
     const params = {
       instanceId: instanceGuid,
