@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.3.0...v2.4.0) (2023-05-24)
+
+
+### Features
+
+* add support for application list pagination ([87c2d75](https://github.com/IBM/ibm-iae-node-sdk/commit/87c2d75414926aa89bcb37570aeb2402f95615a0))
+
 # [2.3.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.2.0...v2.3.0) (2023-03-23)
 
 
