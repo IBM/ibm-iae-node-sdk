@@ -18,6 +18,9 @@
  * IBM OpenAPI SDK Code Generator Version: 3.66.0-d6c2d7e0-20230215-221247
  */
 
+/* eslint-disable max-classes-per-file */
+/* eslint-disable no-await-in-loop */
+
 import * as extend from 'extend';
 import { IncomingHttpHeaders, OutgoingHttpHeaders } from 'http';
 import {
@@ -26,6 +29,8 @@ import {
   getAuthenticatorFromEnvironment,
   validateParams,
   UserOptions,
+  getNewLogger,
+  SDKLogger,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
 
@@ -36,6 +41,8 @@ import { getSdkHeaders } from '../lib/common';
  */
 
 class IbmAnalyticsEngineApiV3 extends BaseService {
+  static _logger: SDKLogger = getNewLogger('IbmAnalyticsEngineApiV3');
+
   static DEFAULT_SERVICE_URL: string = 'https://api.us-south.ae.cloud.ibm.com';
 
   static DEFAULT_SERVICE_NAME: string = 'ibm_analytics_engine_api';
@@ -713,6 +720,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceId - The identifier of the Analytics Engine instance associated with the Spark
    * application(s).
    * @param {string[]} [params.state] - List of Spark application states that will be used to filter the response.
+   * @param {number} [params.limit] - Number of application entries to be included in the response.
+   * @param {string} [params.start] - Token used to fetch the next or the previous page of the applications list.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
    * @returns {Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>>}
    */
@@ -721,7 +730,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'state', 'headers'];
+    const _validParams = ['instanceId', 'state', 'limit', 'start', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -729,6 +738,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
 
     const query = {
       'state': _params.state,
+      'limit': _params.limit,
+      'start': _params.start,
     };
 
     const path = {
@@ -1174,6 +1185,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<
     IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
   > {
+    IbmAnalyticsEngineApiV3._logger.warn(
+      'A deprecated operation has been invoked: configurePlatformLogging'
+    );
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'enable', 'headers'];
@@ -1236,6 +1250,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<
     IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
   > {
+    IbmAnalyticsEngineApiV3._logger.warn(
+      'A deprecated operation has been invoked: getLoggingConfiguration'
+    );
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'headers'];
@@ -1560,6 +1577,10 @@ namespace IbmAnalyticsEngineApiV3 {
     instanceId: string;
     /** List of Spark application states that will be used to filter the response. */
     state?: ListApplicationsConstants.State[] | string[];
+    /** Number of application entries to be included in the response. */
+    limit?: number;
+    /** Token used to fetch the next or the previous page of the applications list. */
+    start?: string;
     headers?: OutgoingHttpHeaders;
   }
 
@@ -1709,10 +1730,18 @@ namespace IbmAnalyticsEngineApiV3 {
     auto_termination_time?: string;
   }
 
-  /** An array of application details. */
+  /** A paginated collection of applications. */
   export interface ApplicationCollection {
     /** List of applications. */
-    applications?: Application[];
+    applications: Application[];
+    /** A reference to a page in a paginated collection. */
+    first?: PageLink;
+    /** A reference to a page in a paginated collection. */
+    next?: PageLink;
+    /** A reference to a page in a paginated collection. */
+    previous?: PageLink;
+    /** The maximum number of results in this page of the collection. */
+    limit: number;
   }
 
   /** Application details. */
@@ -1963,6 +1992,14 @@ namespace IbmAnalyticsEngineApiV3 {
     type?: string;
   }
 
+  /** A reference to a page in a paginated collection. */
+  export interface PageLink {
+    /** A url which returns a specific page of a collection. */
+    href: string;
+    /** A token which loads a specific page of a collection when it is provided the url of the collection. */
+    start?: string;
+  }
+
   /** Resource consumption limits for the instance. */
   export interface ResourceConsumptionLimitsResponse {
     /** Maximum number of virtual processor cores that be used in the instance. */
@@ -1991,6 +2028,92 @@ namespace IbmAnalyticsEngineApiV3 {
     stop_time?: string;
     /** Time when the Spark history server will be stopped automatically. */
     auto_termination_time?: string;
+  }
+
+  /*************************
+   * pager classes
+   ************************/
+
+  /**
+   * ApplicationsPager can be used to simplify the use of listApplications().
+   */
+  export class ApplicationsPager {
+    protected _hasNext: boolean;
+
+    protected pageContext: any;
+
+    protected client: IbmAnalyticsEngineApiV3;
+
+    protected params: IbmAnalyticsEngineApiV3.ListApplicationsParams;
+
+    /**
+     * Construct a ApplicationsPager object.
+     *
+     * @param {IbmAnalyticsEngineApiV3}  client - The service client instance used to invoke listApplications()
+     * @param {Object} params - The parameters to be passed to listApplications()
+     * @constructor
+     * @returns {ApplicationsPager}
+     */
+    constructor(
+      client: IbmAnalyticsEngineApiV3,
+      params: IbmAnalyticsEngineApiV3.ListApplicationsParams
+    ) {
+      if (params && params.start) {
+        throw new Error(`the params.start field should not be set`);
+      }
+
+      this._hasNext = true;
+      this.pageContext = { next: undefined };
+      this.client = client;
+      this.params = JSON.parse(JSON.stringify(params || {}));
+    }
+
+    /**
+     * Returns true if there are potentially more results to be retrieved by invoking getNext().
+     * @returns {boolean}
+     */
+    public hasNext(): boolean {
+      return this._hasNext;
+    }
+
+    /**
+     * Returns the next page of results by invoking listApplications().
+     * @returns {Promise<IbmAnalyticsEngineApiV3.Application[]>}
+     */
+    public async getNext(): Promise<IbmAnalyticsEngineApiV3.Application[]> {
+      if (!this.hasNext()) {
+        throw new Error('No more results available');
+      }
+
+      if (this.pageContext.next) {
+        this.params.start = this.pageContext.next;
+      }
+      const response = await this.client.listApplications(this.params);
+      const { result } = response;
+
+      let next = null;
+      if (result && result.next) {
+        next = result.next.start;
+      }
+      this.pageContext.next = next;
+      if (!this.pageContext.next) {
+        this._hasNext = false;
+      }
+      return result.applications;
+    }
+
+    /**
+     * Returns all results by invoking listApplications() repeatedly until all pages of results have been retrieved.
+     * @returns {Promise<IbmAnalyticsEngineApiV3.Application[]>}
+     */
+    public async getAll(): Promise<IbmAnalyticsEngineApiV3.Application[]> {
+      const results: Application[] = [];
+      while (this.hasNext()) {
+        const nextPage = await this.getNext();
+        results.push(...nextPage);
+      }
+      return results;
+    }
   }
 }
 

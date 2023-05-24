@@ -18,6 +18,7 @@
  */
 
 /* eslint-disable no-console */
+/* eslint-disable no-await-in-loop */
 
 const IbmAnalyticsEngineApiV3 = require('../dist/ibm-analytics-engine-api/v3');
 // eslint-disable-next-line node/no-unpublished-require
@@ -389,12 +390,21 @@ describe('IbmAnalyticsEngineApiV3', () => {
     const params = {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
       state: ['accepted', 'running', 'finished', 'failed'],
+      limit: 10,
     };
 
-    let res;
+    const allResults = [];
     try {
-      res = await ibmAnalyticsEngineApiService.listApplications(params);
-      console.log(JSON.stringify(res.result, null, 2));
+      const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
+        ibmAnalyticsEngineApiService,
+        params
+      );
+      while (pager.hasNext()) {
+        const nextPage = await pager.getNext();
+        expect(nextPage).not.toBeNull();
+        allResults.push(...nextPage);
+      }
+      console.log(JSON.stringify(allResults, null, 2));
     } catch (err) {
       console.warn(err);
     }

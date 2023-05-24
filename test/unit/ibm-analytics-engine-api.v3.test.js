@@ -19,7 +19,10 @@ const sdkCorePackage = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
+const nock = require('nock');
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
+
+/* eslint-disable no-await-in-loop */
 
 const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
 
@@ -37,6 +40,12 @@ function mock_createRequest() {
   if (!createRequestMock) {
     createRequestMock = jest.spyOn(ibmAnalyticsEngineApiService, 'createRequest');
     createRequestMock.mockImplementation(() => Promise.resolve());
+  }
+}
+function unmock_createRequest() {
+  if (createRequestMock) {
+    createRequestMock.mockRestore();
+    createRequestMock = null;
   }
 }
 
@@ -996,8 +1005,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
         name: 'spark-app',
         class: 'com.company.path.ClassName',
         arguments: ['/opt/ibm/spark/examples/src/main/resources/people.txt'],
-        conf: { 'key1': 'testString' },
-        env: { 'key1': 'testString' },
+        conf: { foo: 'bar' },
+        env: { foo: 'bar' },
       };
 
       function __createApplicationTest() {
@@ -1096,9 +1105,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation listApplications
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const state = ['finished'];
+        const limit = 1;
+        const start = 'testString';
         const listApplicationsParams = {
           instanceId,
           state,
+          limit,
+          start,
         };
 
         const listApplicationsResult =
@@ -1121,6 +1134,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.state).toEqual(state);
+        expect(mockRequestOptions.qs.limit).toEqual(limit);
+        expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
       }
 
@@ -1178,6 +1193,64 @@ describe('IbmAnalyticsEngineApiV3', () => {
         }
 
         expect(err.message).toMatch(/Missing required parameters/);
+      });
+    });
+
+    describe('ApplicationsPager tests', () => {
+      const serviceUrl = ibmAnalyticsEngineApiServiceOptions.url;
+      const path = '/v3/analytics_engines/e64c907a-e82f-46fd-addc-ccfafbd28b09/spark_applications';
+      const mockPagerResponse1 =
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+      const mockPagerResponse2 =
+        '{"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+
+      beforeEach(() => {
+        unmock_createRequest();
+        const scope = nock(serviceUrl)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse1)
+          .get((uri) => uri.includes(path))
+          .reply(200, mockPagerResponse2);
+      });
+
+      afterEach(() => {
+        nock.cleanAll();
+        mock_createRequest();
+      });
+
+      test('getNext()', async () => {
+        const params = {
+          instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+          state: ['finished'],
+          limit: 10,
+        };
+        const allResults = [];
+        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
+          ibmAnalyticsEngineApiService,
+          params
+        );
+        while (pager.hasNext()) {
+          const nextPage = await pager.getNext();
+          expect(nextPage).not.toBeNull();
+          allResults.push(...nextPage);
+        }
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
+      });
+
+      test('getAll()', async () => {
+        const params = {
+          instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
+          state: ['finished'],
+          limit: 10,
+        };
+        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
+          ibmAnalyticsEngineApiService,
+          params
+        );
+        const allResults = await pager.getAll();
+        expect(allResults).not.toBeNull();
+        expect(allResults).toHaveLength(2);
       });
     });
   });
