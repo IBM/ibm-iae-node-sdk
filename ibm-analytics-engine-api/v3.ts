@@ -29,10 +29,9 @@ import {
   getAuthenticatorFromEnvironment,
   validateParams,
   UserOptions,
-  getNewLogger,
-  SDKLogger,
 } from 'ibm-cloud-sdk-core';
 import { getSdkHeaders } from '../lib/common';
+import { getNewLogger, SDKLogger } from 'ibm-cloud-sdk-core';
 
 /**
  * Manage serverless Spark instances and run applications.
@@ -59,7 +58,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * if no mapping for the region exists
    */
   public static getServiceUrlForRegion(region: string): string {
-    return this._regionalEndpoints.get(region);
+    return this._regionalEndpoints.get(region)
   }
 
   /*************************
@@ -248,17 +247,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.InstanceHomeResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = [
-      'instanceId',
-      'newInstanceId',
-      'newProvider',
-      'newType',
-      'newRegion',
-      'newEndpoint',
-      'newHmacAccessKey',
-      'newHmacSecretKey',
-      'headers',
-    ];
+    const _validParams = ['instanceId', 'newInstanceId', 'newProvider', 'newType', 'newRegion', 'newEndpoint', 'newHmacAccessKey', 'newHmacSecretKey', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -448,7 +437,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const { body } = _params;
+    const body = _params.body;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -505,7 +494,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
       return Promise.reject(_validationErrors);
     }
 
-    const { body } = _params;
+    const body = _params.body;
     const path = {
       'instance_id': _params.instanceId,
     };
@@ -720,6 +709,21 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceId - The identifier of the Analytics Engine instance associated with the Spark
    * application(s).
    * @param {string[]} [params.state] - List of Spark application states that will be used to filter the response.
+   * @param {string} [params.startTimeInterval] - Time interval to use for filtering applications by their start time.
+   * Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be
+   * ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and
+   * `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas
+   * the upper timestamp limit is exclusive.
+   * @param {string} [params.submissionTimeInterval] - Time interval to use for filtering applications by their
+   * submission time. Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each
+   * timestamp value must be ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower
+   * timestamp limit and `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is
+   * inclusive, whereas the upper timestamp limit is exclusive.
+   * @param {string} [params.endTimeInterval] - Time interval to use for filtering applications by their end time.
+   * Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be
+   * ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and
+   * `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas
+   * the upper timestamp limit is exclusive.
    * @param {number} [params.limit] - Number of application entries to be included in the response.
    * @param {string} [params.start] - Token used to fetch the next or the previous page of the applications list.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -730,7 +734,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'state', 'limit', 'start', 'headers'];
+    const _validParams = ['instanceId', 'state', 'startTimeInterval', 'submissionTimeInterval', 'endTimeInterval', 'limit', 'start', 'headers'];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -738,6 +742,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
 
     const query = {
       'state': _params.state,
+      'start_time_interval': _params.startTimeInterval,
+      'submission_time_interval': _params.submissionTimeInterval,
+      'end_time_interval': _params.endTimeInterval,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -869,7 +876,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -889,9 +902,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getApplicationState(
     params: IbmAnalyticsEngineApiV3.GetApplicationStateParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationGetStateResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId', 'applicationId'];
     const _validParams = ['instanceId', 'applicationId', 'headers'];
@@ -948,9 +959,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getCurrentResourceConsumption(
     params: IbmAnalyticsEngineApiV3.GetCurrentResourceConsumptionParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.CurrentResourceConsumptionResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1003,9 +1012,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getResourceConsumptionLimits(
     params: IbmAnalyticsEngineApiV3.GetResourceConsumptionLimitsParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ResourceConsumptionLimitsResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1063,9 +1070,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public replaceLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.ReplaceLogForwardingConfigParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'enabled', 'sources', 'tags', 'headers'];
@@ -1125,9 +1130,7 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getLogForwardingConfig(
     params: IbmAnalyticsEngineApiV3.GetLogForwardingConfigParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>
-  > {
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LogForwardingConfigResponse>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
     const _validParams = ['instanceId', 'headers'];
@@ -1182,12 +1185,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public configurePlatformLogging(
     params: IbmAnalyticsEngineApiV3.ConfigurePlatformLoggingParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
-  > {
-    IbmAnalyticsEngineApiV3._logger.warn(
-      'A deprecated operation has been invoked: configurePlatformLogging'
-    );
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    IbmAnalyticsEngineApiV3._logger.warn('A deprecated operation has been invoked: configurePlatformLogging');
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'enable', 'headers'];
@@ -1247,12 +1246,8 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    */
   public getLoggingConfiguration(
     params: IbmAnalyticsEngineApiV3.GetLoggingConfigurationParams
-  ): Promise<
-    IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>
-  > {
-    IbmAnalyticsEngineApiV3._logger.warn(
-      'A deprecated operation has been invoked: getLoggingConfiguration'
-    );
+  ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.LoggingConfigurationResponse>> {
+    IbmAnalyticsEngineApiV3._logger.warn('A deprecated operation has been invoked: getLoggingConfiguration');
     const _params = { ...params };
     const _requiredParams = ['instanceGuid'];
     const _validParams = ['instanceGuid', 'headers'];
@@ -1437,7 +1432,13 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
         path,
       },
       defaultOptions: extend(true, {}, this.baseOptions, {
-        headers: extend(true, sdkHeaders, {}, _params.headers),
+        headers: extend(
+          true,
+          sdkHeaders,
+          {
+          },
+          _params.headers
+        ),
       }),
     };
 
@@ -1577,6 +1578,27 @@ namespace IbmAnalyticsEngineApiV3 {
     instanceId: string;
     /** List of Spark application states that will be used to filter the response. */
     state?: ListApplicationsConstants.State[] | string[];
+    /** Time interval to use for filtering applications by their start time. Interval is specified in the format
+     *  `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You may also
+     *  use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a placeholder value
+     *  for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper timestamp limit is
+     *  exclusive.
+     */
+    startTimeInterval?: string;
+    /** Time interval to use for filtering applications by their submission time. Interval is specified in the
+     *  format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You
+     *  may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a
+     *  placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper
+     *  timestamp limit is exclusive.
+     */
+    submissionTimeInterval?: string;
+    /** Time interval to use for filtering applications by their end time. Interval is specified in the format
+     *  `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You may also
+     *  use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a placeholder value
+     *  for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper timestamp limit is
+     *  exclusive.
+     */
+    endTimeInterval?: string;
     /** Number of application entries to be included in the response. */
     limit?: number;
     /** Token used to fetch the next or the previous page of the applications list. */
@@ -2039,7 +2061,6 @@ namespace IbmAnalyticsEngineApiV3 {
    */
   export class ApplicationsPager {
     protected _hasNext: boolean;
-
     protected pageContext: any;
 
     protected client: IbmAnalyticsEngineApiV3;
@@ -2093,7 +2114,7 @@ namespace IbmAnalyticsEngineApiV3 {
 
       let next = null;
       if (result && result.next) {
-        next = result.next.start;
+        next = result.next.start
       }
       this.pageContext.next = next;
       if (!this.pageContext.next) {

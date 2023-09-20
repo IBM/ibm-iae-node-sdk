@@ -71,7 +71,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-
+  
     ibmAnalyticsEngineApiService.enableRetries();
   });
 
@@ -177,7 +177,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
   test('replaceInstanceDefaultRuntime()', async () => {
     const params = {
       instanceId: instanceGuid,
-      sparkVersion: '3.1',
+      sparkVersion: '3.3',
     };
 
     const res = await ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(params);
@@ -191,7 +191,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     // Runtime
     const runtimeModel = {
-      spark_version: '3.3',
+      spark_version: '3.4',
     };
 
     // ApplicationRequestApplicationDetails

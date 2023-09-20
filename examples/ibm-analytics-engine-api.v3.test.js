@@ -317,7 +317,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     const params = {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      sparkVersion: '3.3',
+      sparkVersion: '3.4',
     };
 
     let res;
@@ -348,7 +348,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     // Runtime
     const runtimeModel = {
-      spark_version: '3.3',
+      spark_version: '3.4',
     };
 
     // ApplicationRequestApplicationDetails
@@ -395,10 +395,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     const allResults = [];
     try {
-      const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
-        ibmAnalyticsEngineApiService,
-        params
-      );
+      const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
         expect(nextPage).not.toBeNull();

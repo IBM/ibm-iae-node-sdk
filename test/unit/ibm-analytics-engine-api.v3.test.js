@@ -19,21 +19,24 @@ const sdkCorePackage = require('ibm-cloud-sdk-core');
 
 const { NoAuthAuthenticator, unitTestUtils } = sdkCorePackage;
 
-const nock = require('nock');
 const IbmAnalyticsEngineApiV3 = require('../../dist/ibm-analytics-engine-api/v3');
+const nock = require('nock');
 
 /* eslint-disable no-await-in-loop */
 
-const { getOptions, checkUrlAndMethod, checkMediaHeaders, expectToBePromise } = unitTestUtils;
+const {
+  getOptions,
+  checkUrlAndMethod,
+  checkMediaHeaders,
+  expectToBePromise,
+} = unitTestUtils;
 
 const ibmAnalyticsEngineApiServiceOptions = {
   authenticator: new NoAuthAuthenticator(),
   url: 'https://api.us-south.ae.cloud.ibm.com',
 };
 
-const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(
-  ibmAnalyticsEngineApiServiceOptions
-);
+const ibmAnalyticsEngineApiService = new IbmAnalyticsEngineApiV3(ibmAnalyticsEngineApiServiceOptions);
 
 let createRequestMock = null;
 function mock_createRequest() {
@@ -54,6 +57,7 @@ const getAuthenticatorMock = jest.spyOn(sdkCorePackage, 'getAuthenticatorFromEnv
 getAuthenticatorMock.mockImplementation(() => new NoAuthAuthenticator());
 
 describe('IbmAnalyticsEngineApiV3', () => {
+
   beforeEach(() => {
     mock_createRequest();
   });
@@ -64,16 +68,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
     }
     getAuthenticatorMock.mockClear();
   });
-
+  
   describe('the newInstance method', () => {
     test('should use defaults when options not provided', () => {
       const testInstance = IbmAnalyticsEngineApiV3.newInstance();
 
       expect(getAuthenticatorMock).toHaveBeenCalled();
       expect(testInstance.baseOptions.authenticator).toBeInstanceOf(NoAuthAuthenticator);
-      expect(testInstance.baseOptions.serviceName).toBe(
-        IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME
-      );
+      expect(testInstance.baseOptions.serviceName).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
       expect(testInstance.baseOptions.serviceUrl).toBe(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_URL);
       expect(testInstance).toBeInstanceOf(IbmAnalyticsEngineApiV3);
     });
@@ -123,12 +125,8 @@ describe('IbmAnalyticsEngineApiV3', () => {
       expect(IbmAnalyticsEngineApiV3.getServiceUrlForRegion('INVALID_REGION')).toBeFalsy();
     });
     test('should return valid service url', () => {
-      expect(IbmAnalyticsEngineApiV3.getServiceUrlForRegion('us-south')).toBe(
-        'https://api.us-south.ae.cloud.ibm.com'
-      );
-      expect(IbmAnalyticsEngineApiV3.getServiceUrlForRegion('eu-de')).toBe(
-        'https://api.eu-de.ae.cloud.ibm.com'
-      );
+      expect(IbmAnalyticsEngineApiV3.getServiceUrlForRegion('us-south')).toBe('https://api.us-south.ae.cloud.ibm.com');      
+      expect(IbmAnalyticsEngineApiV3.getServiceUrlForRegion('eu-de')).toBe('https://api.eu-de.ae.cloud.ibm.com');      
     });
   });
 
@@ -225,8 +223,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getInstanceStateResult =
-          ibmAnalyticsEngineApiService.getInstanceState(getInstanceStateParams);
+        const getInstanceStateResult = ibmAnalyticsEngineApiService.getInstanceState(getInstanceStateParams);
 
         // all methods should return a Promise
         expectToBePromise(getInstanceStateResult);
@@ -324,8 +321,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           newHmacSecretKey,
         };
 
-        const setInstanceHomeResult =
-          ibmAnalyticsEngineApiService.setInstanceHome(setInstanceHomeParams);
+        const setInstanceHomeResult = ibmAnalyticsEngineApiService.setInstanceHome(setInstanceHomeParams);
 
         // all methods should return a Promise
         expectToBePromise(setInstanceHomeResult);
@@ -335,11 +331,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/instance_home',
-          'PUT'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/instance_home', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -424,10 +416,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           hmacSecretKey,
         };
 
-        const updateInstanceHomeCredentialsResult =
-          ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(
-            updateInstanceHomeCredentialsParams
-          );
+        const updateInstanceHomeCredentialsResult = ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(updateInstanceHomeCredentialsParams);
 
         // all methods should return a Promise
         expectToBePromise(updateInstanceHomeCredentialsResult);
@@ -437,11 +426,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/instance_home',
-          'PATCH'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/instance_home', 'PATCH');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -482,9 +467,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(
-          updateInstanceHomeCredentialsParams
-        );
+        ibmAnalyticsEngineApiService.updateInstanceHomeCredentials(updateInstanceHomeCredentialsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -523,8 +506,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getInstanceDefaultConfigsResult =
-          ibmAnalyticsEngineApiService.getInstanceDefaultConfigs(getInstanceDefaultConfigsParams);
+        const getInstanceDefaultConfigsResult = ibmAnalyticsEngineApiService.getInstanceDefaultConfigs(getInstanceDefaultConfigsParams);
 
         // all methods should return a Promise
         expectToBePromise(getInstanceDefaultConfigsResult);
@@ -534,11 +516,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/default_configs',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/default_configs', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -614,10 +592,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           body,
         };
 
-        const replaceInstanceDefaultConfigsResult =
-          ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(
-            replaceInstanceDefaultConfigsParams
-          );
+        const replaceInstanceDefaultConfigsResult = ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(replaceInstanceDefaultConfigsParams);
 
         // all methods should return a Promise
         expectToBePromise(replaceInstanceDefaultConfigsResult);
@@ -627,11 +602,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/default_configs',
-          'PUT'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/default_configs', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -669,9 +640,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(
-          replaceInstanceDefaultConfigsParams
-        );
+        ibmAnalyticsEngineApiService.replaceInstanceDefaultConfigs(replaceInstanceDefaultConfigsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -712,10 +681,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           body,
         };
 
-        const updateInstanceDefaultConfigsResult =
-          ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(
-            updateInstanceDefaultConfigsParams
-          );
+        const updateInstanceDefaultConfigsResult = ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(updateInstanceDefaultConfigsParams);
 
         // all methods should return a Promise
         expectToBePromise(updateInstanceDefaultConfigsResult);
@@ -725,11 +691,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/default_configs',
-          'PATCH'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/default_configs', 'PATCH');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/merge-patch+json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -767,9 +729,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(
-          updateInstanceDefaultConfigsParams
-        );
+        ibmAnalyticsEngineApiService.updateInstanceDefaultConfigs(updateInstanceDefaultConfigsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -808,8 +768,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getInstanceDefaultRuntimeResult =
-          ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(getInstanceDefaultRuntimeParams);
+        const getInstanceDefaultRuntimeResult = ibmAnalyticsEngineApiService.getInstanceDefaultRuntime(getInstanceDefaultRuntimeParams);
 
         // all methods should return a Promise
         expectToBePromise(getInstanceDefaultRuntimeResult);
@@ -819,11 +778,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/default_runtime',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/default_runtime', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -893,16 +848,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __replaceInstanceDefaultRuntimeTest() {
         // Construct the params object for operation replaceInstanceDefaultRuntime
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const sparkVersion = '3.1';
+        const sparkVersion = '3.4';
         const replaceInstanceDefaultRuntimeParams = {
           instanceId,
           sparkVersion,
         };
 
-        const replaceInstanceDefaultRuntimeResult =
-          ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(
-            replaceInstanceDefaultRuntimeParams
-          );
+        const replaceInstanceDefaultRuntimeResult = ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(replaceInstanceDefaultRuntimeParams);
 
         // all methods should return a Promise
         expectToBePromise(replaceInstanceDefaultRuntimeResult);
@@ -912,11 +864,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/default_runtime',
-          'PUT'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/default_runtime', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -952,9 +900,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(
-          replaceInstanceDefaultRuntimeParams
-        );
+        ibmAnalyticsEngineApiService.replaceInstanceDefaultRuntime(replaceInstanceDefaultRuntimeParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -990,7 +936,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       // Runtime
       const runtimeModel = {
-        spark_version: '3.3',
+        spark_version: '3.4',
       };
 
       // ApplicationRequestApplicationDetails
@@ -1018,8 +964,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           applicationDetails,
         };
 
-        const createApplicationResult =
-          ibmAnalyticsEngineApiService.createApplication(createApplicationParams);
+        const createApplicationResult = ibmAnalyticsEngineApiService.createApplication(createApplicationParams);
 
         // all methods should return a Promise
         expectToBePromise(createApplicationResult);
@@ -1029,11 +974,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_applications',
-          'POST'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1105,17 +1046,22 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation listApplications
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const state = ['finished'];
+        const startTimeInterval = 'testString';
+        const submissionTimeInterval = 'testString';
+        const endTimeInterval = 'testString';
         const limit = 1;
         const start = 'testString';
         const listApplicationsParams = {
           instanceId,
           state,
+          startTimeInterval,
+          submissionTimeInterval,
+          endTimeInterval,
           limit,
           start,
         };
 
-        const listApplicationsResult =
-          ibmAnalyticsEngineApiService.listApplications(listApplicationsParams);
+        const listApplicationsResult = ibmAnalyticsEngineApiService.listApplications(listApplicationsParams);
 
         // all methods should return a Promise
         expectToBePromise(listApplicationsResult);
@@ -1125,15 +1071,14 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_applications',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.state).toEqual(state);
+        expect(mockRequestOptions.qs.start_time_interval).toEqual(startTimeInterval);
+        expect(mockRequestOptions.qs.submission_time_interval).toEqual(submissionTimeInterval);
+        expect(mockRequestOptions.qs.end_time_interval).toEqual(endTimeInterval);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
@@ -1200,16 +1145,16 @@ describe('IbmAnalyticsEngineApiV3', () => {
       const serviceUrl = ibmAnalyticsEngineApiServiceOptions.url;
       const path = '/v3/analytics_engines/e64c907a-e82f-46fd-addc-ccfafbd28b09/spark_applications';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"spark_version"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+        '{"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"spark_version"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
         const scope = nock(serviceUrl)
-          .get((uri) => uri.includes(path))
+          .get(uri => uri.includes(path))
           .reply(200, mockPagerResponse1)
-          .get((uri) => uri.includes(path))
+          .get(uri => uri.includes(path))
           .reply(200, mockPagerResponse2);
       });
 
@@ -1222,13 +1167,13 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const params = {
           instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
           state: ['finished'],
+          startTimeInterval: 'testString',
+          submissionTimeInterval: 'testString',
+          endTimeInterval: 'testString',
           limit: 10,
         };
         const allResults = [];
-        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
-          ibmAnalyticsEngineApiService,
-          params
-        );
+        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
         while (pager.hasNext()) {
           const nextPage = await pager.getNext();
           expect(nextPage).not.toBeNull();
@@ -1242,12 +1187,12 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const params = {
           instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
           state: ['finished'],
+          startTimeInterval: 'testString',
+          submissionTimeInterval: 'testString',
+          endTimeInterval: 'testString',
           limit: 10,
         };
-        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
-          ibmAnalyticsEngineApiService,
-          params
-        );
+        const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
         const allResults = await pager.getAll();
         expect(allResults).not.toBeNull();
         expect(allResults).toHaveLength(2);
@@ -1266,8 +1211,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           applicationId,
         };
 
-        const getApplicationResult =
-          ibmAnalyticsEngineApiService.getApplication(getApplicationParams);
+        const getApplicationResult = ibmAnalyticsEngineApiService.getApplication(getApplicationParams);
 
         // all methods should return a Promise
         expectToBePromise(getApplicationResult);
@@ -1277,11 +1221,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1360,8 +1300,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           applicationId,
         };
 
-        const deleteApplicationResult =
-          ibmAnalyticsEngineApiService.deleteApplication(deleteApplicationParams);
+        const deleteApplicationResult = ibmAnalyticsEngineApiService.deleteApplication(deleteApplicationParams);
 
         // all methods should return a Promise
         expectToBePromise(deleteApplicationResult);
@@ -1371,11 +1310,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}',
-          'DELETE'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1454,8 +1389,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           applicationId,
         };
 
-        const getApplicationStateResult =
-          ibmAnalyticsEngineApiService.getApplicationState(getApplicationStateParams);
+        const getApplicationStateResult = ibmAnalyticsEngineApiService.getApplicationState(getApplicationStateParams);
 
         // all methods should return a Promise
         expectToBePromise(getApplicationStateResult);
@@ -1465,11 +1399,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_applications/{application_id}/state', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1546,10 +1476,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getCurrentResourceConsumptionResult =
-          ibmAnalyticsEngineApiService.getCurrentResourceConsumption(
-            getCurrentResourceConsumptionParams
-          );
+        const getCurrentResourceConsumptionResult = ibmAnalyticsEngineApiService.getCurrentResourceConsumption(getCurrentResourceConsumptionParams);
 
         // all methods should return a Promise
         expectToBePromise(getCurrentResourceConsumptionResult);
@@ -1559,11 +1486,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/current_resource_consumption',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/current_resource_consumption', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1598,9 +1521,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getCurrentResourceConsumption(
-          getCurrentResourceConsumptionParams
-        );
+        ibmAnalyticsEngineApiService.getCurrentResourceConsumption(getCurrentResourceConsumptionParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1639,10 +1560,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getResourceConsumptionLimitsResult =
-          ibmAnalyticsEngineApiService.getResourceConsumptionLimits(
-            getResourceConsumptionLimitsParams
-          );
+        const getResourceConsumptionLimitsResult = ibmAnalyticsEngineApiService.getResourceConsumptionLimits(getResourceConsumptionLimitsParams);
 
         // all methods should return a Promise
         expectToBePromise(getResourceConsumptionLimitsResult);
@@ -1652,11 +1570,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/resource_consumption_limits',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/resource_consumption_limits', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1691,9 +1605,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           },
         };
 
-        ibmAnalyticsEngineApiService.getResourceConsumptionLimits(
-          getResourceConsumptionLimitsParams
-        );
+        ibmAnalyticsEngineApiService.getResourceConsumptionLimits(getResourceConsumptionLimitsParams);
         checkMediaHeaders(createRequestMock, userAccept, userContentType);
       });
     });
@@ -1738,8 +1650,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           tags,
         };
 
-        const replaceLogForwardingConfigResult =
-          ibmAnalyticsEngineApiService.replaceLogForwardingConfig(replaceLogForwardingConfigParams);
+        const replaceLogForwardingConfigResult = ibmAnalyticsEngineApiService.replaceLogForwardingConfig(replaceLogForwardingConfigParams);
 
         // all methods should return a Promise
         expectToBePromise(replaceLogForwardingConfigResult);
@@ -1749,11 +1660,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/log_forwarding_config',
-          'PUT'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/log_forwarding_config', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1830,9 +1737,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getLogForwardingConfigResult = ibmAnalyticsEngineApiService.getLogForwardingConfig(
-          getLogForwardingConfigParams
-        );
+        const getLogForwardingConfigResult = ibmAnalyticsEngineApiService.getLogForwardingConfig(getLogForwardingConfigParams);
 
         // all methods should return a Promise
         expectToBePromise(getLogForwardingConfigResult);
@@ -1842,11 +1747,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/log_forwarding_config',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/log_forwarding_config', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -1922,8 +1823,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           enable,
         };
 
-        const configurePlatformLoggingResult =
-          ibmAnalyticsEngineApiService.configurePlatformLogging(configurePlatformLoggingParams);
+        const configurePlatformLoggingResult = ibmAnalyticsEngineApiService.configurePlatformLogging(configurePlatformLoggingParams);
 
         // all methods should return a Promise
         expectToBePromise(configurePlatformLoggingResult);
@@ -1933,11 +1833,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_guid}/logging',
-          'PUT'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_guid}/logging', 'PUT');
         const expectedAccept = 'application/json';
         const expectedContentType = 'application/json';
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2012,9 +1908,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceGuid,
         };
 
-        const getLoggingConfigurationResult = ibmAnalyticsEngineApiService.getLoggingConfiguration(
-          getLoggingConfigurationParams
-        );
+        const getLoggingConfigurationResult = ibmAnalyticsEngineApiService.getLoggingConfiguration(getLoggingConfigurationParams);
 
         // all methods should return a Promise
         expectToBePromise(getLoggingConfigurationResult);
@@ -2024,11 +1918,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_guid}/logging',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_guid}/logging', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2102,9 +1992,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const startSparkHistoryServerResult = ibmAnalyticsEngineApiService.startSparkHistoryServer(
-          startSparkHistoryServerParams
-        );
+        const startSparkHistoryServerResult = ibmAnalyticsEngineApiService.startSparkHistoryServer(startSparkHistoryServerParams);
 
         // all methods should return a Promise
         expectToBePromise(startSparkHistoryServerResult);
@@ -2114,11 +2002,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_history_server',
-          'POST'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_history_server', 'POST');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2192,9 +2076,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const getSparkHistoryServerResult = ibmAnalyticsEngineApiService.getSparkHistoryServer(
-          getSparkHistoryServerParams
-        );
+        const getSparkHistoryServerResult = ibmAnalyticsEngineApiService.getSparkHistoryServer(getSparkHistoryServerParams);
 
         // all methods should return a Promise
         expectToBePromise(getSparkHistoryServerResult);
@@ -2204,11 +2086,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_history_server',
-          'GET'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_history_server', 'GET');
         const expectedAccept = 'application/json';
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
@@ -2282,9 +2160,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
           instanceId,
         };
 
-        const stopSparkHistoryServerResult = ibmAnalyticsEngineApiService.stopSparkHistoryServer(
-          stopSparkHistoryServerParams
-        );
+        const stopSparkHistoryServerResult = ibmAnalyticsEngineApiService.stopSparkHistoryServer(stopSparkHistoryServerParams);
 
         // all methods should return a Promise
         expectToBePromise(stopSparkHistoryServerResult);
@@ -2294,11 +2170,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
         const mockRequestOptions = getOptions(createRequestMock);
 
-        checkUrlAndMethod(
-          mockRequestOptions,
-          '/v3/analytics_engines/{instance_id}/spark_history_server',
-          'DELETE'
-        );
+        checkUrlAndMethod(mockRequestOptions, '/v3/analytics_engines/{instance_id}/spark_history_server', 'DELETE');
         const expectedAccept = undefined;
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
