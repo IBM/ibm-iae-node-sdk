@@ -71,7 +71,7 @@ describe('IbmAnalyticsEngineApiV3_integration', () => {
 
     const config = readExternalSources(IbmAnalyticsEngineApiV3.DEFAULT_SERVICE_NAME);
     expect(config).not.toBeNull();
-  
+
     ibmAnalyticsEngineApiService.enableRetries();
   });
 

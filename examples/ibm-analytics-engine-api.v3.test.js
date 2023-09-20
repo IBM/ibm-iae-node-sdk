@@ -395,7 +395,10 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     const allResults = [];
     try {
-      const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(ibmAnalyticsEngineApiService, params);
+      const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(
+        ibmAnalyticsEngineApiService,
+        params
+      );
       while (pager.hasNext()) {
         const nextPage = await pager.getNext();
         expect(nextPage).not.toBeNull();
