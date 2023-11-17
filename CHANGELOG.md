@@ -1,3 +1,15 @@
+# [2.5.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.4.0...v2.5.0) (2023-11-17)
+
+
+### Bug Fixes
+
+* fix lint issues ([c280f29](https://github.com/IBM/ibm-iae-node-sdk/commit/c280f293937e1e9041cb3e01e453ecc3a84bca43))
+
+
+### Features
+
+* add support for time based application list filters ([dadb28c](https://github.com/IBM/ibm-iae-node-sdk/commit/dadb28c880ba7ae5233c78c48505993c198a2a83))
+
 # [2.4.0](https://github.com/IBM/ibm-iae-node-sdk/compare/v2.3.0...v2.4.0) (2023-05-24)
 
 
