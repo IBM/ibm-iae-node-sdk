@@ -720,6 +720,21 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
    * @param {string} params.instanceId - The identifier of the Analytics Engine instance associated with the Spark
    * application(s).
    * @param {string[]} [params.state] - List of Spark application states that will be used to filter the response.
+   * @param {string} [params.startTimeInterval] - Time interval to use for filtering applications by their start time.
+   * Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be
+   * ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and
+   * `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas
+   * the upper timestamp limit is exclusive.
+   * @param {string} [params.submissionTimeInterval] - Time interval to use for filtering applications by their
+   * submission time. Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each
+   * timestamp value must be ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower
+   * timestamp limit and `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is
+   * inclusive, whereas the upper timestamp limit is exclusive.
+   * @param {string} [params.endTimeInterval] - Time interval to use for filtering applications by their end time.
+   * Interval is specified in the format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be
+   * ISO 8601 compliant. You may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and
+   * `CURRENT` as a placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas
+   * the upper timestamp limit is exclusive.
    * @param {number} [params.limit] - Number of application entries to be included in the response.
    * @param {string} [params.start] - Token used to fetch the next or the previous page of the applications list.
    * @param {OutgoingHttpHeaders} [params.headers] - Custom request headers
@@ -730,7 +745,16 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
   ): Promise<IbmAnalyticsEngineApiV3.Response<IbmAnalyticsEngineApiV3.ApplicationCollection>> {
     const _params = { ...params };
     const _requiredParams = ['instanceId'];
-    const _validParams = ['instanceId', 'state', 'limit', 'start', 'headers'];
+    const _validParams = [
+      'instanceId',
+      'state',
+      'startTimeInterval',
+      'submissionTimeInterval',
+      'endTimeInterval',
+      'limit',
+      'start',
+      'headers',
+    ];
     const _validationErrors = validateParams(_params, _requiredParams, _validParams);
     if (_validationErrors) {
       return Promise.reject(_validationErrors);
@@ -738,6 +762,9 @@ class IbmAnalyticsEngineApiV3 extends BaseService {
 
     const query = {
       'state': _params.state,
+      'start_time_interval': _params.startTimeInterval,
+      'submission_time_interval': _params.submissionTimeInterval,
+      'end_time_interval': _params.endTimeInterval,
       'limit': _params.limit,
       'start': _params.start,
     };
@@ -1577,6 +1604,27 @@ namespace IbmAnalyticsEngineApiV3 {
     instanceId: string;
     /** List of Spark application states that will be used to filter the response. */
     state?: ListApplicationsConstants.State[] | string[];
+    /** Time interval to use for filtering applications by their start time. Interval is specified in the format
+     *  `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You may also
+     *  use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a placeholder value
+     *  for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper timestamp limit is
+     *  exclusive.
+     */
+    startTimeInterval?: string;
+    /** Time interval to use for filtering applications by their submission time. Interval is specified in the
+     *  format `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You
+     *  may also use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a
+     *  placeholder value for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper
+     *  timestamp limit is exclusive.
+     */
+    submissionTimeInterval?: string;
+    /** Time interval to use for filtering applications by their end time. Interval is specified in the format
+     *  `<lower timestamp limit>,<upper timestamp limit>`. Each timestamp value must be ISO 8601 compliant. You may also
+     *  use keywords `BEGINNING` as a placeholder value for lower timestamp limit and `CURRENT` as a placeholder value
+     *  for upper timestamp limit. Note: The lower timestamp limit is inclusive, whereas the upper timestamp limit is
+     *  exclusive.
+     */
+    endTimeInterval?: string;
     /** Number of application entries to be included in the response. */
     limit?: number;
     /** Token used to fetch the next or the previous page of the applications list. */

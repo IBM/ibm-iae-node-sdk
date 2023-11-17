@@ -893,7 +893,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
       function __replaceInstanceDefaultRuntimeTest() {
         // Construct the params object for operation replaceInstanceDefaultRuntime
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
-        const sparkVersion = '3.1';
+        const sparkVersion = '3.4';
         const replaceInstanceDefaultRuntimeParams = {
           instanceId,
           sparkVersion,
@@ -990,7 +990,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
       // Runtime
       const runtimeModel = {
-        spark_version: '3.3',
+        spark_version: '3.4',
       };
 
       // ApplicationRequestApplicationDetails
@@ -1105,11 +1105,17 @@ describe('IbmAnalyticsEngineApiV3', () => {
         // Construct the params object for operation listApplications
         const instanceId = 'e64c907a-e82f-46fd-addc-ccfafbd28b09';
         const state = ['finished'];
+        const startTimeInterval = 'testString';
+        const submissionTimeInterval = 'testString';
+        const endTimeInterval = 'testString';
         const limit = 1;
         const start = 'testString';
         const listApplicationsParams = {
           instanceId,
           state,
+          startTimeInterval,
+          submissionTimeInterval,
+          endTimeInterval,
           limit,
           start,
         };
@@ -1134,6 +1140,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const expectedContentType = undefined;
         checkMediaHeaders(createRequestMock, expectedAccept, expectedContentType);
         expect(mockRequestOptions.qs.state).toEqual(state);
+        expect(mockRequestOptions.qs.start_time_interval).toEqual(startTimeInterval);
+        expect(mockRequestOptions.qs.submission_time_interval).toEqual(submissionTimeInterval);
+        expect(mockRequestOptions.qs.end_time_interval).toEqual(endTimeInterval);
         expect(mockRequestOptions.qs.limit).toEqual(limit);
         expect(mockRequestOptions.qs.start).toEqual(start);
         expect(mockRequestOptions.path.instance_id).toEqual(instanceId);
@@ -1200,9 +1209,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
       const serviceUrl = ibmAnalyticsEngineApiServiceOptions.url;
       const path = '/v3/analytics_engines/e64c907a-e82f-46fd-addc-ccfafbd28b09/spark_applications';
       const mockPagerResponse1 =
-        '{"next":{"start":"1"},"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+        '{"next":{"start":"1"},"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"spark_version"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
       const mockPagerResponse2 =
-        '{"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"3.1"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
+        '{"total_count":2,"limit":1,"applications":[{"id":"id","href":"href","runtime":{"spark_version":"spark_version"},"spark_application_id":"spark_application_id","spark_application_name":"spark_application_name","state":"finished","spark_ui":"spark_ui","submission_time":"2021-01-30T08:30:00.000Z","start_time":"2021-01-30T08:30:00.000Z","end_time":"2021-01-30T08:30:00.000Z","finish_time":"2021-01-30T08:30:00.000Z","auto_termination_time":"2021-01-30T08:30:00.000Z"}]}';
 
       beforeEach(() => {
         unmock_createRequest();
@@ -1222,6 +1231,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const params = {
           instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
           state: ['finished'],
+          startTimeInterval: 'testString',
+          submissionTimeInterval: 'testString',
+          endTimeInterval: 'testString',
           limit: 10,
         };
         const allResults = [];
@@ -1242,6 +1254,9 @@ describe('IbmAnalyticsEngineApiV3', () => {
         const params = {
           instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
           state: ['finished'],
+          startTimeInterval: 'testString',
+          submissionTimeInterval: 'testString',
+          endTimeInterval: 'testString',
           limit: 10,
         };
         const pager = new IbmAnalyticsEngineApiV3.ApplicationsPager(

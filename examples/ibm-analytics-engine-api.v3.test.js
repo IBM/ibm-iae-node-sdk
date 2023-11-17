@@ -317,7 +317,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     const params = {
       instanceId: 'e64c907a-e82f-46fd-addc-ccfafbd28b09',
-      sparkVersion: '3.3',
+      sparkVersion: '3.4',
     };
 
     let res;
@@ -348,7 +348,7 @@ describe('IbmAnalyticsEngineApiV3', () => {
 
     // Runtime
     const runtimeModel = {
-      spark_version: '3.3',
+      spark_version: '3.4',
     };
 
     // ApplicationRequestApplicationDetails
